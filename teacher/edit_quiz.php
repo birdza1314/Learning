@@ -1,30 +1,30 @@
 <?php
-// Include database connection
-include('../connections/connection.php');
+    // Include database connection
+    include('../connections/connection.php');
 
-// Check if quiz_id is set in the URL
-if(isset($_GET['quiz_id'])) {
-    // Retrieve quiz_id from the URL
-    $quiz_id = $_GET['quiz_id'];
-    
-    // Prepare SQL statement to select quiz data based on quiz_id
-    $stmt = $db->prepare("SELECT * FROM quizzes WHERE quiz_id = :quiz_id");
-    $stmt->bindParam(':quiz_id', $quiz_id);
-    
-    try {
-        // Execute the SQL statement
-        $stmt->execute();
+    // Check if quiz_id is set in the URL
+    if(isset($_GET['quiz_id'])) {
+        // Retrieve quiz_id from the URL
+        $quiz_id = $_GET['quiz_id'];
         
-        // Fetch quiz data
-        $quiz = $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        // If an error occurs, display the error message
-        echo "Error: " . $e->getMessage();
+        // Prepare SQL statement to select quiz data based on quiz_id
+        $stmt = $db->prepare("SELECT * FROM quizzes WHERE quiz_id = :quiz_id");
+        $stmt->bindParam(':quiz_id', $quiz_id);
+        
+        try {
+            // Execute the SQL statement
+            $stmt->execute();
+            
+            // Fetch quiz data
+            $quiz = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // If an error occurs, display the error message
+            echo "Error: " . $e->getMessage();
+        }
+    } else {
+        // If quiz_id is not set in the URL, redirect back to the page with an error message
+        echo "<script>window.location.href = 'add_lessons.php?error=Quiz ID not provided';</script>";
     }
-} else {
-    // If quiz_id is not set in the URL, redirect back to the page with an error message
-    echo "<script>window.location.href = 'list_quiz.php?error=Quiz ID not provided';</script>";
-}
 ?>
 
 <!-- HTML Form to Edit Quiz -->
@@ -33,6 +33,7 @@ if(isset($_GET['quiz_id'])) {
         <div class="col-md-6 offset-md-3">
             <h2>Edit Quiz</h2>
             <form action="update_quiz.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="quiz_id" value="<?php echo $quiz['quiz_id']; ?>">
                 <input type="hidden" name="quiz_id" value="<?php echo $quiz['quiz_id']; ?>">
                 <div class="form-group">
                     <label>Quiz Title</label>

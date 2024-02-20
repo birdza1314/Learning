@@ -37,12 +37,13 @@ $(document).on('click', '.open-Quiz-modal', function() {
     console.log("Lesson ID: ", lesson_id); // Check lesson_id in console
     console.log("Course ID: ", course_id); // Check course_id in console
     // Set the values of lesson_id and course_id in the modal form
-    $('#quizModal').find('#quiz_lesson_id').val(lesson_id);
-    $('#quizModal').find('#quiz_course_id').val(course_id);
+    $('#QuizModal').find('#quiz_lesson_id').val(lesson_id);
+    $('#QuizModal').find('#quiz_course_id').val(course_id);
 
     // Show the modal
     $('#QuizModal').modal('show'); 
 });
+
 
     // Handle change event on video type select to toggle input fields
     $(document).on('change', '#video_type', function() {

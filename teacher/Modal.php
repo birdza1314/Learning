@@ -61,8 +61,9 @@
                 </div>
                 <div class="modal-body">
                     <form action="save_Quiz.php" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="lesson_id" id="quiz_lesson_id" value="<?php echo $lesson['lesson_id']; ?>">
-                        <input type="hidden" name="course_id" id="quiz_course_id" value="<?php echo $course_id; ?>">
+                       <input type="hidden" name="course_id" id="quiz_course_id" value="<?php echo $course_id; ?>">
+                        <input type="hidden" name="lesson_id" id="quiz_lesson_id" value="">
+                        
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Quiz Time Limit</label>
