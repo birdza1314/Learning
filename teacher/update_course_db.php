@@ -1,0 +1,113 @@
+<?php
+include('../connections/connection.php');
+session_start();
+
+// ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'teacher' หรือไม่
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
+    // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
+    header('Location: login.php');
+    exit();
+}
+
+// ตรวจสอบว่ามีข้อมูลที่ส่งมาหรือไม่
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // ตรวจสอบว่ามีข้อมูลที่จำเป็นหรือไม่
+    if (
+        isset($_POST['course_id']) &&
+        isset($_POST['course_name']) &&
+        isset($_POST['course_code']) &&
+        isset($_POST['course_description']) &&
+        isset($_POST['group_id']) &&
+        isset($_POST['is_open']) &&
+        isset($_POST['access_code'])
+    ) {
+        // เชื่อมต่อกับฐานข้อมูล
+        include('../connections/connection.php');
+
+        // กำหนดค่าตัวแปร
+        $course_id = $_POST['course_id'];
+        $course_name = htmlspecialchars($_POST['course_name']); // ป้องกัน XSS
+        $course_code = htmlspecialchars($_POST['course_code']); // ป้องกัน XSS
+        $course_description = htmlspecialchars($_POST['course_description']); // ป้องกัน XSS
+        $group_id = $_POST['group_id'];
+
+        // ตรวจสอบว่ามีการอัปโหลดไฟล์รูปภาพหรือไม่
+        if (isset($_FILES['c_img']) && $_FILES['c_img']['error'] == 0) {
+            // ตรวจสอบประเภทของไฟล์
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            $file_info = finfo_open(FILEINFO_MIME_TYPE);
+            $file_type = finfo_file($file_info, $_FILES['c_img']['tmp_name']);
+
+            if (!in_array($file_type, $allowed_types) || !in_array($_FILES['c_img']['type'], $allowed_types)) {
+                echo 'รูปภาพต้องเป็นไฟล์ประเภท JPEG, PNG, หรือ GIF เท่านั้น';
+            } else {
+                // กำหนดไดเรกทอรีที่เก็บไฟล์อัปโหลด
+                $upload_dir = '../admin/teacher_process/img/';
+                $uploaded_file = $upload_dir . basename($_FILES['c_img']['name']);
+
+                // ย้ายไฟล์ไปยังไดเรกทอรีที่กำหนด
+                if (move_uploaded_file($_FILES['c_img']['tmp_name'], $uploaded_file)) {
+                    // ดึง user_id จาก session
+                    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
+
+                    // เตรียมคำสั่ง SQL
+                    $sql = "UPDATE courses 
+                            SET course_name = ?, course_code = ?, description = ?, teacher_id = ?, updated_at = NOW(), group_id = ?, c_img = ?, is_open = ?, access_code = ? 
+                            WHERE c_id = ?";
+                    // ทำการเตรียมคำสั่ง SQL
+                    $stmt = $db->prepare($sql);
+
+                    // ทำการ execute คำสั่ง SQL
+                    $stmt->execute([
+                        $course_name,
+                        $course_code,
+                        $course_description,
+                        $user_id,
+                        $group_id,
+                        $uploaded_file,
+                        $_POST['is_open'],
+                        $_POST['access_code'],
+                        $course_id
+                    ]);
+
+                    // ปิดการเชื่อมต่อฐานข้อมูล
+                    $db = null;
+
+                    // ทำสิ่งที่คุณต้องการหลังจากบันทึกข้อมูล
+                    echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'index.php?success=true';</script>";
+                } else {
+                    echo 'ไม่สามารถอัปโหลดไฟล์รูปภาพได้';
+                }
+            }
+        } else {
+            $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
+            // ไม่มีการอัปโหลดไฟล์รูปภาพ, รักษารูปภาพเดิม
+            $sql = "UPDATE courses 
+                    SET course_name = ?, course_code = ?, description = ?, teacher_id = ?, updated_at = NOW(), group_id = ?, is_open = ?, access_code = ? 
+                    WHERE c_id = ?";
+            // ทำการเตรียมคำสั่ง SQL
+            $stmt = $db->prepare($sql);
+
+            // ทำการ execute คำสั่ง SQL
+            $stmt->execute([
+                $course_name,
+                $course_code,
+                $course_description,
+                $user_id,
+                $group_id,
+                $_POST['is_open'],
+                $_POST['access_code'],
+                $course_id
+            ]);
+
+            // ปิดการเชื่อมต่อฐานข้อมูล
+            $db = null;
+
+            // ทำสิ่งที่คุณต้องการหลังจากบันทึกข้อมูล
+            echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'index.php?success=true';</script>";
+        }
+    } else {
+        echo "Missing required fields.";
+    }
+}
+?>
