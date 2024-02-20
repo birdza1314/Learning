@@ -170,3 +170,47 @@
             </div>
         </div>
     </div>
+
+<!-- Modal Add Question -->
+    <div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalForAddQuestionLabel">Add New Question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="save_question.php" method="post">
+                <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
+                    <div class="form-group">
+                        <label for="questionText">Question Text</label>
+                        <textarea class="form-control" id="questionText" name="questionText" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="choice1">Choice 1</label>
+                        <input type="text" class="form-control" id="choice1" name="choice1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="choice2">Choice 2</label>
+                        <input type="text" class="form-control" id="choice2" name="choice2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="choice3">Choice 3</label>
+                        <input type="text" class="form-control" id="choice3" name="choice3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="choice4">Choice 4</label>
+                        <input type="text" class="form-control" id="choice4" name="choice4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correctAnswer">Correct Answer (Choice)</label>
+                        <input type="text" class="form-control" id="correctAnswer" name="correctAnswer" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

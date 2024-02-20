@@ -239,25 +239,29 @@ if (isset($_GET['course_id'])) {
                                                 $stmt_quiz->execute();
                                                 $quiz = $stmt_quiz->fetch(PDO::FETCH_ASSOC);
                                             ?>
-                                                <div class="row mt-2">
-                                                    <div class="col-lg-12">
-                                                        <div class="card border rounded-3">
-                                                        <div class="card-body">
-                                                            <p class="card-text"></p>
-                                                            <div class="d-flex align-items-center">
-                                                            <i class="bi bi-file-earmark-text-fill text-red me-2"></i>
-                                                            <p class="card-text"><?= $quiz['quiz_title']; ?></p>
-                                                            </div>
-                                                            <div class="d-flex align-items-right">
-                                                            <!-- ปุ่มแก้ไข -->
-                                                                <button type="button" class="btn btn-primary" onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">แก้ไข</button>
-                                                                <!-- ปุ่มลบ -->
-                                                                <button type="button" class="btn btn-danger" onclick="deleteQuiz(<?= $quiz['quiz_id']; ?>)">ลบ</button>
-
-                                                            </div>
+                                                <div class="col-lg-12">
+                                                <div class="card border rounded-3 shadow-sm">
+                                                    <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                        <div class="d-flex  mt-4">
+                                                            <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                                                            <h5><?= $quiz['quiz_title']; ?></h5>
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-4 ">
+                                                        <div class="d-flex justify-content-end mt-3">
+                                                            <button type="button" class="btn btn-outline-primary me-2" onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-danger" onclick="deleteQuiz(<?= $quiz['quiz_id']; ?>)">
+                                                            <i class="bi bi-trash3"></i>
+                                                            </button>
                                                         </div>
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                </div>
                                                 </div>
                                             <?php 
                                             }
