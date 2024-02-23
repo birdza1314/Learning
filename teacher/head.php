@@ -29,6 +29,7 @@
 
   <!-- Template Main CSS File -->
   <link href="css/style.css" rel="stylesheet">
+ 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -43,7 +44,7 @@
   body {
   font-family: "Open Sans", sans-serif;
   background-color: #cdcccc9e;
-}
+ }
 
 </style>
 <style>
@@ -78,74 +79,67 @@
             background-color: #45a049;
         }
         /* Accordion */
-.accordion-item {
-  border: 1px solid #b5b5b5; 
-}
+    .accordion-item {
+      border: 1px solid #b5b5b5; 
+    }
 
-.accordion-button:focus {
-  outline: 0;
-  box-shadow: none;
-}
+    .accordion-button:focus {
+      outline: 0;
+      box-shadow: none;
+    }
 
-.accordion-button:not(.collapsed) {
-  color: #012970;
-  background-color: #f6f9ff;
-}
+    .accordion-button:not(.collapsed) {
+      color: #012970;
+      background-color: #f6f9ff;
+    }
 
-.accordion-flush .accordion-button {
-  padding: 15px 0;
-  background: none;
-  border: 0;
-}
+    .accordion-flush .accordion-button {
+      padding: 15px 0;
+      background: none;
+      border: 0;
+    }
 
-.accordion-flush .accordion-button:not(.collapsed) {
-  box-shadow: none;
-  color: #4154f1;
-}
+    .accordion-flush .accordion-button:not(.collapsed) {
+      box-shadow: none;
+      color: #4154f1;
+    }
 
-.accordion-flush .accordion-body {
-  padding: 0 0 15px 0;
-  color: #3e4f6f;
-  font-size: 15px;
-}
-.dropdown-menu {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
+    .accordion-flush .accordion-body {
+      padding: 0 0 15px 0;
+      color: #3e4f6f;
+      font-size: 15px;
+    }
+    .dropdown-menu {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-.dropdown-item {
-  padding: 0.5rem 1rem;
-}
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+    }
 
-.dropdown-item:hover {
-  background-color: #f2f2f2;
-}
+    .dropdown-item:hover {
+      background-color: #f2f2f2;
+    }
+    .badge {
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        min-width: 19px;
+    }
+    .badge-primary {
+        color: #fff;
+        background-color: #02e60a;
+    }
+    .scrollbar-container {
+        overflow: auto;
+    }
+    .scrollbar-container {
+        max-height: 400px; /* ความสูงสูงสุดของตาราง */
+        overflow-y: auto; /* เลื่อนในแนวตั้ง */
+    }
 
-.btn-outline-primary,
-.btn-outline-success,
-.btn-outline-warning,
-.btn-outline-info,
-.btn-outline-danger {
-  color: #333;
-  border-color: #ddd;
-}
-
-.btn-outline-primary:hover,
-.btn-outline-success:hover,
-.btn-outline-warning:hover,
-.btn-outline-info:hover,
-.btn-outline-danger:hover {
-  color: #fff;
-  background-color: #333;
-  border-color: #007bff;
-
-}
-
-.bi-journal-arrow-up {
-  font-size: 1.2rem;
-}
-
-    </style>
+</style>
 </head>
 <!-- ======= Head ======= -->

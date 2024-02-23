@@ -81,22 +81,23 @@
         </div>
         <div class="col-md-6">
             <?php 
-            $selQuest = $db->query("SELECT * FROM questions WHERE quiz_id='$quiz_id' ORDER BY question_id DESC");
+            $selQuest = $db->query("SELECT * FROM questions WHERE quiz_id='$quiz_id' ORDER BY question_id ASC");
             ?>
             <div class="main-card mb-3 card">
-                <div class="card-header"><i class="header-icon lnr-license icon-gradient bg-plum-plate"> </i>Exam Question's 
+                <div class="card-header">
+                    <i class="header-icon lnr-license icon-gradient bg-plum-plate"> </i>Quiz Question's 
                     <span class="badge badge-pill badge-primary ml-2">
                         <?php echo ($selQuest ? $selQuest->rowCount() : 0); ?>
                     </span>
                     <div class="btn-actions-pane-right">
-                        <button class="btn btn-sm btn-outline-primary" style="float: right;" data-toggle="modal" data-target="#modalForAddQuestion">Add Question</button>
+                        <button class="btn btn-sm btn-outline-primary" style="float: right;" data-toggle="modal" data-target="#modalForAddQuestion"><i class="bi bi-plus-circle-fill"></i><span> Add Question</span> </button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="scroll-area-sm" style="min-height: 400px;">
+                    <div class="scroll-area-sm">
                         <div class="scrollbar-container">
                             <?php 
-                            if($selQuest->rowCount() > 0)
+                            if($selQuest && $selQuest->rowCount() > 0)
                             { ?>
                                 <div class="table-responsive">
                                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
@@ -108,53 +109,28 @@
                                         </thead>
                                         <tbody>
                                             <?php 
-                                                if($selQuest->rowCount() > 0){ 
-                                                    $i = 1;
-                                                    while ($selQuestionRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
-                                                    <tr>
-                                                        <td>
-                                                            <b><?php echo $i++; ?> .) <?php echo $selQuestionRow['question_text']; ?></b><br>
-                                                            <?php 
-                                                            // Choice A
-                                                            $choiceA = $selQuestionRow['choice_ch1'];
-                                                            $isCorrectA = $selQuestionRow['choice_ch1'] == $selQuestionRow['correct_answer'];
-                                                            ?>
-                                                            <span class="pl-4 <?php echo $isCorrectA ? 'text-success' : ''; ?>">A - <?php echo $choiceA; ?></span><br>
-
-                                                            <?php 
-                                                            // Choice B
-                                                            $choiceB = $selQuestionRow['choice_ch2'];
-                                                            $isCorrectB = $selQuestionRow['choice_ch2'] == $selQuestionRow['correct_answer'];
-                                                            ?>
-                                                            <span class="pl-4 <?php echo $isCorrectB ? 'text-success' : ''; ?>">B - <?php echo $choiceB; ?></span><br>
-
-                                                            <?php 
-                                                            // Choice C
-                                                            $choiceC = $selQuestionRow['choice_ch3'];
-                                                            $isCorrectC = $selQuestionRow['choice_ch3'] == $selQuestionRow['correct_answer'];
-                                                            ?>
-                                                            <span class="pl-4 <?php echo $isCorrectC ? 'text-success' : ''; ?>">C - <?php echo $choiceC; ?></span><br>
-
-                                                            <?php 
-                                                            // Choice D
-                                                            $choiceD = $selQuestionRow['choice_ch4'];
-                                                            $isCorrectD = $selQuestionRow['choice_ch4'] == $selQuestionRow['correct_answer'];
-                                                            ?>
-                                                            <span class="pl-4 <?php echo $isCorrectD ? 'text-success' : ''; ?>">D - <?php echo $choiceD; ?></span><br>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <a href="updateQuestion.php?id=<?php echo $selQuestionRow['quiz_id']; ?>" class="btn btn-sm btn-outline-primary">Update</a>
-                                                            <button type="button" id="deleteQuestion" data-id='<?php echo $selQuestionRow['quiz_id']; ?>' class="btn btn-outline-danger btn-sm">Delete</button>
-                                                        </td>
-                                                    </tr>
-                                                    <?php }
-                                                    }
-                                                else
-                                                {
-                                            ?>
-                                            <tr>
-                                            <td colspan="2">
-                                            <h3 class="p-3">No Course Found</h3>
+                                            $i = 1;
+                                            while ($selQuestionRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <b><?php echo $i++; ?> .) <?php echo $selQuestionRow['question_text']; ?></b><br>
+                                                        <?php 
+                                                        // Choices
+                                                        $choices = ['choice_ch1', 'choice_ch2', 'choice_ch3', 'choice_ch4'];
+                                                        foreach ($choices as $choiceKey) {
+                                                            $choice = $selQuestionRow[$choiceKey];
+                                                            $isCorrect = $selQuestionRow['correct_answer'] == $choice;
+                                                        ?>
+                                                        <span class="pl-4 <?php echo $isCorrect ? 'text-success' : ''; ?>"><?php echo substr($choiceKey, -1); ?> - <?php echo $choice; ?></span><br>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                         <button type="button" class="btn btn-outline-primary btn-sm" onclick="showUpdateQuestionModal(<?php echo $selQuestionRow['question_id']; ?>, '<?php echo $selQuestionRow['question_text']; ?>', '<?php echo $selQuestionRow['choice_ch1']; ?>', '<?php echo $selQuestionRow['choice_ch2']; ?>', '<?php echo $selQuestionRow['choice_ch3']; ?>', '<?php echo $selQuestionRow['choice_ch4']; ?>', '<?php echo $selQuestionRow['correct_answer']; ?>', '<?php echo $quiz_id; ?>')">
+                                                         <i class="bi bi-pencil"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete(<?php echo $selQuestionRow['question_id']; ?>)">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             <?php }
@@ -162,16 +138,13 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <?php }
-                               else
-                               { ?>
-                                  <h4 class="text-primary">No question found...</h4>
-                                 <?php
-                               }
-                             ?>
+                            <?php }
+                            else
+                            { ?>
+                                <h4 class="text-primary">No question found...</h4>
+                            <?php } ?>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -190,6 +163,70 @@
 
   <!-- Add jQuery script -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    function showUpdateQuestionModal(question_id, question_text, choice1, choice2, choice3, choice4, correct_answer) {
+        var modal = document.getElementById('updateQuestionModal');
+
+        // กำหนดค่า question_id ให้กับฟิลด์แบบซ่อน
+        var questionIdInput = modal.querySelector('input[name="question_id"]');
+        questionIdInput.value = question_id;
+
+        // กำหนดค่า question_text ให้กับ textarea ของคำถาม
+        var questionTextInput = modal.querySelector('#updatedQuestionText');
+        questionTextInput.value = question_text;
+
+        // กำหนดค่า choices
+        var choice1Input = modal.querySelector('#updatedChoice1');
+        choice1Input.value = choice1;
+
+        var choice2Input = modal.querySelector('#updatedChoice2');
+        choice2Input.value = choice2;
+
+        var choice3Input = modal.querySelector('#updatedChoice3');
+        choice3Input.value = choice3;
+
+        var choice4Input = modal.querySelector('#updatedChoice4');
+        choice4Input.value = choice4;
+
+        // กำหนดค่าของ correct_answer
+        var correctAnswerSelect = modal.querySelector('#updatedCorrectAnswer');
+        correctAnswerSelect.value = correct_answer;
+
+        // เปิด Modal
+        $(modal).modal('show');
+    }
+</script>
+
+</script>
+
+
+<script>
+  function confirmDelete(questionId) {
+    if (confirm("คุณแน่ใจหรือไม่ที่จะลบคำถามนี้?")) {
+      deleteQuestion(questionId);
+    }
+  }
+
+  function deleteQuestion(questionId) {
+    $.ajax({
+      url: 'deleteQuestion.php',
+      method: 'POST',
+      data: { question_id: questionId },
+      success: function(response) {
+        // รีเฟรชหน้า
+        location.reload();
+        // หรือแสดงข้อความว่าลบสำเร็จ
+        alert('Deleted successfully');
+      },
+      error: function(xhr, status, error) {
+        // การดำเนินการหลังจากเกิดข้อผิดพลาดในการลบคำถาม
+        // เช่น แสดงข้อความแจ้งเตือนหรือบันทึกข้อผิดพลาดไว้ในไฟล์บันทึกข้อผิดพลาด
+        alert('An error occurred while deleting');
+      }
+    });
+  }
+</script>
   <!-- Add Bootstrap script -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <?php include('scripts_topic.php');?>

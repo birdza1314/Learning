@@ -172,7 +172,7 @@
     </div>
 
 <!-- Modal Add Question -->
-    <div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">
+<div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -214,3 +214,61 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal update Question -->
+<div class="modal fade" id="updateQuestionModal<?php echo isset($selQuestionRow['question_id']) ? $selQuestionRow['question_id'] : ''; ?>" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateQuestionModalLabel">Update Question</h5>
+                <button type="button" class="close" aria-label="Close" onclick="closeModal()">
+    <span aria-hidden="true">&times;</span>
+</button>
+
+            </div>
+            <div class="modal-body">
+                <form action="update_Question.php" method="POST">
+                    <input type="hidden" name="question_id" value="<?php echo isset($selQuestionRow['question_id']) ? $selQuestionRow['question_id'] : ''; ?>">
+                    <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
+                    <div class="form-group">
+                        <label for="updatedQuestionText">Question Text</label>
+                        <textarea class="form-control" id="updatedQuestionText" name="updatedQuestionText"><?php echo isset($selQuestionRow['question_text']) ? $selQuestionRow['question_text'] : ''; ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedChoice1">Choice 1</label>
+                        <input type="text" class="form-control" id="updatedChoice1" name="updatedChoice1" value="<?php echo isset($selQuestionRow['choice_ch1']) ? $selQuestionRow['choice_ch1'] : ''; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedChoice2">Choice 2</label>
+                        <input type="text" class="form-control" id="updatedChoice2" name="updatedChoice2" value="<?php echo isset($selQuestionRow['choice_ch2']) ? $selQuestionRow['choice_ch2'] : ''; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedChoice3">Choice 3</label>
+                        <input type="text" class="form-control" id="updatedChoice3" name="updatedChoice3" value="<?php echo isset($selQuestionRow['choice_ch3']) ? $selQuestionRow['choice_ch3'] : ''; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedChoice4">Choice 4</label>
+                        <input type="text" class="form-control" id="updatedChoice4" name="updatedChoice4" value="<?php echo isset($selQuestionRow['choice_ch4']) ? $selQuestionRow['choice_ch4'] : ''; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedCorrectAnswer">Correct Answer</label>
+                        <input type="text" class="form-control" id="updatedCorrectAnswer" name="updatedCorrectAnswer" value="<?php echo isset($selQuestionRow['correct_answer']) ? $selQuestionRow['correct_answer'] : ''; ?>">
+                            
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">Update</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeModal() {
+        // เลือก Modal และใช้ jQuery เพื่อปิด Modal
+        $('#updateQuestionModal').modal('hide');
+    }
+</script>

@@ -283,7 +283,9 @@ if (isset($_GET['course_id'])) {
                                                         <button type="button" class="btn btn-outline-info btn-block mx-2 open-Quiz-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
                                                             <i class="bi bi-journal-arrow-up text-info"></i><br>Quiz
                                                         </button>
-                                                        <a href="form_assignment.php" role="button" class="btn btn-outline-success btn-block mx-2"><i class="bi bi-journal-arrow-up text-success"></i><br>Assignment</a>
+                                                        <button type="button" class="btn btn-outline-info btn-block mx-2 open-Assignment-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                            <i class="bi bi-journal-arrow-up text-info"></i><br>Assignment
+                                                        </button>
                                                         <button type="button" class="btn btn-outline-info btn-block mx-2 open-image-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
                                                             <i class="bi bi-journal-arrow-up text-info"></i><br>Image
                                                         </button>
