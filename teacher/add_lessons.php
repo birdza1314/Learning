@@ -223,8 +223,8 @@ if (isset($_GET['course_id'])) {
                                                         <div class="card border rounded-3">
                                                             <div class="card-body text-center">
                                                                 <p class="card-text"></p>
-                                                                <div class="d-flex align-items-center justify-content-center">
-                                                                    <img id="zoom-image" src="<?= $image['file_path']; ?>" alt="<?= $image['filename']; ?>" class="img-fluid mx-auto" width="50%" height="25">
+                                                                <div class="d-flex align-items-center justify-content-center bg-image hover-zoom">
+                                                                     <img id="zoom-image" src="<?= $image['file_path']; ?>" alt="<?= $image['filename']; ?>" class="img-fluid mx-auto" width="50%" height="25">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -241,7 +241,7 @@ if (isset($_GET['course_id'])) {
                                             ?>
                                                 <div class="col-lg-12">
                                                 <div class="card border rounded-3 shadow-sm">
-                                                    <div class="card-body">
+                                                    <div class="card-body hover-effect text-hover-white">
                                                     <div class="row">
                                                         <div class="col-md-8">
                                                         <div class="d-flex  mt-4">
@@ -250,8 +250,8 @@ if (isset($_GET['course_id'])) {
                                                         </div>
                                                         </div>
                                                         <div class="col-md-4 ">
-                                                        <div class="d-flex justify-content-end mt-3">
-                                                            <button type="button" class="btn btn-outline-primary me-2" onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">
+                                                        <div class="d-flex justify-content-end mt-3 ">
+                                                            <button type="button" class="btn btn-outline-primary me-2 " onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">
                                                             <i class="bi bi-pencil-square"></i>
                                                             </button>
                                                             <button type="button" class="btn btn-outline-danger" onclick="deleteQuiz(<?= $quiz['quiz_id']; ?>)">
@@ -264,8 +264,37 @@ if (isset($_GET['course_id'])) {
                                                 </div>
                                                 </div>
                                             <?php 
-                                            }
-                                            
+                                            }elseif ($topic['assignment_id'] != null) {
+                                                $stmt_assignment = $db->prepare("SELECT * FROM assignments WHERE assignment_id = :assignment_id");
+                                                $stmt_assignment->bindParam(':assignment_id', $topic['assignment_id']);
+                                                $stmt_assignment->execute();
+                                                $assignment = $stmt_assignment->fetch(PDO::FETCH_ASSOC);
+                                                 ?>
+                                                <div class="col-lg-12">
+                                                    <div class="card border rounded-3 shadow-sm hover-effect text-hover-white "> <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                            <div class="d-flex mt-4">
+                                                                <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                                                                <h5><?= $assignment['title']; ?></h5>
+                                                            </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                            <div class="d-flex justify-content-end mt-3">
+                                                                <button type="button" class="btn btn-outline-primary me-2" onclick="editAssignment(<?= $assignment['assignment_id']; ?>)">
+                                                                <i class="bi bi-pencil-square"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-outline-danger" onclick="deleteAssignment(<?= $assignment['assignment_id']; ?>)">
+                                                                <i class="bi bi-trash3"></i>
+                                                                </button>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php 
+                                            }      
                                         }
                                     } else {
                                         echo "";
@@ -283,9 +312,10 @@ if (isset($_GET['course_id'])) {
                                                         <button type="button" class="btn btn-outline-info btn-block mx-2 open-Quiz-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
                                                             <i class="bi bi-journal-arrow-up text-info"></i><br>Quiz
                                                         </button>
-                                                        <button type="button" class="btn btn-outline-info btn-block mx-2 open-Assignment-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-                                                            <i class="bi bi-journal-arrow-up text-info"></i><br>Assignment
-                                                        </button>
+                                                        <a href="Add_assignment.php?lesson_id=<?php echo $lesson['lesson_id']; ?>&course_id=<?php echo $course_id; ?>" role="button" class="btn btn-outline-success btn-block mx-2">
+                                                            <i class="bi bi-journal-arrow-up text-success"></i><br>
+                                                            Assignment
+                                                        </a>
                                                         <button type="button" class="btn btn-outline-info btn-block mx-2 open-image-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
                                                             <i class="bi bi-journal-arrow-up text-info"></i><br>Image
                                                         </button>

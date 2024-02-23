@@ -223,9 +223,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="updateQuestionModalLabel">Update Question</h5>
                 <button type="button" class="close" aria-label="Close" onclick="closeModal()">
-    <span aria-hidden="true">&times;</span>
-</button>
-
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
             <div class="modal-body">
                 <form action="update_Question.php" method="POST">

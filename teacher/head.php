@@ -141,5 +141,26 @@
     }
 
 </style>
+<style>
+  .hover-effect:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    background-color: #a3bdd9;
+  }
+  .text-hover-white:hover {
+  color: #ffffff;
+}
+.hover-zoom {
+    overflow: hidden;
+  }
+
+  .hover-zoom img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .hover-zoom:hover img {
+    transform: scale(1.2); /* Adjust zoom factor as needed */
+  }
+</style>
 </head>
 <!-- ======= Head ======= -->

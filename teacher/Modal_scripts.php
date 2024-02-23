@@ -62,6 +62,8 @@ $(document).on('click', '.open-image-modal', function() {
     $('#imageModal').modal('show'); 
 });
 
+
+
 $(document).on('click', '.open-Quiz-modal', function() {
     // Get lesson_id and course_id from the button's data attributes
     var lesson_id = $(this).data('lesson-id');
