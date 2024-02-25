@@ -138,9 +138,6 @@ if (isset($_GET['course_id'])) {
                                     <button class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse<?= $lesson['lesson_id']; ?>" aria-expanded="true" aria-controls="collapse<?= $lesson['lesson_id']; ?>">
                                         <?= $lesson['lesson_name']; ?>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning edit-lesson-btn" data-lesson-id="<?= $lesson['lesson_id']; ?>">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
                                     <button type="button" class="btn btn-outline-danger delete-lesson-btn" data-lesson-id="<?= $lesson['lesson_id']; ?>">
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
@@ -274,20 +271,20 @@ if (isset($_GET['course_id'])) {
                                                     <div class="card border rounded-3 shadow-sm hover-effect text-hover-white "> <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-8">
-                                                            <div class="d-flex mt-4">
-                                                                <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
-                                                                <h5><?= $assignment['title']; ?></h5>
-                                                            </div>
+                                                                <div class="d-flex mt-4">
+                                                                    <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                                                                    <h5><?= $assignment['title']; ?></h5>
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-4">
-                                                            <div class="d-flex justify-content-end mt-3">
-                                                                <button type="button" class="btn btn-outline-primary me-2" onclick="editAssignment(<?= $assignment['assignment_id']; ?>)">
-                                                                <i class="bi bi-pencil-square"></i>
-                                                                </button>
-                                                                <button type="button" class="btn btn-outline-danger" onclick="deleteAssignment(<?= $assignment['assignment_id']; ?>)">
-                                                                <i class="bi bi-trash3"></i>
-                                                                </button>
-                                                            </div>
+                                                                <div class="d-flex justify-content-end mt-3">
+                                                                <a href="edit_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary me-2">
+                                                                        <i class="bi bi-pencil-square"></i>
+                                                                    </a>
+                                                                    <button type="button" class="btn btn-outline-danger" onclick="deleteAssignment(<?= $assignment['assignment_id']; ?>)">
+                                                                    <i class="bi bi-trash3"></i>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         </div>
@@ -355,6 +352,10 @@ if (isset($_GET['course_id'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Add Bootstrap script -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+        // Store the current URL in local storage when the page loads
+        localStorage.setItem('previousPageUrl', window.location.href);
+    </script>
   <?php include('scripts_topic.php');?>
   <?php include('Modal_scripts.php');?>
 </body>

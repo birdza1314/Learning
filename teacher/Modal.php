@@ -103,47 +103,47 @@
         </div>
     </div>
     <!----Add Video---->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">Add Quiz</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="save_video.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="lesson_id" id="lesson_id" value="<?php echo $lesson['lesson_id']; ?>">
-                    <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                    <div class="col-md-12">
-                         <div class="form-group">
-                            <label for="video_type" >Select video type:</label>
-                            <select name="video_type" id="video_type" class="form-control">
-                                <option selected> select video type</option>
-                                <option value="embed">Embed Code</option>
-                                <option value="file">File</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="embed_input" style="display:none;">
-                            <label for="description">Description:</label>
-                            <textarea name="description" id="description" rows="2" cols="50" class="form-control"></textarea>
-                            <label for="embed_code">Embed Code:</label>
-                            <textarea name="embed_code" id="embed_code" rows="4" cols="50" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group" id="file_input" style="display:none;">
-                            <label for="description_file">Description:</label>
-                            <textarea name="description_file" id="description_file" rows="2" cols="50" class="form-control"></textarea>
-                            <label for="video_file">Choose Video File:</label>
-                            <input type="file" name="video_file" id="video_file" class="form-control-file">
-                        </div>
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="videoModalLabel">Add Quiz</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="save_video.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="lesson_id" id="lesson_id" value="<?php echo $lesson['lesson_id']; ?>">
+                <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                <div class="col-md-12">
                         <div class="form-group">
-                            <input type="submit" value="Upload Video" class="btn btn-primary">
-                        </div>
+                        <label for="video_type" >Select video type:</label>
+                        <select name="video_type" id="video_type" class="form-control">
+                            <option selected> select video type</option>
+                            <option value="embed">Embed Code</option>
+                            <option value="file">File</option>
+                        </select>
                     </div>
-                </form>
-            </div>
-            </div>
+                    <div class="form-group" id="embed_input" style="display:none;">
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="description" rows="2" cols="50" class="form-control"></textarea>
+                        <label for="embed_code">Embed Code:</label>
+                        <textarea name="embed_code" id="embed_code" rows="4" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group" id="file_input" style="display:none;">
+                        <label for="description_file">Description:</label>
+                        <textarea name="description_file" id="description_file" rows="2" cols="50" class="form-control"></textarea>
+                        <label for="video_file">Choose Video File:</label>
+                        <input type="file" name="video_file" id="video_file" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Upload Video" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
         </div>
     </div>
+</div>
  
     <!-- Modal Add Lessons -->
     <div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModalLabel" aria-hidden="true">
@@ -264,6 +264,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script>
     function closeModal() {

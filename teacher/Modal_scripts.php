@@ -78,7 +78,6 @@ $(document).on('click', '.open-Quiz-modal', function() {
     $('#QuizModal').modal('show'); 
 });
 
-
     // Handle change event on video type select to toggle input fields
     $(document).on('change', '#video_type', function() {
         var selectedOption = $(this).val();

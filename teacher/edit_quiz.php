@@ -229,6 +229,11 @@
 </script>
   <!-- Add Bootstrap script -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script>
+        // Store the current URL in local storage when the page loads
+        localStorage.setItem('previousPageUrl', window.location.href);
+    </script>
   <?php include('scripts_topic.php');?>
   <?php include('Modal_scripts.php');?>
 </body>
