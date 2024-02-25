@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['course_id'])) {
         $db = null;
 
         // ทำสิ่งที่คุณต้องการหลังจากลบข้อมูล
-        echo "<script>alert('ลบคอร์สสำเร็จ'); window.location.href = 'index.php?success=true';</script>";
+        echo "<script>alert('ลบคอร์สสำเร็จ'); window.location.href = 'course.php?success=true';</script>";
     } else {
         // ถ้าครูที่ล็อกอินไม่มีสิทธิ์ลบคอร์สนี้
-        echo "<script>alert('คุณไม่มีสิทธิ์ลบคอร์สนี้'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('คุณไม่มีสิทธิ์ลบคอร์สนี้'); window.location.href = 'course.php';</script>";
     }
 } else {
     echo "Missing required fields.";

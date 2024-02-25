@@ -179,7 +179,7 @@ echo '<div class="pagetitle">
                                     <!-- เพิ่ม input text เพื่อรับค่า access_code -->
                                     <div class="text-center">
                                         <button type="save" class="btn btn-primary">บันทึก</button>
-                                        <a href="../teacher/index.php" class="btn btn-secondary" onclick="cancelEdit()">ยกเลิก</a>
+                                        <a href="../teacher/course.php" class="btn btn-secondary" onclick="cancelEdit()">ยกเลิก</a>
                                     </div>
                                 </form><!-- End Update Course Form -->
                             </div>

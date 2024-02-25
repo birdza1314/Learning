@@ -35,6 +35,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 
   <!-- ======= Sidebar ======= -->
   <?php include('sidebar.php');?>
+  <?php $menu = "profile"; ?>
 
   <main id="main" class="main">
 

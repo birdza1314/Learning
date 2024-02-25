@@ -103,7 +103,7 @@ try {
                 </div> 
             <div class="text-center">
               <button type="submit" class="btn btn-primary">Submit</button>
-              <button type="reset" class="btn btn-secondary">Reset</button>
+              <a href="../teacher/course.php" class="btn btn-secondary" onclick="cancelEdit()">ยกเลิก</a>
             </div>
           </form><!-- End Horizontal Form -->
 

@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt = $db->prepare($sql);
                     $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file]);
                     $db = null;
-                    echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'index.php?success=true';</script>";
+                    echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'course.php?success=true';</script>";
                 } else {
                     echo 'ไม่สามารถอัปโหลดไฟล์รูปภาพได้';
                 }

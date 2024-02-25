@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $db = null;
 
                     // ทำสิ่งที่คุณต้องการหลังจากบันทึกข้อมูล
-                    echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'index.php?success=true';</script>";
+                    echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'course.php?success=true';</script>";
                 } else {
                     echo 'ไม่สามารถอัปโหลดไฟล์รูปภาพได้';
                 }
@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $db = null;
 
             // ทำสิ่งที่คุณต้องการหลังจากบันทึกข้อมูล
-            echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'index.php?success=true';</script>";
+            echo "<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href = 'course.php?success=true';</script>";
         }
     } else {
         echo "Missing required fields.";
