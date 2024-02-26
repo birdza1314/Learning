@@ -121,3 +121,10 @@ if(isset($_GET['assignment_id'])) {
 <?php include('Modal_scripts.php');?>
 </body>
 </html>
+<button onclick="goBack()">Go Back</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>

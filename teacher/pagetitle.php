@@ -5,15 +5,15 @@ function generateBreadcrumb($currentPage) {
     $breadcrumb = '';
 
     // ตรวจสอบหน้าปัจจุบันและกำหนด breadcrumb ตามต้องการ
-    if ($currentPage == 'index') {
-        $breadcrumb = '<li class="breadcrumb-item"><a href="index.html">Home</a></li>';
-    } elseif ($currentPage == 'forms') {
-        $breadcrumb = '<li class="breadcrumb-item"><a href="index.html">Home</a></li>';
-        $breadcrumb .= '<li class="breadcrumb-item active">Forms</li>';
-    } elseif ($currentPage == 'layouts') {
-        $breadcrumb = '<li class="breadcrumb-item"><a href="index.html">Home</a></li>';
-        $breadcrumb .= '<li class="breadcrumb-item">Forms</li>';
-        $breadcrumb .= '<li class="breadcrumb-item active">Layouts</li>';
+    if ($currentPage == 'course') {
+        $breadcrumb = '<li class="breadcrumb-item"><a href="course.php">Home</a></li>';
+    } elseif ($currentPage == 'Edit_course') {
+        $breadcrumb = '<li class="breadcrumb-item"><a href="course.php">Home</a></li>';
+        $breadcrumb .= '<li class="breadcrumb-item active">Edit Course</li>';
+    } elseif ($currentPage == 'lessons') {
+        $breadcrumb = '<li class="breadcrumb-item"><a href="course.php">Home</a></li>';
+        $breadcrumb .= '<li class="breadcrumb-item"><a href="form_update_course.php">add_course</li>';
+        $breadcrumb .= '<li class="breadcrumb-item active">Lesson</li>';
     }
 
     return $breadcrumb;

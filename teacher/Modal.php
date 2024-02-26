@@ -102,48 +102,6 @@
             </div>
         </div>
     </div>
-    <!----Add Video---->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="videoModalLabel">Add Quiz</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form action="save_video.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="lesson_id" id="lesson_id" value="<?php echo $lesson['lesson_id']; ?>">
-                <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="video_type" >Select video type:</label>
-                        <select name="video_type" id="video_type" class="form-control">
-                            <option selected> select video type</option>
-                            <option value="embed">Embed Code</option>
-                            <option value="file">File</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="embed_input" style="display:none;">
-                        <label for="description">Description:</label>
-                        <textarea name="description" id="description" rows="2" cols="50" class="form-control"></textarea>
-                        <label for="embed_code">Embed Code:</label>
-                        <textarea name="embed_code" id="embed_code" rows="4" cols="50" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group" id="file_input" style="display:none;">
-                        <label for="description_file">Description:</label>
-                        <textarea name="description_file" id="description_file" rows="2" cols="50" class="form-control"></textarea>
-                        <label for="video_file">Choose Video File:</label>
-                        <input type="file" name="video_file" id="video_file" class="form-control-file">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Upload Video" class="btn btn-primary">
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-</div>
  
     <!-- Modal Add Lessons -->
     <div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModalLabel" aria-hidden="true">
@@ -215,8 +173,8 @@
     </div>
 </div>
 
-
 <!-- Modal update Question -->
+
 <div class="modal fade" id="updateQuestionModal<?php echo isset($selQuestionRow['question_id']) ? $selQuestionRow['question_id'] : ''; ?>" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -265,7 +223,122 @@
     </div>
 </div>
 
+<!-- Modal embed Modal -->
+<div class="modal fade" id="embedModal" tabindex="-1" aria-labelledby="embedModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="embedModalLabel">Add Video Embed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="save_embed_video.php" method="post">
+                    <input type="hidden" name="lesson_id" id="embed_lesson_id" value="">
+                    <input type="hidden" name="course_id" id="embed_course_id" value="">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="description" rows="2" cols="50" class="form-control"></textarea>
+                        <label for="embed_code">Embed Code:</label>
+                        <textarea name="embed_code" id="embed_code" rows="4" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save Embed Video" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Video File Modal -->
+<div class="modal fade" id="videoFileModal" tabindex="-1" aria-labelledby="videoFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoFileModalLabel">Upload Video File</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for uploading video file -->
+                <form action="save_file_video.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="lesson_id" id="file_lesson_id" value="">
+                    <input type="hidden" name="course_id" id="file_course_id" value="">
+                    <div class="form-group">
+                        <label for="description_file">Description:</label>
+                        <textarea name="description_file" id="description_file" rows="2" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="video_file">Choose Video File:</label>
+                        <input type="file" name="video_file" id="video_file" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add Images -->
+<div class="modal fade" id="videoFileModal" tabindex="-1" aria-labelledby="videoFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoFileModalLabel">Upload Video File</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="save_file_video.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="course_id" id="image_course_id" value="<?php echo $course_id; ?>">
+                    <input type="hidden" name="lesson_id" id="image_lesson_id" value="">
+                    <div class="form-group">
+                        <label for="description_file">Description:</label>
+                        <textarea name="description_file" id="description_file" rows="2" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="video_file">Choose Video File:</label>
+                        <input type="file" name="video_file" id="video_file" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload File</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- URL Modal -->
+<div class="modal fade" id="urlModal" tabindex="-1" aria-labelledby="urlModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="urlModalLabel">Upload URL</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="save_url.php" method="post">
+                    <input type="hidden" name="course_id" id="url_course_id" value="<?php echo $course_id; ?>">
+                    <input type="hidden" name="lesson_id" id="url_lesson_id" value="">
+                    <div class="form-group">
+                        <label for="url_description">Description:</label>
+                        <textarea name="url_description" id="url_description" rows="2" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="url">URL:</label>
+                        <input type="text" name="url" id="url" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     function closeModal() {

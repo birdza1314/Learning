@@ -33,30 +33,35 @@ try {
      include('sidebar.php');
      
 ?>
-<?php $menu = "index"; ?>
-
-
-
   <main id="main" class="main">
+  <?php
+            include('pagetitle.php'); // เรียกไฟล์ที่เก็บฟังก์ชัน
 
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>      
-    </div><!-- End Page Title -->
+            // ดึงชื่อหน้าปัจจุบันจาก URL หรือไฟล์ที่เก็บ
+            $currentPage = 'course'; // ตั้งค่าตามที่ต้องการ
 
+            // ส่วน HTML แสดง breadcrumb
+            echo '<div class="pagetitle">
+                    <h1>Form Layouts</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            ' . generateBreadcrumb($currentPage) . '
+                        </ol>
+                    </nav>
+                </div><!-- End Page Title -->';
+            ?>
+</nav>
     <section class="section dashboard">
       <div class="row">
            <!-- My Course -->
            <div class="col-lg-12">
            
               <div class="card overflow-auto">
-                <div class="card-body">        
-                  <h5 class="card-title">My Course</h5>
+                <div class="card-body">
+                  <div class="row">
+                  <h4 class="mt-2">My Course</h4>
+                  <p class="mt-2">My Course</p>
+                  </div>    
                   <a href="add_course.php"  class="btn btn-outline-primary" style=" float: right;">Add Course</a>
                   <div class="mt-5">           
                   <table class="table table-borderless datatable">
@@ -114,8 +119,8 @@ try {
                                         </div>
                                     </td>
                                     <td align="center">
-                                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-warning btn-xs"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="Delete_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบคอร์สนี้ใช่หรือไม่?')"><i class="bi bi-trash-fill"></i></a>
+                                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning btn-xs"><i class="bi bi-pencil-fill"></i></a>
+                                        <a href="Delete_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-danger btn-xs" onclick="return confirm('คุณต้องการลบคอร์สนี้ใช่หรือไม่?')"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                         <?php

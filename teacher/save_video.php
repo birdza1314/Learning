@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // ตรวจสอบว่ามีการส่ง lesson_id มาหรือไม่
     if(isset($_POST['lesson_id'])) {
       $lesson_id = $_POST['lesson_id'];
-
+      
       // ตรวจสอบว่ามีการส่ง video_type มาหรือไม่
       if(isset($_POST['video_type'])) {
         $video_type = $_POST['video_type'];

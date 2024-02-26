@@ -78,16 +78,38 @@ $(document).on('click', '.open-Quiz-modal', function() {
     $('#QuizModal').modal('show'); 
 });
 
-    // Handle change event on video type select to toggle input fields
-    $(document).on('change', '#video_type', function() {
-        var selectedOption = $(this).val();
-        $('#embed_input, #file_input').hide(); // Hide all input fields
-        if (selectedOption === 'embed') {
-            $('#embed_input').show(); // Show embed code input field
-        } else if (selectedOption === 'file') {
-            $('#file_input').show(); // Show file input field
-        }
-    });
+$(document).on('click', '.open-Embed-modal', function() {
+    var lesson_id = $(this).data('lesson-id');
+    var course_id = $(this).data('course-id');
+    console.log("Lesson ID: ", lesson_id); // Check lesson_id in console
+    console.log("Course ID: ", course_id); // Check course_id in console
+    $('#embedModal').find('#embed_lesson_id').val(lesson_id);
+    $('#embedModal').find('#embed_course_id').val(course_id);
+     // Show the modal
+     $('#embedModal').modal('show'); 
+});
+
+$(document).on('click', '.open-File-modal', function() {
+    var lesson_id = $(this).data('lesson-id');
+    var course_id = $(this).data('course-id');
+    console.log("Lesson ID: ", lesson_id); // Check lesson_id in console
+    console.log("Course ID: ", course_id); // Check course_id in console
+    $('#videoFileModal').find('#file_lesson_id').val(lesson_id);
+    $('#videoFileModal').find('#file_course_id').val(course_id);
+     // Show the modal
+     $('#videoFileModal').modal('show'); 
+});
+
+$(document).on('click', '.open-URL-modal', function() {
+    var lesson_id = $(this).data('lesson-id');
+    var course_id = $(this).data('course-id');
+    console.log("Lesson ID: ", lesson_id); // Check lesson_id in console
+    console.log("Course ID: ", course_id); // Check course_id in console
+    $('#urlModal').find('#url_lesson_id').val(lesson_id);
+    $('#urlModal').find('#url_course_id').val(course_id);
+     // Show the modal
+     $('#urlModal').modal('show'); 
+});
 
     
 </script>

@@ -118,6 +118,7 @@ if (isset($_GET['course_id'])) {
   <?php include('sidebar.php'); ?>
 
   <main id="main" class="main">
+    
   <div class="container">
     <div class="card">
         <div class="card-body">
@@ -268,7 +269,8 @@ if (isset($_GET['course_id'])) {
                                                 $assignment = $stmt_assignment->fetch(PDO::FETCH_ASSOC);
                                                  ?>
                                                 <div class="col-lg-12">
-                                                    <div class="card border rounded-3 shadow-sm hover-effect text-hover-white "> <div class="card-body">
+                                                    <div class="card border rounded-3 shadow-sm hover-effect text-hover-white ">
+                                                         <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-8">
                                                                 <div class="d-flex mt-4">
@@ -291,7 +293,35 @@ if (isset($_GET['course_id'])) {
                                                     </div>
                                                 </div>
                                             <?php 
-                                            }      
+                                            }elseif ($topic['url_id'] != null) {
+                                                $stmt_url = $db->prepare("SELECT * FROM urls WHERE url_id = :url_id");
+                                                $stmt_url->bindParam(':url_id', $topic['url_id']);
+                                                $stmt_url->execute();
+                                                $url = $stmt_url->fetch(PDO::FETCH_ASSOC);
+                                            ?>
+                                                <div class="col-lg-12">
+                                                    <div class="card border rounded-3 shadow-sm ">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <div class="d-flex mt-4">
+                                                                        <i class="bi bi-link-45deg text-primary me-2"></i>
+                                                                        <h5><?= $url['description']; ?></h5>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                    <div class="videos">
+                                                                        <iframe width="320" height="240" src="<?= $url['url']; ?>" frameborder="0" allowfullscreen></iframe>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php 
+                                            } 
+                                                             
                                         }
                                     } else {
                                         echo "";
@@ -304,27 +334,45 @@ if (isset($_GET['course_id'])) {
                                             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
                                                 <li class="mega-content px-4">
                                                 <div class="container">
-                                                    <div class="row">
-                                                    <div class="col-12 d-flex justify-content-center">
-                                                        <button type="button" class="btn btn-outline-info btn-block mx-2 open-Quiz-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-                                                            <i class="bi bi-journal-arrow-up text-info"></i><br>Quiz
-                                                        </button>
-                                                        <a href="Add_assignment.php?lesson_id=<?php echo $lesson['lesson_id']; ?>&course_id=<?php echo $course_id; ?>" role="button" class="btn btn-outline-success btn-block mx-2">
-                                                            <i class="bi bi-journal-arrow-up text-success"></i><br>
-                                                            Assignment
-                                                        </a>
-                                                        <button type="button" class="btn btn-outline-info btn-block mx-2 open-image-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-                                                            <i class="bi bi-journal-arrow-up text-info"></i><br>Image
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-info btn-block mx-2 open-video-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo isset($_POST['course_id']) ? $_POST['course_id'] : ''; ?>">
-                                                            <i class="bi bi-journal-arrow-up text-info"></i><br>Video
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-info btn-block mx-2 open-file-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo isset($_POST['course_id']) ? $_POST['course_id'] : ''; ?>">
-                                                            <i class="bi bi-journal-arrow-up text-info"></i><br>File
-                                                        </button>
+                                                    
+                                                    <div class="row mt-3">
+                                                        <div class="col-12 d-flex justify-content-center">
+                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-Quiz-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>Quiz
+                                                            </button>
+                                                            <a href="Add_assignment.php?lesson_id=<?php echo $lesson['lesson_id']; ?>&course_id=<?php echo $course_id; ?>" role="button" class="btn btn-outline-success btn-block mx-2">
+                                                                <i class="bi bi-journal-arrow-up text-success"></i><br>
+                                                                Assignment
+                                                            </a>
+                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-image-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>Image
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-file-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo isset($_POST['course_id']) ? $_POST['course_id'] : ''; ?>">
+                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>File
+                                                            </button>
 
+                                                        </div>
                                                     </div>
+                                                    <div class="row mt-3">
+                                                         <div class="card border rounded-3 shadow-sm ">
+                                                            <div class="card-body">
+                                                                <h4 class="card-title">Video</h4>
+                                                                <div class="col-12 d-flex justify-content-center">
+                                                                    <button type="button" class="btn btn-outline-info btn-block mx-2 open-Embed-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>" >
+                                                                        <i class="bi bi-journal-arrow-up text-info"></i><br>Video Embed
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-outline-info btn-block mx-2 open-File-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                                        <i class="bi bi-journal-arrow-up text-info"></i><br>Video File
+                                                                    </button>
+                                                                  
+                                                                    <button type="button" class="btn btn-outline-info btn-block mx-2 open-URL-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                                        <i class="bi bi-journal-arrow-up text-info"></i><br>URL
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    
                                                 </div>
                                                 </li>
                                             </ul>

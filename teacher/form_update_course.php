@@ -81,21 +81,21 @@ if (isset($_GET['course_id'])) {
 
         <main id="main" class="main">
         <?php
-include('pagetitle.php'); // เรียกไฟล์ที่เก็บฟังก์ชัน
+            include('pagetitle.php'); // เรียกไฟล์ที่เก็บฟังก์ชัน
 
-// ดึงชื่อหน้าปัจจุบันจาก URL หรือไฟล์ที่เก็บ
-$currentPage = 'forms'; // ตั้งค่าตามที่ต้องการ
+            // ดึงชื่อหน้าปัจจุบันจาก URL หรือไฟล์ที่เก็บ
+            $currentPage = 'Edit_course'; // ตั้งค่าตามที่ต้องการ
 
-// ส่วน HTML แสดง breadcrumb
-echo '<div class="pagetitle">
-        <h1>Form Layouts</h1>
-        <nav>
-            <ol class="breadcrumb">
-                ' . generateBreadcrumb($currentPage) . '
-            </ol>
-        </nav>
-      </div><!-- End Page Title -->';
-?>
+            // ส่วน HTML แสดง breadcrumb
+            echo '<div class="pagetitle">
+                    <h1>Form Edit</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            ' . generateBreadcrumb($currentPage) . '
+                        </ol>
+                    </nav>
+                </div><!-- End Page Title -->';
+            ?>
 
             <section class="section">
                 <div class="row">
@@ -176,6 +176,27 @@ echo '<div class="pagetitle">
                                             <input type="password" class="form-control" id="access_code" name="access_code" value="<?php echo $course['access_code']; ?>">
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                    <label for="class" class="col-sm-2 col-form-label">เลือกนักเรียน</label>
+                                    <div class="col-sm-10">
+                                        <!-- เพิ่ม dropdown เพื่อเลือกนักเรียน -->
+                                        <select class="form-control" id="class" name="class">
+                                            <?php
+                                            include('../connections/connection.php');
+                                            
+                                            // สร้างคำสั่ง SQL เพื่อดึงชื่อคลาสที่ไม่ซ้ำกัน
+                                            $sql = "SELECT DISTINCT class FROM students";
+                                            $stmt = $db->query($sql);
+                                            $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                            // วนลูปเพื่อแสดงรายชื่อคลาสใน dropdown
+                                            foreach ($classes as $class) : ?>
+                                                <option value="<?php echo $class['class']; ?>"><?php echo $class['class']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <!-- เพิ่ม dropdown เพื่อเลือกนักเรียน -->
+                                    </div>
+                                    </div>
                                     <!-- เพิ่ม input text เพื่อรับค่า access_code -->
                                     <div class="text-center">
                                         <button type="save" class="btn btn-primary">บันทึก</button>
@@ -193,6 +214,10 @@ echo '<div class="pagetitle">
         <?php include('footer.php'); ?>
         <!-- Footer -->
 
+  <!-- Add jQuery script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Add Bootstrap script -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <!-- Scripts -->
         <?php include('scripts.php'); ?>
         <!-- Scripts -->
