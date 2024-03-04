@@ -1,86 +1,102 @@
-<?php session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
+    <title>Login Form</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2ca1e6;
+        }
 
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="regis/fonts/material-icon/css/material-design-iconic-font.min.css">
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="regis/css/style.css">
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+          E-learning system :  <br />
+            <span class="text-primary"> case study of Suanprayawittaya school </span>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+          ระบบบริหารการเรียนการสอนออนไลน์
+กรณีศึกษาโรงเรียนสวนพระยาวิทยา
+          </p>
+        </div>
 
-        <!-- Sing in  Form -->
-        <section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="regis/images/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="register.php" class="signup-image-link">Create an account</a>
-                    </div>
-
-                    <div class="signin-form ">
-                        <h2 class="form-title">log in</h2>
-                        <?php if (isset($_SESSION['err_fill'])) : ?>
-                            <div class="alert alert-danger alert-custom" role="alert">
-                                <?php echo $_SESSION['err_fill']; ?>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (isset($_SESSION['err_pw'])) : ?>
-                            <div class="alert alert-danger alert-custom" role="alert">
-                                <?php echo $_SESSION['err_pw']; ?>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (isset($_SESSION['err_uname'])) : ?>
-                            <div class="alert alert-danger alert-custom" role="alert">
-                                <?php echo $_SESSION['err_uname']; ?>
-                            </div>
-                        <?php endif; ?>
-                        <form action="login_db.php" method="POST" class="register-form" id="login-form">
-                            <div class="form-group">
-                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="username" id="username" placeholder="username" require/>
-                            </div>
-                            <div class="form-group">
-                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="submit" id="submit" class="form-submit" value="Log in"/>
-                            </div>
-                        </form>
-                        <div class="social-login">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+          <div class="card-header">
+          <h1 > เข้าสู่ระบบ </h1>
+            <div class="card-body py-5 px-md-5">
+            <form action="login_db.php" method="POST" class="register-form" id="login-form">
+                <div class="form-group">
+                    <label for="username"><i class="zmdi zmdi-account material-icons-name"></i> ชื่อผู้ใช้</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
                 </div>
+                <div class="form-group">
+                    <label for="password"><i class="zmdi zmdi-lock"></i> รหัสผ่าน</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" name="remember-me" id="remember-me" class="form-check-input">
+                    <label for="remember-me" class="form-check-label">Remember me</label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="submit" id="submit" class="btn btn-primary" value="เข้าสู่ระบบ">
+                </div>
+            </form>
             </div>
-        </section>
-    <!-- JS -->
-    <script src="regis/vendor/jquery/jquery.min.js"></script>
-    <script src="regis/js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-</html>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
 
-<?php
-    if (isset($_SESSION['err_fill']) || isset($_SESSION['err_pw']) || isset($_SESSION['err_uname'])) {
-        unset($_SESSION['err_fill']);
-        unset($_SESSION['err_pw']);
-        unset($_SESSION['err_uname']);
-    }
-?>
+    <!-- Bootstrap 5 JS (for optional use, for example, if you need dropdowns or other JS features) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
+</body>
+</html>

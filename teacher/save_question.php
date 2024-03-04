@@ -27,11 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_insert->execute([$quiz_id, $questionText, $choice1, $choice2, $choice3, $choice4, $correctAnswer]);
         
         // Redirect back to the page with a success message
-        header("Location: edit_quiz.php?quiz_id=$quiz_id");
+        echo "<script>window.history.back();</script>";
         exit();
     } else {
         // If quiz_id does not exist in quizzes table, redirect back to the page with an error message
-        header("Location: edit_quiz.php?quiz_id=$quiz_id");
+        echo "<script>window.history.back();</script>";
         exit();
     }
 } else {

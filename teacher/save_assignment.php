@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
         if ($stmt_add_topic->execute()) {
             // แสดงข้อความแจ้งเตือนเมื่อเพิ่มข้อมูลสำเร็จ
             echo "<script>alert('เพิ่ม Assignment ใหม่เรียบร้อยแล้ว');</script>";
-            echo "<script>window.location.href = 'add_lessons.php?course_id=$course_id';</script>";
+            echo "<script>window.history.back();</script>";
         } else {
             // แสดงข้อความผิดพลาดเมื่อไม่สามารถเพิ่มข้อมูลได้
             echo "เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: " . $stmt_add_topic->errorInfo()[2];

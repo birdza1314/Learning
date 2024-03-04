@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt_add_topic->bindParam(':img_id', $img_id); // เปลี่ยน $image_id เป็น $img_id
                     if ($stmt_add_topic->execute()) {
                         echo "<script>alert('อัปโหลดรูปภาพและบันทึกข้อมูลสำเร็จ');</script>";
-                        echo "<script>window.location.href = 'add_lessons.php?course_id=" . (isset($course_id) ? $course_id : '') . "';</script>";
+                        echo "<script>window.history.back();</script>";
                     } else {
                         echo "เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: " . $stmt_add_topic->errorInfo()[2];
                     }

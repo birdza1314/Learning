@@ -42,7 +42,6 @@ try {
 
             // ส่วน HTML แสดง breadcrumb
             echo '<div class="pagetitle">
-                    <h1>Form Layouts</h1>
                     <nav>
                         <ol class="breadcrumb">
                             ' . generateBreadcrumb($currentPage) . '
@@ -58,11 +57,10 @@ try {
            
               <div class="card overflow-auto">
                 <div class="card-body">
-                  <div class="row">
+                  <div class="card-header d-flex">
                   <h4 class="mt-2">My Course</h4>
-                  <p class="mt-2">My Course</p>
                   </div>    
-                  <a href="add_course.php"  class="btn btn-outline-primary" style=" float: right;">Add Course</a>
+                  <a href="add_course.php"  class="btn btn-outline-primary mt-2" style=" float: right;">Add Course</a>
                   <div class="mt-5">           
                   <table class="table table-borderless datatable">
                   </div>

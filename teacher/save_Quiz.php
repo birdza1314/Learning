@@ -37,25 +37,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt_add_topic->execute()) {
                 // Redirect back to the page with success message
                 echo "<script>alert('Quiz added successfully');</script>";
-                echo "<script>window.location.href = 'add_lessons.php?course_id=" . (isset($course_id) ? $course_id : '') . "';</script>";
+                echo "<script>window.history.back();</script>";
             } else {
                 // Display error message if add_topic insert fails
                 echo "<script>alert('Failed to add quiz');</script>";
-                echo "<script>window.location.href = 'add_lessons.php?course_id=" . (isset($course_id) ? $course_id : '') . "';</script>";
+                echo "<script>window.history.back();</script>";
             }
         } else {
             // Display error message if quiz insert fails
             echo "<script>alert('Failed to add quiz');</script>";
-            echo "<script>window.location.href = 'add_lessons.php?course_id=" . (isset($course_id) ? $course_id : '') . "';</script>";
+            echo "<script>window.history.back();</script>";
         }
     } else {
         // If required fields are not set, redirect back to the page with an error message
         echo "<script>alert('Required fields are not set');</script>";
-        echo "<script>window.location.href = 'add_lessons.php';</script>";
+        echo "<script>window.history.back();</script>";
     }
 } else {
     // If form is not submitted, redirect back to the page with an error message
     echo "<script>alert('Form not submitted');</script>";
-    echo "<script>window.location.href = 'add_lessons.php';</script>";
+    echo "<script>window.history.back();</script>";
 }
 ?>

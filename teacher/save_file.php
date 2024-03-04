@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     if ($stmt_add_topic->execute()) {
                         echo "<script>alert('อัปโหลดไฟล์และบันทึกข้อมูลสำเร็จ');</script>";
-                        echo "<script>window.location.href = 'add_lessons.php?course_id=$course_id';</script>";
+                        echo "<script>window.history.back();</script>";
                     } else {
                         echo "เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: " . $stmt_add_topic->errorInfo()[2];
                     }

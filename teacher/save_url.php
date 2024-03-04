@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Execute SQL statement to insert data into add_topic table
                         if ($stmt_add_topic->execute()) {
                             echo "<script>alert('บันทึกข้อมูลเสร็จสิ้น');</script>";
-                            echo "<script>window.location.href = 'add_lessons.php?course_id=$course_id';</script>";
+                            echo "<script>window.history.back();</script>";
                         } else {
                             echo "บันทึกข้อมูลลงในตาราง add_topic ล้มเหลว: " . $stmt_add_topic->errorInfo()[2];
                             exit();
