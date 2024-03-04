@@ -32,31 +32,135 @@ try {
      include('sidebar.php');
      
 ?>
-<?php $menu = "index"; ?>
-
-
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>      
+      <h1 >Welcome Back : <?php echo $student['first_name'];?>! 👋</h1>
+   
     </div><!-- End Page Title -->
 
-    
+    <section >
+    <div class="card overflow-auto">
+        <div class="card-body">
+            <div class="card-header d-flex">
+            <h3>กลุ่มสาระการเรียนรู้</h3>
+            
+           </div>
+
+           <div class="row mt-5">
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <div class="card col-10">
+                        <div class="card-header">
+                        <h3>กลุ่มสาระการเรียนรู้ภาษาไทย</h3>
+                            <div class="card-body">
+                                <!-- ข้อมูลที่ต้องการแสดง -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card col-10">
+                        <div class="card-header">
+                            <h3>กลุ่มสาระการเรียนรู้คณิตศาสตร์</h3>
+                             <div class="card-body">
+                               
+
+                             </div>
+                        </div>
+                    </div>
+                </div>  
+           </div>
+           <div class="row">
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <div class="card col-10">
+                        <div class="card-header">
+                        <h3>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี</h3>
+                            <div class="card-body">
+                                <!-- ข้อมูลที่ต้องการแสดง -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card col-10">
+                        <div class="card-header">
+                            <h3>กลุ่มสาระการเรียนรู้สังคมศึกษาฯ</h3>
+                             <div class="card-body">
+                                 <!-- ข้อมูลที่ต้องการแสดง -->
+
+                             </div>
+                        </div>
+                    </div>
+                </div>  
+           </div>
+           <div class="row">
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <div class="card col-10">
+                        <div class="card-header">
+                        <h3>กลุ่มสาระการเรียนรู้สุขศึกษาฯ</h3>
+                            <div class="card-body">
+                                <!-- ข้อมูลที่ต้องการแสดง -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card col-10">
+                        <div class="card-header">
+                            <h3>กลุ่มสาระการเรียนรู้ศิลปะ</h3>
+                             <div class="card-body">
+                               
+
+                             </div>
+                        </div>
+                    </div>
+                </div> 
+                 
+           </div>
+               
+
+        </div>
+    </div><!--Card over -->
+    </section>  
 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
 <?php include('footer.php');?>
  <!-- ======= scripts ======= -->
+ <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <?php include('scripts.php');?>
+<script>
 
+$(document).ready(function() {
+  $("#search").keyup(function() {
+      let searchText = $(this).val();
+      if (searchText != "") {
+          $.ajax({
+              url: "action.php",
+              method: "post",
+              data: {
+                  query: searchText
+              },
+              success: function(response) {
+                  $("#show-list").html(response);
+              }
+          })
+      } else {
+          $("#show-list").html("");
+      }
+  })
+
+  $(document).on('click', 'a', function() {
+      $("#search").val($(this).text())
+      $("#show-list").html("");
+  })
+})
+</script>
 
 </body>
 </html>
