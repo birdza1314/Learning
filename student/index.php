@@ -40,14 +40,9 @@ try {
    
     </div><!-- End Page Title -->
 
-    <section >
+
     <div class="card overflow-auto">
         <div class="card-body">
-            <div class="card-header d-flex">
-            <h3>กลุ่มสาระการเรียนรู้</h3>
-            
-           </div>
-
            <div class="row mt-5">
                 <div class="col-sm-6 d-flex justify-content-end">
                     <div class="card col-10">
@@ -121,11 +116,24 @@ try {
                 </div> 
                  
            </div>
-               
-
+           <div style="text-align: center;">
+                <!-- เพิ่มปุ่มรายวิชาทั้งหมดที่นี่ -->
+                <button class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></button>
+            </div>
+            <div class="search-bar">
+                <form action="details_All_course.php" method="POST" class="p-3">
+                    <div class="input-group">
+                        <input type="text" name="search" id="search" class="form-control form-control-lg  rounded-0" placeholder="ค้นหารายวิชา..." autocomplete="off" required>
+                            <input type="submit" name="submit" value="ค้นหา" class="btn btn-outline-secondary btn-sm">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="list-group" style="width: 300px;" id="show-list"></div>
+                    </div>
+                </form>
+            </div><!-- End Search Bar -->
         </div>
     </div><!--Card over -->
-    </section>  
+
 
   </main><!-- End #main -->
 

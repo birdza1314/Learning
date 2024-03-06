@@ -7,19 +7,6 @@
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
-<div class="search-bar">
-<form action="details.php" method="POST" class="p-3" style="position: relative;">
-                <div class="input-group">
-                    <input type="text" name="search" id="search" class="form-control form-control-lg  rounded-0" placeholder="ค้นหารายวิชา..." autocomplete="off" required>
-                    <div class="input-group-append">
-                        <input type="submit" name="submit" value="ค้นหา" class="btn btn-outline-secondary btn-lg">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="list-group" style="position: absolute; width: 300px;" id="show-list"></div>
-                </div>
-            </form>
-</div><!-- End Search Bar -->
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">

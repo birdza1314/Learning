@@ -21,13 +21,22 @@ if (isset($_POST['submit'])) {
     $open_time = $_POST['open_time'];
     $close_time = $_POST['close_time'];
     $status = $_POST['status'];
+// ตรวจสอบเงื่อนไขว่ามีการอัปโหลดไฟล์หรือไม่
 
-    // ตรวจสอบเงื่อนไขว่ามีการอัปโหลดไฟล์หรือไม่
-    if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
-        $file_path = $_FILES['file_path']['name'];
+if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
+    $file_name = $_FILES['file_path']['name']; // ดึงชื่อไฟล์จริง
+    $temp_name = $_FILES['file_path']['tmp_name']; // ดึงชื่อไฟล์ชั่วคราว
+    $file_path = "uploads/ass/" . $file_name; // กำหนดที่อยู่ของไฟล์
+
+    // ย้ายไฟล์ไปยังโฟลเดอร์ปลายทาง
+    if (move_uploaded_file($temp_name, $file_path)) {
+        echo "<script>alert('ไฟล์ถูกอัปโหลดเรียบร้อยแล้ว');</script>";
     } else {
-        $file_path = ""; // กำหนดให้เป็นค่าว่างหากไม่มีไฟล์ถูกอัปโหลด
+        echo "<script>alert('มีปัญหาในการอัปโหลดไฟล์');</script>";
     }
+} else {
+    $file_path = ""; // กำหนดให้เป็นค่าว่างหากไม่มีไฟล์ถูกอัปโหลด
+}
 
     // เพิ่ม Assignment ใหม่
     $sql = "INSERT INTO assignments (lesson_id, title, description, deadline, file_path, weight, open_time, close_time, status) VALUES (:lesson_id, :title, :description, :deadline, :file_path, :weight, :open_time, :close_time, :status)";

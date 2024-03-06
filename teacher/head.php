@@ -43,7 +43,7 @@
   }
   body {
   font-family: "Open Sans", sans-serif;
-  background-color: #f6f9ff;
+  background-color: #e1eafc;
  }
 
 </style>

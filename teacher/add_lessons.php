@@ -267,33 +267,47 @@ if (isset($_GET['course_id'])) {
                                                 $stmt_assignment->bindParam(':assignment_id', $topic['assignment_id']);
                                                 $stmt_assignment->execute();
                                                 $assignment = $stmt_assignment->fetch(PDO::FETCH_ASSOC);
-                                                 ?>
+                                            
+                                                // ตรวจสอบว่าเวลาปัจจุบันเกินเวลาที่กำหนดหรือไม่
+                                                $now = time(); // เวลาปัจจุบันในรูปแบบ timestamp
+                                                $deadline = strtotime($assignment['deadline']); // เวลาสิ้นสุดของการส่งงานในรูปแบบ timestamp
+                                            
+                                                // เช็คว่าเวลาปัจจุบันเกินเวลาส่งงานหรือไม่
+                                                if ($now > $deadline) {
+                                                    // ถ้าเกินเวลาส่งงานแล้ว ให้เพิ่มคลาส 'text-danger' เพื่อแสดงสีแดง
+                                                    $cardClass = 'card border rounded-3 shadow-sm hover-effect text-hover-white text-danger';
+                                                } else {
+                                                    // ถ้ายังไม่เกินเวลาส่งงาน ให้ใช้คลาสเดิม
+                                                    $cardClass = 'card border rounded-3 shadow-sm hover-effect text-hover-white';
+                                                }
+                                                ?>
                                                 <div class="col-lg-12">
-                                                    <div class="card border rounded-3 shadow-sm hover-effect text-hover-white ">
-                                                         <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-md-8">
-                                                                <div class="d-flex mt-4">
-                                                                    <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
-                                                                    <h5><?= $assignment['title']; ?></h5>
+                                                    <div class="<?= $cardClass; ?>">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <div class="d-flex mt-4">
+                                                                        <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                                                                        <h5><?= $assignment['title']; ?></h5>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex justify-content-end mt-3">
+                                                                        <a href="edit_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary me-2">
+                                                                            <i class="bi bi-pencil-square"></i>
+                                                                        </a>
+                                                                        <button type="button" class="btn btn-outline-danger" onclick="deleteAssignment(<?= $assignment['assignment_id']; ?>)">
+                                                                            <i class="bi bi-trash3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <div class="d-flex justify-content-end mt-3">
-                                                                <a href="edit_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary me-2">
-                                                                        <i class="bi bi-pencil-square"></i>
-                                                                    </a>
-                                                                    <button type="button" class="btn btn-outline-danger" onclick="deleteAssignment(<?= $assignment['assignment_id']; ?>)">
-                                                                    <i class="bi bi-trash3"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             <?php 
-                                            }elseif ($topic['url_id'] != null) {
+                                            }
+                                            elseif ($topic['url_id'] != null) {
                                                 $stmt_url = $db->prepare("SELECT * FROM urls WHERE url_id = :url_id");
                                                 $stmt_url->bindParam(':url_id', $topic['url_id']);
                                                 $stmt_url->execute();

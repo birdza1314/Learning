@@ -27,13 +27,13 @@ if (isset($_POST['submit'])) {
 
     <div class="container">
         <div class="row mt-5">
-            <div class="col-5 mx-auto">
-                <div class="card shadow text-center">
-                    <div class="card-header">
-                        <h1><?= $row['course_name'] ?></h1>
-                    </div>
+             <div class="col-md-4 mb-4">
+                <div class="card">
+                <img src="<?php echo $row['c_img']; ?>" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
                     <div class="card-body">
-                        <h3>Course ID : <?= $row['c_id'] ?></h3>
+                        <h5 class="card-title"><?php echo $row['course_name']; ?></h5>
+                        <p class="card-text">Course ID: <?php echo $row['course_code']; ?></p>
+                        <a href="course_details.php?course_id=<?php echo $row['c_id']; ?>" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </div>
