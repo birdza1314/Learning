@@ -300,7 +300,60 @@
 .header-nav .profile .dropdown-item:hover {
   background-color: #f6f9ff;
 }
+@media (max-width: 576px) {
+    .embed-responsive-16by9 iframe,
+    .embed-responsive-4by3 iframe {
+        height: 250px; /* ปรับความสูงตามความต้องการ */
+        width: 250px;
+    }
+}
+
 
 </style>
+<style>
+        /* สไตล์ของข้อความในกล่องอัพโหลดไฟล์ */
+        .dz-message {
+            margin: 20px auto;
+        }
+
+        /* สไตล์ของตัวอย่างไฟล์ที่อัพโหลด */
+        .dropzone-previews {
+            margin-top: 20px;
+        }
+
+        /* สไตล์ของไฟล์ตัวอย่าง */
+        .dropzone-previews .card {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        /* สไตล์ Dropzone */
+.dropzone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    min-height: 150px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* สไตล์ลิสต์ไฟล์ */
+#file-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+#file-list li {
+    margin-bottom: 5px;
+}
+
+#file-list li a {
+    color: red;
+    cursor: pointer;
+}
+
+    </style>
+    
 </head>
 <!-- ======= Head ======= -->
