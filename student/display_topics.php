@@ -20,12 +20,10 @@
                                                     $stmt_embed->execute();
                                                     $video_embed = $stmt_embed->fetch(PDO::FETCH_ASSOC);
                                                     ?>
-                                          <div class="mt-5 text-center embed-responsive embed-responsive-16by9">
-    <p>Description: <?= $video_embed['description']; ?></p>
-    <?= $video_embed['embed_code']; ?>
-</div>
-
-
+                                                    <div class="mt-5 text-center embed-responsive embed-responsive-16by9">
+                                                    <p>Description: <?= $video_embed['description']; ?></p>
+                                                    <?= $video_embed['embed_code']; ?>
+                                                </div>
                                                 <?php }  elseif ($topic['file_id'] != null) {
                                                     // กรณีมี file_id แสดงว่าเป็นไฟล์
                                                     // ดึงข้อมูลจากตาราง files

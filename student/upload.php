@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':student_id', $user_id);
             $stmt->bindParam(':assignment_id', $assignment_id);
             $stmt->bindParam(':submitted_file', $file_path);
+            $stmt->bindParam(':submitted_file', $file_name);
             $stmt->execute();
 
             // แสดงแจ้งเตือนเมื่อบันทึกสำเร็จ

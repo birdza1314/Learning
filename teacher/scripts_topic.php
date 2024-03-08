@@ -25,4 +25,27 @@ function deleteQuiz(quizId) {
         });
     }
 }
+function deleteAssignment(assignment_id) {
+    // Confirm before deleting
+    if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบการมอบหมายนี้?")) {
+        // Send AJAX request to delete assignment
+        $.ajax({
+            url: 'delete_assignment.php',
+            method: 'POST',
+            data: {
+                assignment_id: assignment_id
+            },
+            success: function(response) {
+                // Handle success response here
+                console.log(response);
+                // Reload or update page as needed
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+}
+
 </script>

@@ -17,7 +17,6 @@ if (isset($_POST['submit'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $deadline = $_POST['deadline'];
-    $weight = $_POST['weight'];
     $open_time = $_POST['open_time'];
     $close_time = $_POST['close_time'];
     $status = $_POST['status'];
@@ -39,14 +38,14 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
 }
 
     // เพิ่ม Assignment ใหม่
-    $sql = "INSERT INTO assignments (lesson_id, title, description, deadline, file_path, weight, open_time, close_time, status) VALUES (:lesson_id, :title, :description, :deadline, :file_path, :weight, :open_time, :close_time, :status)";
+    $sql = "INSERT INTO assignments (lesson_id, title, description, deadline, file_path,file_name, open_time, close_time, status) VALUES (:lesson_id, :title, :description, :deadline, :file_path, :file_name, :open_time, :close_time, :status)";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':lesson_id', $lesson_id);
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':description', $description);
     $stmt->bindParam(':deadline', $deadline);
     $stmt->bindParam(':file_path', $file_path);
-    $stmt->bindParam(':weight', $weight);
+    $stmt->bindParam(':file_name', $file_name);
     $stmt->bindParam(':open_time', $open_time);
     $stmt->bindParam(':close_time', $close_time);
     $stmt->bindParam(':status', $status);
@@ -66,11 +65,11 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
             echo "<script>window.history.back();</script>";
         } else {
             // แสดงข้อความผิดพลาดเมื่อไม่สามารถเพิ่มข้อมูลได้
-            echo "เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: " . $stmt_add_topic->errorInfo()[2];
+            echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: ');</script>" . $stmt_add_topic->errorInfo()[2];
         }
     } else {
         // แสดงข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง assignments
-        echo "เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง assignments: " . $stmt->errorInfo()[2];
+        echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง assignments:');</script> " . $stmt->errorInfo()[2];
     }
 }
 

@@ -24,9 +24,9 @@
                 <span class="flaticon-mortarboard text-white"></span>
               </div>
               <div class="feature-1-content">
-                <h2>Personalize Learning</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                <p><a href="#" class="btn custom-btn px-4 rounded-0">Learn More</a></p>
+                <h2> กลุ่มสาระการเรียนรู้ภาษาไทย</h2>
+               
+                <p><a href="#" class="btn custom-btn px-4 rounded-0">รายละเอียด</a></p>
               </div>
             </div>
           </div>
@@ -36,25 +36,28 @@
                 <span class="flaticon-school-material text-white"></span>
               </div>
               <div class="feature-1-content">
-                <h2>Trusted Courses</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                <p><a href="#" class="btn custom-btn px-4 rounded-0">Learn More</a></p>
+                <h2>กลุ่มสาระการเรียนรู้คณิตศาสตร์</h2>
+              
+                <p><a href="#" class="btn custom-btn px-4 rounded-0">รายละเอียด</a></p>
               </div>
             </div> 
           </div>
           <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <div class="feature-1 border">
               <div class="icon-wrapper bg-info">
-                <span class="flaticon-library text-white"></span>
+                <span class="flaticon-books text-white"></span>
               </div>
               <div class="feature-1-content">
-                <h2>Tools for Students</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                <p><a href="#" class="btn custom-btn px-4 rounded-0">Learn More</a></p>
+                <h2>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี</h2>
+                <p><a href="#" class="btn custom-btn px-4 rounded-0">รายละเอียด</a></p>
               </div>
             </div> 
           </div>
         </div>
+      </div>
+      <div class="row mb-4 justify-content-center text-center">
+      <div class="col-lg-4 mb-5">
+        <button class="btn btn-primary btn-lg" onclick="showAllCategories()">ประเภททั้งหมด</button>
       </div>
     </div>
 
