@@ -53,13 +53,14 @@
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="assets/images/logo1.jpg" alt="Image" class="img-fluid">
           <h1 class="my-5 display-3 fw-bold ls-tight">
           E-learning system :  <br />
             <span class="text-primary"> case study of Suanprayawittaya school </span>
           </h1>
           <p style="color: hsl(217, 10%, 50.8%)">
           ระบบบริหารการเรียนการสอนออนไลน์
-กรณีศึกษาโรงเรียนสวนพระยาวิทยา
+          กรณีศึกษาโรงเรียนสวนพระยาวิทยา
           </p>
         </div>
 

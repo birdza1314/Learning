@@ -13,7 +13,10 @@ if (isset($_POST['query'])) {
 
     if ($result) {
         foreach($result as $row) {
-            echo '<a class="list-group-item list-group-item-action border-1">' . $row['course_name'] . '</a>';
+            // ใช้ str_replace() เพื่อแทนที่คำที่ค้นหาด้วย tag <strong>
+            $highlightedText = str_replace($inputText, '<strong>' . $inputText . '</strong>', $row['course_name']);
+            echo '<a class="list-group-item list-group-item-action border-1">' . $highlightedText . '</a>';
+            
         }
     } else {
         echo '<p class="list-group-item border-1">No record.</p>';

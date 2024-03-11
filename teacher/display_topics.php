@@ -46,20 +46,20 @@
                                                 $stmt_file->execute();
                                                 $file = $stmt_file->fetch(PDO::FETCH_ASSOC);
                                                 ?>
-                                                <div class="row mt-2">
-                                                    <div class="col-lg-12">
-                                                        <div class="card border rounded-3">
+                                               <div class="row mt-2">
+                                                <div class="col-lg-12">
+                                                    <div class="card border rounded-3">
                                                         <div class="card-body">
                                                             <p class="card-text"></p>
                                                             <div class="d-flex align-items-center">
-                                                            <i class="bi bi-file-earmark-text-fill text-red me-2"></i>
-                                                            <a href="<?= $file['file_path']; ?>" target="_blank" class="text-decoration-none"><?= $file['file_name']; ?></a>
+                                                                <i class="bi bi-file-earmark-text-fill text-red me-2"></i>
+                                                                <a href="<?= $file['file_path']; ?>" target="_blank" class="text-decoration-none"><?= $file['file_name']; ?></a>
+                                                                <button type="button" class="btn btn-danger ms-auto" onclick="deletefile(<?= $file['file_id']; ?>)"><i class="bi bi-trash3"></i></button>
                                                             </div>
-                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                            </div>
                                             <?php }elseif ($topic['img_id'] != null) {
                                                 // กรณีมี img_id แสดงว่าเป็นรูปภาพ
                                                 // ดึงข้อมูลจากตาราง images

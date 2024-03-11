@@ -123,13 +123,23 @@ if (isset($_GET['course_id'])) {
     <div class="card">
         <div class="card-body">
         <h2>Course Details</h2>
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
-                    <p class="card-text">Course Code: <?php echo $course['course_code']; ?></p>
-                    <p class="card-text">Description: <?php echo $course['description']; ?></p>
+        <div class="card mt-3">
+            <div class="card-body">
+            
+            <?php if (!empty($course['c_img'])): ?>
+                <div class="text-center">
+                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="max-width: 50%; height: auto;">
                 </div>
+            <?php endif; ?>
+
+
+                <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
+                <p class="card-text">รายละเอียด: <?php echo $course['description']; ?></p>
+
             </div>
+        </div>
+
             <div class="row">
                     <button type="button"  class="btn btn-outline-primary btn-block mt-3" data-toggle="modal" data-target="#addLessonModal">เพิ่มบทเรียน</button>
             </div>

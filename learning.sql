@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2024 at 09:05 AM
+-- Generation Time: Mar 11, 2024 at 06:28 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `learning_test`
+-- Database: `learning`
 --
 
 -- --------------------------------------------------------
@@ -46,19 +46,13 @@ INSERT INTO `add_topic` (`topic_id`, `lesson_id`, `video_embed_id`, `file_id`, `
 (143, 140, 32, NULL, NULL, NULL, NULL, NULL),
 (144, 141, 33, NULL, NULL, NULL, NULL, NULL),
 (147, 141, NULL, NULL, NULL, NULL, NULL, 1),
-(148, 140, NULL, NULL, NULL, 57, NULL, NULL),
 (149, 141, NULL, 24, NULL, NULL, NULL, NULL),
-(150, 140, NULL, NULL, NULL, 58, NULL, NULL),
-(151, 143, NULL, NULL, NULL, 59, NULL, NULL),
 (153, 143, NULL, NULL, 17, NULL, NULL, NULL),
 (154, 143, 34, NULL, NULL, NULL, NULL, NULL),
-(155, 140, NULL, NULL, NULL, 60, NULL, NULL),
-(156, 145, NULL, NULL, NULL, 61, NULL, NULL),
 (160, 145, NULL, NULL, 18, NULL, NULL, NULL),
 (161, 145, 35, NULL, NULL, NULL, NULL, NULL),
 (163, 145, NULL, 25, NULL, NULL, NULL, NULL),
-(167, 145, NULL, NULL, NULL, NULL, 33, NULL),
-(172, 145, NULL, NULL, NULL, NULL, 38, NULL);
+(167, 145, NULL, NULL, NULL, NULL, 33, NULL);
 
 -- --------------------------------------------------------
 
@@ -103,8 +97,7 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`assignment_id`, `lesson_id`, `title`, `description`, `deadline`, `file_path`, `open_time`, `close_time`, `status`, `file_name`) VALUES
-(33, 145, 'LAB 1', 'ส่งรูปตัวเอง', '2024-03-09 11:09:00', 'uploads/ass/Lab13_002_Prewitt.docx', '2024-03-08 11:09:00', '2024-03-09 11:09:00', 'open', 'Lab13_002_Prewitt.docx'),
-(38, 145, 'LAB 2', 'ส่งรูปที่ทำมา', '2024-03-08 15:05:00', 'uploads/ass/Qr.png', '2024-03-08 15:04:00', '2024-03-08 15:05:00', 'open', 'Qr.png');
+(33, 145, 'LAB 1', 'ส่งรูปตัวเอง', '2024-03-09 11:09:00', 'uploads/ass/Lab13_002_Prewitt.docx', '2024-03-08 11:09:00', '2024-03-09 11:09:00', 'open', 'Lab13_002_Prewitt.docx');
 
 -- --------------------------------------------------------
 
@@ -134,7 +127,8 @@ INSERT INTO `courses` (`c_id`, `course_name`, `description`, `teacher_id`, `crea
 (10, 'ภาษาไทย', 'ภาษาไทยภาษาไทยภาษาไทยภาษาไทยภาษาไทย', 10, '2024-02-10 14:58:07', '2024-02-10 14:58:30', '../admin/teacher_process/img/THAI_Cover2-01.png', '0246589', 1, 1, ''),
 (12, 'ภาษาไทย', 'ภาษาไทยภาษาไทยภาษาไทยภาษาไทย', 6, '2024-02-20 09:18:39', '2024-03-06 20:08:09', '../admin/teacher_process/img/THAI_Cover2-01.png', '4111569', 1, 1, ''),
 (13, 'คณิตศาสตร์ ม1', '', 6, '2024-02-26 20:04:28', '2024-03-04 13:53:08', '../admin/teacher_process/img/OIP.jpg', '4111569', 2, 1, ''),
-(14, 'ภาษาไทย ม1', 'ภาษาไทย ม1', 6, '2024-02-27 09:35:31', '2024-02-27 09:35:31', '../admin/teacher_process/img/THAI_Cover2-01.png', '0246589', 1, 1, NULL);
+(14, 'ภาษาไทย ม1', 'ภาษาไทย ม1', 6, '2024-02-27 09:35:31', '2024-02-27 09:35:31', '../admin/teacher_process/img/THAI_Cover2-01.png', '0246589', 1, 1, NULL),
+(15, 'คณิตศาสตร์เพิ่มเติม', 'รหัสวิชา ค ๓๑๒๐๑   รายวิชาคณิตศาสตร์เพิ่มเติม	กลุ่มสาระการเรียนรู้คณิตศาสตร์	\r\n	ชั้นมัธยมศึกษาปีที่ ๔ 		ภาคเรียนที่ ๑		จำนวน ๒.๐ หน่วยกิต\r\n	ชื่อหน่วยการเรียนรู้  เซต\r\nชื่อครูผู้สอน  ครูซือนะ   มะและ      ครู คศ.๓   โรงเรียนสวนพระยาวิทยา    \r\n', 6, '2024-03-08 15:47:43', '2024-03-11 23:54:29', '../admin/teacher_process/img/OIP.jpg', 'ค ๓๑๒๐๑', 2, 1, '31201');
 
 -- --------------------------------------------------------
 
@@ -232,21 +226,8 @@ INSERT INTO `lessons` (`lesson_id`, `course_id`, `lesson_name`) VALUES
 (143, 14, 'บทที่ 1'),
 (144, 14, 'บทที่ 2'),
 (145, 13, 'บทที่ 1'),
-(147, 13, 'บที่ 2');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `members`
---
-
-CREATE TABLE `members` (
-  `m_id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('student','teacher','admin') NOT NULL,
-  `role_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+(147, 13, 'บที่ 2'),
+(148, 15, 'บทที่ 1');
 
 -- --------------------------------------------------------
 
@@ -266,18 +247,6 @@ CREATE TABLE `questions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `questions`
---
-
-INSERT INTO `questions` (`question_id`, `quiz_id`, `question_text`, `choice_ch1`, `choice_ch2`, `choice_ch3`, `choice_ch4`, `correct_answer`, `created_at`) VALUES
-(19, 51, '10+5', '15', '10', '5', '20', '15', '2024-02-22 05:58:28'),
-(21, 52, '50-25', '25', '20', '10', '15', '25', '2024-02-25 03:17:14'),
-(22, 52, '50-25', '25', '20', '10', '15', '25', '2024-02-25 03:19:10'),
-(23, 58, '5+5', '10', '5', '5', '18', '10', '2024-02-27 02:21:25'),
-(24, 59, '5+5', '10', '5', '5', '18', '10', '2024-02-27 02:37:50'),
-(25, 58, '50+5', '45', '10', '40', '20', '45', '2024-02-27 03:27:53');
-
 -- --------------------------------------------------------
 
 --
@@ -294,17 +263,6 @@ CREATE TABLE `quizzes` (
   `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `c_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `quizzes`
---
-
-INSERT INTO `quizzes` (`quiz_id`, `lesson_id`, `quiz_description`, `quiz_title`, `time_limit`, `question_limit`, `created`, `c_id`) VALUES
-(57, 140, 'กลางภาคกลางภาคกลางภาค', 'กลางภาค', '60', 10, '2024-02-26 02:31:10', 12),
-(58, 140, '', 'สอบกลางภาค', '60', 50, '2024-02-27 02:20:35', 12),
-(59, 143, 'ภาษาไทย ม1', 'สอบกลางภาค', '40', 50, '2024-02-27 02:37:04', 14),
-(60, 140, '', 'สอบกลางภาค', '30', 10, '2024-02-27 03:27:12', 12),
-(61, 145, '10', 'สอบกลางภาค', '10', 10, '2024-03-03 07:08:28', 13);
 
 -- --------------------------------------------------------
 
@@ -356,23 +314,14 @@ CREATE TABLE `student_course_registration` (
 --
 
 INSERT INTO `student_course_registration` (`registration_id`, `student_id`, `course_id`, `registration_date`, `class`) VALUES
-(2, 9, 12, '2024-02-26 03:21:22', '1'),
-(3, 12, 12, '2024-02-26 03:21:22', '1'),
-(4, 13, 12, '2024-02-26 03:21:22', '1'),
-(5, 14, 12, '2024-02-26 03:21:22', '1'),
-(6, 15, 12, '2024-02-26 03:21:22', '1'),
-(9, 1, 12, '2024-02-26 03:49:44', '1/1'),
-(10, 3, 12, '2024-02-26 03:49:44', '1/1'),
-(12, 10, 12, '2024-02-26 04:22:27', '2'),
-(13, 9, 13, '2024-03-04 06:53:08', '1'),
-(14, 12, 13, '2024-03-04 06:53:08', '1'),
-(15, 13, 13, '2024-03-04 06:53:08', '1'),
-(16, 14, 13, '2024-03-04 06:53:08', '1'),
-(17, 15, 13, '2024-03-04 06:53:08', '1'),
-(20, 1, 10, '2024-03-04 13:49:08', NULL),
-(21, 1, 12, '2024-03-06 13:08:09', '1/1'),
-(22, 3, 12, '2024-03-06 13:08:09', '1/1'),
-(23, 9, 14, '2024-03-08 02:19:08', NULL);
+(38, 9, 10, '2024-03-11 16:35:53', NULL),
+(39, 9, 13, '2024-03-11 16:48:04', NULL),
+(40, 9, 15, '2024-03-11 16:49:05', NULL),
+(41, 1, 15, '2024-03-11 16:50:38', '1/1'),
+(42, 3, 15, '2024-03-11 16:50:38', '1/1'),
+(44, 1, 15, '2024-03-11 16:54:29', '1/1'),
+(45, 3, 15, '2024-03-11 16:54:29', '1/1'),
+(47, 9, 12, '2024-03-11 17:05:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -409,7 +358,7 @@ CREATE TABLE `submitted_assignments` (
 --
 
 INSERT INTO `submitted_assignments` (`id`, `student_id`, `last_updated`, `status`, `assignment_id`, `submitted_file`, `submitted_datetime`, `comment`) VALUES
-(114, 9, '2024-03-08 06:01:17', 'ตรวจแล้ว', 33, 'Lab13_002_Prewitt (1).docx', '2024-03-08 04:39:45', 'ฟหดฟห');
+(114, 9, '2024-03-08 06:01:17', 'ตรวจแล้ว', 33, 'Lab13_002_Prewitt (1).docx', '2024-03-08 04:39:45', 'ฟหดฟหzfgdhj');
 
 -- --------------------------------------------------------
 
@@ -559,18 +508,11 @@ ALTER TABLE `lessons`
   ADD KEY `lessons_ibfk_1` (`course_id`);
 
 --
--- Indexes for table `members`
---
-ALTER TABLE `members`
-  ADD PRIMARY KEY (`m_id`),
-  ADD KEY `role_id` (`role_id`);
-
---
 -- Indexes for table `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`question_id`),
-  ADD KEY `quiz_id` (`quiz_id`);
+  ADD KEY `FK_quizzes_id` (`quiz_id`);
 
 --
 -- Indexes for table `quizzes`
@@ -599,7 +541,7 @@ ALTER TABLE `student_course_registration`
 --
 ALTER TABLE `student_images`
   ADD PRIMARY KEY (`image_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD KEY `student_images` (`student_id`);
 
 --
 -- Indexes for table `submitted_assignments`
@@ -622,14 +564,14 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `teachers_images`
   ADD PRIMARY KEY (`image_id`),
-  ADD KEY `teacher_id` (`teacher_id`);
+  ADD KEY `FK_teachers_id` (`teacher_id`);
 
 --
 -- Indexes for table `urls`
 --
 ALTER TABLE `urls`
   ADD PRIMARY KEY (`url_id`),
-  ADD KEY `lesson_id` (`lesson_id`);
+  ADD KEY `FK_url_lesson_id` (`lesson_id`);
 
 --
 -- Indexes for table `videos_embed`
@@ -646,79 +588,73 @@ ALTER TABLE `videos_embed`
 -- AUTO_INCREMENT for table `add_topic`
 --
 ALTER TABLE `add_topic`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `learning_subject_group`
 --
 ALTER TABLE `learning_subject_group`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
---
--- AUTO_INCREMENT for table `members`
---
-ALTER TABLE `members`
-  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `quizzes`
 --
 ALTER TABLE `quizzes`
-  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `student_course_registration`
 --
 ALTER TABLE `student_course_registration`
-  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `student_images`
@@ -730,31 +666,31 @@ ALTER TABLE `student_images`
 -- AUTO_INCREMENT for table `submitted_assignments`
 --
 ALTER TABLE `submitted_assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `teachers_images`
 --
 ALTER TABLE `teachers_images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `urls`
 --
 ALTER TABLE `urls`
-  MODIFY `url_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `url_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `videos_embed`
 --
 ALTER TABLE `videos_embed`
-  MODIFY `video_embed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `video_embed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
@@ -764,38 +700,38 @@ ALTER TABLE `videos_embed`
 -- Constraints for table `add_topic`
 --
 ALTER TABLE `add_topic`
-  ADD CONSTRAINT `FK_add_topic_assignment_id` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_add_topic_file_id` FOREIGN KEY (`file_id`) REFERENCES `files` (`file_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_add_topic_img_id` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_add_topic_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_add_topic_quiz_id` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_add_topic_url_id` FOREIGN KEY (`url_id`) REFERENCES `urls` (`url_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_add_topic_video_embed_id` FOREIGN KEY (`video_embed_id`) REFERENCES `videos_embed` (`video_embed_id`)ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_add_topic_assignment_id` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_add_topic_file_id` FOREIGN KEY (`file_id`) REFERENCES `files` (`file_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_add_topic_img_id` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_add_topic_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_add_topic_quiz_id` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_add_topic_url_id` FOREIGN KEY (`url_id`) REFERENCES `urls` (`url_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_add_topic_video_embed_id` FOREIGN KEY (`video_embed_id`) REFERENCES `videos_embed` (`video_embed_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `assignments`
 --
 ALTER TABLE `assignments`
-  ADD CONSTRAINT `FK_assignments_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`)ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_assignments_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `courses`
 --
 ALTER TABLE `courses`
-  ADD CONSTRAINT `FK_courses_group_id` FOREIGN KEY (`group_id`) REFERENCES `learning_subject_group` (`group_id`)ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_courses_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`t_id`)ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_courses_group_id` FOREIGN KEY (`group_id`) REFERENCES `learning_subject_group` (`group_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_courses_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`t_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `files`
 --
 ALTER TABLE `files`
-  ADD CONSTRAINT `FK_files_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`)ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_files_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `images`
 --
 ALTER TABLE `images`
-  ADD CONSTRAINT `FK_images_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`)ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_images_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `lessons`
@@ -804,11 +740,55 @@ ALTER TABLE `lessons`
   ADD CONSTRAINT `FK_lessons_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`c_id`);
 
 --
+-- Constraints for table `questions`
+--
+ALTER TABLE `questions`
+  ADD CONSTRAINT `FK_quizzes_id` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quizzes`
+--
+ALTER TABLE `quizzes`
+  ADD CONSTRAINT `FK_course_id` FOREIGN KEY (`c_id`) REFERENCES `courses` (`c_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `student_course_registration`
+--
+ALTER TABLE `student_course_registration`
+  ADD CONSTRAINT `FK_courses_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`c_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_students_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`s_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `student_images`
+--
+ALTER TABLE `student_images`
+  ADD CONSTRAINT `student_images` FOREIGN KEY (`student_id`) REFERENCES `students` (`s_id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `submitted_assignments`
 --
 ALTER TABLE `submitted_assignments`
   ADD CONSTRAINT `fk_submitted_assignments_assignment_id` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_submitted_assignments_student_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`s_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `teachers_images`
+--
+ALTER TABLE `teachers_images`
+  ADD CONSTRAINT `FK_teachers_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`t_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `urls`
+--
+ALTER TABLE `urls`
+  ADD CONSTRAINT `FK_url_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `videos_embed`
+--
+ALTER TABLE `videos_embed`
+  ADD CONSTRAINT `FK_videos_embed_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`lesson_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

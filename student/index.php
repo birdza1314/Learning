@@ -118,7 +118,7 @@ try {
            </div>
            <div style="text-align: center;">
                 <!-- เพิ่มปุ่มรายวิชาทั้งหมดที่นี่ -->
-                <button class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></button>
+                <a href="lib_course.php" class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="search-bar">
                 <form action="details_All_course.php" method="POST" class="p-3">

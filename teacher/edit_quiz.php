@@ -164,41 +164,33 @@
   <!-- Add jQuery script -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script>
-    function showUpdateQuestionModal(question_id, question_text, choice1, choice2, choice3, choice4, correct_answer) {
-        var modal = document.getElementById('updateQuestionModal');
+ <script>
+function showUpdateQuestionModal(question_id, question_text, choice1, choice2, choice3, choice4, correct_answer) {
+    var modal = $('#updateQuestionModal');
 
-        // กำหนดค่า question_id ให้กับฟิลด์แบบซ่อน
-        var questionIdInput = modal.querySelector('input[name="question_id"]');
-        questionIdInput.value = question_id;
+    // กำหนดค่า question_id ให้กับฟิลด์แบบซ่อน
+    modal.find('input[name="question_id"]').val(question_id);
 
-        // กำหนดค่า question_text ให้กับ textarea ของคำถาม
-        var questionTextInput = modal.querySelector('#updatedQuestionText');
-        questionTextInput.value = question_text;
+    // กำหนดค่า question_text ให้กับ textarea ของคำถาม
+    modal.find('#updatedQuestionText').val(question_text);
 
-        // กำหนดค่า choices
-        var choice1Input = modal.querySelector('#updatedChoice1');
-        choice1Input.value = choice1;
+    // กำหนดค่า choices
+    modal.find('#updatedChoice1').val(choice1);
+    modal.find('#updatedChoice2').val(choice2);
+    modal.find('#updatedChoice3').val(choice3);
+    modal.find('#updatedChoice4').val(choice4);
 
-        var choice2Input = modal.querySelector('#updatedChoice2');
-        choice2Input.value = choice2;
+    // กำหนดค่าของ correct_answer
+    var correctAnswerSelect = modal.find('#updatedCorrectAnswer');
+    correctAnswerSelect.val(correct_answer);
 
-        var choice3Input = modal.querySelector('#updatedChoice3');
-        choice3Input.value = choice3;
-
-        var choice4Input = modal.querySelector('#updatedChoice4');
-        choice4Input.value = choice4;
-
-        // กำหนดค่าของ correct_answer
-        var correctAnswerSelect = modal.querySelector('#updatedCorrectAnswer');
-        correctAnswerSelect.value = correct_answer;
-
-        // เปิด Modal
-        $(modal).modal('show');
-    }
-</script>
+    // เปิด Modal
+    modal.modal('show');
+}
 
 </script>
+
+
 
 
 <script>

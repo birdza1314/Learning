@@ -32,7 +32,7 @@ $registration = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$registration) {
     // If the student has not registered for this course, redirect to the registration page
-    header('Location: registeration_course.php?course_id=' . $course_id);
+    header('Location: student_course_registration.php?course_id=' . $course_id);
     exit();
 }
 
@@ -77,12 +77,21 @@ try {
         <div class="container mt-5">
             <h2>Course Details</h2>
             <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
-                    <p class="card-text">Course Code: <?php echo $course['course_code']; ?></p>
-                    <p class="card-text">Description: <?php echo $course['description']; ?></p>
+            <div class="card-body">
+            
+            <?php if (!empty($course['c_img'])): ?>
+                <div class="text-center">
+                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="max-width: 50%; height: auto;">
                 </div>
+            <?php endif; ?>
+
+
+                <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
+                <p class="card-text">รายละเอียด: <?php echo $course['description']; ?></p>
+
             </div>
+        </div>
             <div id="accordionContainer">
                 <?php foreach($lessons as $lesson): ?>
                     <section class="section card mb-3 mt-5">
@@ -115,6 +124,13 @@ try {
     <!-- Add Bootstrap script -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Add custom script for search functionality -->
+    <script>
+// ฟังก์ชั่นสำหรับการแก้ไข Quiz
+function editQuiz(quizId) {
+    // Redirect ไปยังหน้าแก้ไข Quiz โดยส่งค่า quizId ไปด้วย
+    window.location.href = "quiz.php?quiz_id=" + quizId;
+}
+</script>
     <script>
         $(document).ready(function() {
             $("#search").keyup(function() {

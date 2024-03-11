@@ -129,53 +129,71 @@
         </div>
     </div>
 
-<!-- Modal Add Question -->
+ <!-- Modal Add Question -->
 <div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalForAddQuestionLabel">Add New Question</h5>
+                <h5 class="modal-title" id="modalForAddQuestionLabel">เพิ่มคำถามใหม่</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form action="save_question.php" method="post">
-                <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
+                    <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
                     <div class="form-group">
-                        <label for="questionText">Question Text</label>
+                        <label for="questionText">ข้อความคำถาม</label>
                         <textarea class="form-control" id="questionText" name="questionText" rows="3" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="choice1">Choice 1</label>
-                        <input type="text" class="form-control" id="choice1" name="choice1" required>
+                        <label for="choice1">ตัวเลือก 1</label>
+                        <input type="text" class="form-control choice-input" id="choice1" name="choice1" required>
                     </div>
                     <div class="form-group">
-                        <label for="choice2">Choice 2</label>
-                        <input type="text" class="form-control" id="choice2" name="choice2" required>
+                        <label for="choice2">ตัวเลือก 2</label>
+                        <input type="text" class="form-control choice-input" id="choice2" name="choice2" required>
                     </div>
                     <div class="form-group">
-                        <label for="choice3">Choice 3</label>
-                        <input type="text" class="form-control" id="choice3" name="choice3" required>
+                        <label for="choice3">ตัวเลือก 3</label>
+                        <input type="text" class="form-control choice-input" id="choice3" name="choice3" required>
                     </div>
                     <div class="form-group">
-                        <label for="choice4">Choice 4</label>
-                        <input type="text" class="form-control" id="choice4" name="choice4" required>
+                        <label for="choice4">ตัวเลือก 4</label>
+                        <input type="text" class="form-control choice-input" id="choice4" name="choice4" required>
                     </div>
                     <div class="form-group">
-                        <label for="correctAnswer">Correct Answer (Choice)</label>
-                        <input type="text" class="form-control" id="correctAnswer" name="correctAnswer" required>
+                        <label for="correctAnswerSelect">คำตอบที่ถูกต้อง (ตัวเลือก)</label>
+                        <select class="form-control" id="correctAnswerSelect" name="correctAnswerSelect"  onchange="updateCorrectAnswer(this)" required>
+                            <option selected>เลือกตัวเลือก</option>
+                            <option value="choice1">ตัวเลือก 1</option>
+                            <option value="choice2">ตัวเลือก 2</option>
+                            <option value="choice3">ตัวเลือก 3</option>
+                            <option value="choice4">ตัวเลือก 4</option>
+                        </select>
+                        <input type="hidden" id="correctAnswer" name="correctAnswer" value="" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">ส่งคำตอบ</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function updateCorrectAnswer(selectElement) {
+        var selectedChoice = selectElement.value;
+        var choiceInputElement = document.querySelector('.choice-input[name="' + selectedChoice + '"]');
+        var choiceValue = choiceInputElement.value;
+        document.getElementById('correctAnswer').value = choiceValue;
+    }
+</script>
+
+
+
 <!-- Modal update Question -->
 
-<div class="modal fade" id="updateQuestionModal<?php echo isset($selQuestionRow['question_id']) ? $selQuestionRow['question_id'] : ''; ?>" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateQuestionModal" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
