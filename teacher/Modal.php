@@ -65,19 +65,10 @@
                         <input type="hidden" name="lesson_id" id="quiz_lesson_id" value="">
                         
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Quiz Time Limit</label>
-                                <select class="form-control" name="timeLimit" required="">
-                                <option value="0">Select time</option>
-                                <option value="10">10 Minutes</option> 
-                                <option value="20">20 Minutes</option> 
-                                <option value="30">30 Minutes</option> 
-                                <option value="40">40 Minutes</option> 
-                                <option value="50">50 Minutes</option> 
-                                <option value="60">60 Minutes</option> 
-                                </select>
-                            </div>
-
+                        <div class="form-group">
+                            <label for="timeLimit">Quiz Time Limit</label>
+                            <input type="number" class="form-control" id="timeLimit" name="timeLimit" min="0" placeholder="Enter time in minutes" required>
+                        </div>
                             <div class="form-group">
                                 <label>Question Limit to Display</label>
                                 <input type="number" name="QuestDipLimit" id="" class="form-control" placeholder="Input question limit to display">

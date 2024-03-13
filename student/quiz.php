@@ -7,6 +7,20 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
     header('Location: login.php'); 
     exit();
 }
+try {
+    // ทำคำสั่ง SQL เพื่อดึงข้อมูลของผู้ใช้ที่ล็อกอิน
+    $user_id = $_SESSION['user_id'];
+    $stmt = $db->prepare("SELECT * FROM students WHERE s_id = :user_id");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+    
+    // ดึงข้อมูลจากผลลัพธ์ของคำสั่ง SQL
+    $student = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+} catch (PDOException $e) {
+    // แสดงข้อผิดพลาด
+    echo "เกิดข้อผิดพลาด: " . $e->getMessage();
+}
 
 if (!isset($_GET['quiz_id'])) {
     // ถ้าไม่มี quiz_id ให้เปลี่ยนเส้นทางไปที่หน้าหลักหรือหน้าที่คุณต้องการ
@@ -23,42 +37,60 @@ try {
     $stmt->execute();
     $quiz = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // เรียกข้อมูลคำถามจากฐานข้อมูล
-    $stmt = $db->prepare("SELECT * FROM questions WHERE quiz_id = :quiz_id");
+    // ตรวจสอบว่าผู้ใช้เคยทำแบบทดสอบนี้แล้วหรือไม่
+    $stmt = $db->prepare("SELECT COUNT(*) AS count FROM quiz_results WHERE user_id = :user_id AND quiz_id = :quiz_id");
+    $stmt->bindParam(':user_id', $user_id);
     $stmt->bindParam(':quiz_id', $quiz_id);
     $stmt->execute();
-    $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $quizTaken = ($result['count'] > 0);
+
 } catch (PDOException $e) {
     // แสดงข้อผิดพลาด
     echo "เกิดข้อผิดพลาด: " . $e->getMessage();
     exit();
 }
 ?>
-
-<!-- แสดงแบบทดสอบ -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $quiz['title']; ?></title>
-</head>
+<?php include('head.php'); ?>
 <body>
-    <h1><?php echo $quiz['title']; ?></h1>
-    <form action="submit_quiz.php" method="post">
-        <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
-        <?php foreach ($questions as $question): ?>
-            <div>
-                <p><?php echo $question['question_text']; ?></p>
-                <?php foreach (json_decode($question['options'], true) as $option): ?>
-                    <label>
-                        <input type="radio" name="answers[<?php echo $question['question_id']; ?>]" value="<?php echo $option; ?>">
-                        <?php echo $option; ?>
-                    </label><br>
-                <?php endforeach; ?>
-            </div>
-        <?php endforeach; ?>
-        <button type="submit">Submit</button>
-    </form>
+    <?php include('header.php'); ?>
+    <?php include('sidebar.php'); ?>
+    
+    <main id="main" class="main">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title"> <h1 ><?php echo $quiz['quiz_title']; ?></h1> </div>
+            <div class="row">
+                <div class="col-sm-6">     
+                    <h5>รายละเอียด: <?php echo $quiz['quiz_description']; ?></h5>
+                    <h5>เวลาทำแบบทดสอบ: <?php echo $quiz['time_limit']; ?> น.</h5>
+                    <h5>จำนวนข้อสอบ : <?php echo $quiz['question_limit']; ?> ข้อ</h5>
+                </div> 
+                <div class="col-sm-6 py-5">
+                    <!-- เพิ่มลิงก์ที่นำไปยังหน้าทำแบบทดสอบ หรือ หน้าผลการสอบ ตามเงื่อนไข -->
+                    <?php if ($quizTaken): ?>
+                        <a class="btn btn-outline-primary" style="float: center;" href="quiz_results.php?quiz_id=<?php echo $quiz_id; ?>">ผลการสอบ</a>
+                    <?php else: ?>
+                        <a class="btn btn-outline-primary" style="float: center;" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบ</a>
+                    <?php endif; ?>
+                </div>           
+             </div>  
+        </div>
+    </div>
+  </main>
+<!-- ======= Footer ======= -->
+<?php include('footer.php');?>
+<!-- ======= scripts ======= -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<?php include('scripts.php');?>
+<script>
+    function confirmStartQuiz() {
+        if (confirm("คุณต้องการเริ่มทำแบบทดสอบหรือไม่?")) {
+            window.location.href = "take_quiz.php?quiz_id=<?php echo $quiz_id; ?>";
+        }
+    }
+</script>
+
 </body>
 </html>
+

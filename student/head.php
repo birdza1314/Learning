@@ -311,7 +311,46 @@
         width: 250px;
     }
 }
+/* Card */
+/* Card */
+.card {
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(1, 41, 112, 0.1); /* เพิ่มเงาให้กับการ์ด */
+  background-color: #fff; /* เพิ่มสีพื้นหลังของการ์ด */
+}
 
+.card-header,
+.card-footer {
+  border-color: #ebeef4;
+  background-color: #fff;
+  color: #798eb3;
+  padding: 15px;
+}
+
+.card-title {
+  padding: 20px 0 15px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #012970;
+  font-family: "Poppins", sans-serif;
+}
+
+.card-title span {
+  color: #899bbd;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card-body {
+  padding: 0 20px 20px 20px;
+  
+}
+
+.card-img-overlay {
+  background-color: rgba(255, 255, 255, 0.6);
+}
 
 </style>
 <style>

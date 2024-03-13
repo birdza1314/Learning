@@ -34,7 +34,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <main id="main" class="main">
     
-        <div class="card overflow-auto">
+        <div class="card ">
             <div class="card-body">
                 <div class="container mt-5">
                     <h2>My Courses</h2>

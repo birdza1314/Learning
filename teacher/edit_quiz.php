@@ -60,16 +60,10 @@
                             <textarea name="QuizDesc" class="form-control" rows="4"><?php echo $quiz['quiz_description']; ?></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Quiz Time Limit</label>
-                            <select class="form-control" name="timeLimit" required>
-                                <option value="10" <?php if($quiz['time_limit'] == 10) echo "selected"; ?>>10 Minutes</option>
-                                <option value="20" <?php if($quiz['time_limit'] == 20) echo "selected"; ?>>20 Minutes</option>
-                                <option value="30" <?php if($quiz['time_limit'] == 30) echo "selected"; ?>>30 Minutes</option>
-                                <option value="40" <?php if($quiz['time_limit'] == 40) echo "selected"; ?>>40 Minutes</option>
-                                <option value="50" <?php if($quiz['time_limit'] == 50) echo "selected"; ?>>50 Minutes</option>
-                                <option value="60" <?php if($quiz['time_limit'] == 60) echo "selected"; ?>>60 Minutes</option>
-                            </select>
+                            <label for="timeLimit">Quiz Time Limit (Minutes)</label>
+                            <input type="number" class="form-control" id="timeLimit" name="timeLimit" min="1" max="120" value="<?php echo $quiz['time_limit']; ?>" required>
                         </div>
+
                         <div class="form-group">
                             <label>Question Limit to Display</label>
                             <input type="number" name="QuestDipLimit" class="form-control" value="<?php echo $quiz['question_limit']; ?>" required>
