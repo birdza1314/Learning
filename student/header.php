@@ -93,7 +93,7 @@
                   <?php if (!empty($student['image_id'])): ?>
                       <?php
                       // ดึง URL ของรูปภาพจากตาราง students_images
-                      $imageQuery = "SELECT filename FROM students_images WHERE image_id = :image_id";
+                      $imageQuery = "SELECT filename FROM student_images WHERE image_id = :image_id";
                       $imageStmt = $db->prepare($imageQuery);
                       $imageStmt->bindParam(':image_id', $student['image_id']);
                       $imageStmt->execute();
@@ -128,37 +128,16 @@
         <li>
           <a class="dropdown-item d-flex align-items-center" href="profile.php">
             <i class="bi bi-person"></i>
-            <span>My Profile</span>
+            <span>โปรไฟล์</span>
           </a>
         </li>
         <li>
           <hr class="dropdown-divider">
         </li>
-
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-            <i class="bi bi-gear"></i>
-            <span>Account Settings</span>
-          </a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-            <i class="bi bi-question-circle"></i>
-            <span>Need Help?</span>
-          </a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-
         <li>
           <a class="dropdown-item d-flex align-items-center" href="../logout.php">
             <i class="bi bi-box-arrow-right"></i>
-            <span>Sign Out</span>
+            <span>ออกจากระบบ</span>
           </a>
         </li>
 

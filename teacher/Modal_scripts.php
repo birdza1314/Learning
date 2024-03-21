@@ -110,66 +110,40 @@ $(document).on('click', '.open-URL-modal', function() {
      // Show the modal
      $('#urlModal').modal('show'); 
 });
+$(document).ready(function(){
+    $(".open-Lesson-modal").click(function(){
+        $("#addLessonModal").modal("show");
+    });
+});
 
     
 </script>
   <script>
-        $(document).ready(function(){
-            // Initialize lessonCount
-            var lessonCount = <?= count($lessons) ?>;
-
-            // Handle form submission
-            $("#saveLessonBtn").click(function(){
-                var courseId = $("#courseId").val(); // Get the course ID from the hidden field
-                var lessonName = $("#lessonName").val(); // Get the lesson name from the input field
-
-                // Generate HTML for new accordion section with the lesson name
-                var accordionSection = `
-                    <section class="section">
-                        <h5 class="card-title">${lessonName}</h5>
-                        <div class="accordion" id="accordion${lessonCount}">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="heading${lessonCount}">
-                                    <button class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse${lessonCount}" aria-expanded="true" aria-controls="collapse${lessonCount}">
-                                        ${lessonName}
-                                    </button>
-                                </h2>
-                                <div id="collapse${lessonCount}" class="accordion-collapse collapse show" aria-labelledby="heading${lessonCount}" data-parent="#accordion${lessonCount}">
-                                    <div class="accordion-body">
-                                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#addLessonModal">Add Topic</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                `;
-
-                // Append the new accordion section to the accordion container
-                $("#accordionContainer").append(accordionSection);
-
-                // Increment the lesson count for unique IDs
-                lessonCount++;
-
-                // Reset the form and hide the modal
+$(document).ready(function(){
+    $("#saveLessonBtn").click(function(){
+        var courseId = $("#courseId").val();
+        var lessonName = $("#lessonName").val();
+        // ส่งข้อมูลไปยังเซิร์ฟเวอร์เพื่อบันทึกลงในฐานข้อมูล
+        $.ajax({
+            type: "POST",
+            url: "insert_lesson.php",
+            data: { course_id: courseId, lesson_name: lessonName },
+            success: function(data) {
+                // ดำเนินการหลังจากบันทึกข้อมูลสำเร็จ
+                // เมื่อบันทึกข้อมูลสำเร็จ ปิด Modal
                 $("#addLessonModal").modal("hide");
-                $("#addLessonForm").trigger("reset");
 
-                // Insert data into the database
-                $.ajax({
-                    type: "POST",
-                    url: "insert_lesson.php",
-                    data: { course_id: courseId, lesson_name: lessonName },
-                    success: function(data) {
-                        // Reload the lessons section to display the newly added lesson
-                        $("#accordionContainer").load(location.href + " #accordionContainer>*", "");
-                    },
-                    error: function(err) {
-                        // Log error message to the console
-                        console.error("Error inserting lesson", err);
-                    }
-                });
-            });
+            // รีเฟรชหน้าเพื่อแสดงข้อมูลใหม่
+            location.reload();
+            },
+            error: function(err) {
+                console.error("Error inserting lesson", err);
+            }
         });
+    });
+});
+
+
         $(document).ready(function(){
             // Handle click event for Delete Lesson button
             $(".delete-lesson-btn").click(function(){

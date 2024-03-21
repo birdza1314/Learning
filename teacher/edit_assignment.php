@@ -49,24 +49,24 @@ if(isset($_GET['assignment_id'])) {
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2 class="fw-bold mb-0">Edit Assignment</h2>
+                <h2 class="fw-bold mb-0">แก้ไข งานที่มอบหมาย</h2>
             </div>
             <div class="card-body">
                 <form action="update_assignment.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="assignment_id" value="<?php echo $assignment_id; ?>">
                     
                     <div class="mb-3">
-                        <label for="title" class="form-label">Assignment Title: <span class="text-danger">*</label>
+                        <label for="title" class="form-label">ชื่องาน: <span class="text-danger">*</label>
                         <input type="text" class="form-control" name="title" id="title" value="<?php echo $assignment['title']; ?>" required>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="description" class="form-label">Assignment Description:</label>
+                        <label for="description" class="form-label">รายละเอียดงาน:</label>
                         <textarea class="form-control" name="description" id="description" rows="3" required><?php echo $assignment['description']; ?></textarea>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="file_path" class="form-label">Assignment File:</label>
+                        <label for="file_path" class="form-label">ไฟล์:</label>
                         <input type="file" class="form-control" name="file_path" id="file_path">
                     </div>
                     <div class="card">
@@ -76,15 +76,15 @@ if(isset($_GET['assignment_id'])) {
                         <div class="card-body">
                             <div class="row">
                                 <div class="mb-3 col-lg-4 col-md-6">
-                                    <label for="open_time" class="form-label">Open Assignment At:</label>
+                                    <label for="open_time" class="form-label">เปิด งานเวลา:</label>
                                     <input type="datetime-local" class="form-control" name="open_time" id="open_time" value="<?php echo date('Y-m-d\TH:i', strtotime($assignment['open_time'])); ?>" required>
                                 </div>
                                 <div class="mb-3 col-lg-4 col-md-6">
-                                    <label for="deadline" class="form-label">Due date:</label>
+                                    <label for="deadline" class="form-label">วันครบกำหนด:</label>
                                     <input type="datetime-local" class="form-control" name="deadline" id="deadline" value="<?php echo isset($assignment['deadline']) ? date('Y-m-d\TH:i', strtotime($assignment['deadline'])) : ''; ?>" required>
                                 </div>
                                 <div class="mb-3 col-lg-4 col-md-6">
-                                    <label for="close_time" class="form-label">Close Assignment At:</label>
+                                    <label for="close_time" class="form-label">ปิดงานที่มอบหมาย ณ วันที่-เวลา :</label>
                                     <input type="datetime-local" class="form-control" name="close_time" id="close_time" value="<?php echo isset($assignment['close_time']) ? date('Y-m-d\TH:i', strtotime($assignment['close_time'])) : ''; ?>" required>
                                 </div>
                             </div>
@@ -93,14 +93,14 @@ if(isset($_GET['assignment_id'])) {
 
 
                     <div class="mb-3">
-                        <label for="status" class="form-label">Status:</label>
+                        <label for="status" class="form-label">สถานะ:</label>
                         <select class="form-select" name="status" id="status" required>
-                            <option value="open" <?php if ($assignment['status'] == 'open') echo 'selected'; ?>>Open</option>
-                            <option value="closed" <?php if ($assignment['status'] == 'closed') echo 'selected'; ?>>Closed</option>
+                            <option value="open" <?php if ($assignment['status'] == 'open') echo 'selected'; ?>>เปิด</option>
+                            <option value="closed" <?php if ($assignment['status'] == 'closed') echo 'selected'; ?>>ปิด</option>
                         </select>
                     </div>
                     <div class="text-center">
-                    <button type="submit" name="submit" class="btn btn-outline-primary">Update Assignment</button>
+                    <button type="submit" name="submit" class="btn btn-outline-primary">อัพเดทงานที่มอบหมาย</button>
                     </div>
                 </form>
             </div>

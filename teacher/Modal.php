@@ -94,31 +94,31 @@
         </div>
     </div>
  
-    <!-- Modal Add Lessons -->
-    <div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addLessonModalLabel">เพิ่มบทเรียน</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addLessonForm">
-                        <div class="form-group">
-                            <label for="lessonName">ชื่อบทเรียน:</label>
-                            <input type="text" class="form-control" id="lessonName" name="lesson_name" placeholder="กรุณาใส่ชื่อบทเรียน">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                    <button type="button" class="btn btn-primary" id="saveLessonBtn">บันทึก</button>
-                </div>
+  <!-- Modal Add Lessons -->
+<div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLessonModalLabel">เพิ่มบทเรียน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addLessonForm">
+                    <div class="form-group">
+                        <label for="lessonName">ชื่อบทเรียน:</label>
+                        <input type="text" class="form-control" id="lessonName" name="lesson_name" placeholder="กรุณาใส่ชื่อบทเรียน">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-primary" id="saveLessonBtn">บันทึก</button>
             </div>
         </div>
     </div>
+</div>
 
  <!-- Modal Add Question -->
 <div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">

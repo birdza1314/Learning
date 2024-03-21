@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         
         // ส่งผลการสอบไปยังหน้าที่แสดงผลการสอบ
-        echo "<script>window.history.go(-2);</script>";
+        echo "<script>window.history.go(-3);</script>";
         exit();
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

@@ -55,27 +55,28 @@ try {
             <div class="card-title">
                 <h1><?php echo htmlspecialchars($quiz['quiz_title']); ?></h1>
             </div>
-            <p><strong>Description:</strong> <?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
-            <p><strong>Time Limit:</strong> <?php echo htmlspecialchars($quiz['time_limit']); ?></p>
-            <p><strong>Question Limit:</strong> <?php echo htmlspecialchars($quiz['question_limit']); ?></p>
-            <p><strong>Time Remaining:</strong> <span id="timeRemaining"></span></p>
+            <p><strong>รายละเอียด :</strong> <?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
+            <p><strong>จํากัดเวลา :</strong> <?php echo htmlspecialchars($quiz['time_limit']); ?></p>
+            <p><strong>แบบทดสอบทั้งหมด :</strong> <?php echo htmlspecialchars($quiz['question_limit']); ?></p>
+            <p><strong>เวลาคงเหลือ :</strong> <span id="timeRemaining"></span></p>
 
             <form id="quizForm" action="submit_quiz.php" method="POST">
-                <input type="hidden" name="quiz_id" value="<?php echo htmlspecialchars($quiz_id); ?>">
-                <?php foreach ($questions as $question): ?>
-                    <div class="question">
-                        <h3><?php echo htmlspecialchars($question['question_text']); ?></h3>
-                        <ul class="choices">
-                            <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch1']); ?>"> A. <?php echo htmlspecialchars($question['choice_ch1']); ?></li>
-                            <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch2']); ?>"> B. <?php echo htmlspecialchars($question['choice_ch2']); ?></li>
-                            <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch3']); ?>"> C. <?php echo htmlspecialchars($question['choice_ch3']); ?></li>
-                            <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch4']); ?>"> D. <?php echo htmlspecialchars($question['choice_ch4']); ?></li>
-                        </ul>
-                    </div>
-                <?php endforeach; ?>
+            <input type="hidden" name="quiz_id" value="<?php echo htmlspecialchars($quiz_id); ?>">
+            <?php $i = 1; foreach ($questions as $question): ?>
+                <div class="question">
+                    <h4><?php echo $i++; ?>.) <?php echo htmlspecialchars($question['question_text']); ?></h4>
+                    <ul class="choices">
+                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch1']); ?>"> A. <?php echo htmlspecialchars($question['choice_ch1']); ?></li>
+                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch2']); ?>"> B. <?php echo htmlspecialchars($question['choice_ch2']); ?></li>
+                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch3']); ?>"> C. <?php echo htmlspecialchars($question['choice_ch3']); ?></li>
+                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch4']); ?>"> D. <?php echo htmlspecialchars($question['choice_ch4']); ?></li>
+                    </ul>
+                </div>
+            <?php endforeach; ?>
 
-                <button type="submit" class="btn btn-primary">Submit Quiz</button>
-            </form>
+            <button type="submit" class="btn btn-primary">สงแบบทดสอบ</button>
+        </form>
+
         </div>
     </div>
 </main>

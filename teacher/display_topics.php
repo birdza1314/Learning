@@ -101,12 +101,16 @@
                                                         </div>
                                                         <div class="col-md-4 ">
                                                         <div class="d-flex justify-content-end mt-3 ">
+                                                            <button type="button" class="btn btn-outline-info me-2 " onclick="viewQuizResults(<?= $quiz['quiz_id']; ?>)">
+                                                                ผลการสอบ
+                                                            </button>
                                                             <button type="button" class="btn btn-outline-primary me-2 " onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">
                                                             <i class="bi bi-pencil-square"></i>
                                                             </button>
                                                             <button type="button" class="btn btn-outline-danger" onclick="deleteQuiz(<?= $quiz['quiz_id']; ?>)">
                                                             <i class="bi bi-trash3"></i>
                                                             </button>
+                                                           
                                                         </div>
                                                         </div>
                                                     </div>
@@ -164,42 +168,53 @@
                                             <?php 
                                             }
                                             elseif ($topic['url_id'] != null) {
-                                                $stmt_url = $db->prepare("SELECT * FROM urls WHERE url_id = :url_id");
-                                                $stmt_url->bindParam(':url_id', $topic['url_id']);
-                                                $stmt_url->execute();
-                                                $url = $stmt_url->fetch(PDO::FETCH_ASSOC);
-                                            ?>
-                                                <div class="col-lg-12">
-                                                    <div class="card border rounded-3 shadow-sm ">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <div class="d-flex mt-4">
-                                                                        <i class="bi bi-link-45deg text-primary me-2"></i>
-                                                                        <h5><?= $url['description']; ?></h5>
+                                                    $stmt_url = $db->prepare("SELECT * FROM urls WHERE url_id = :url_id");
+                                                    $stmt_url->bindParam(':url_id', $topic['url_id']);
+                                                    $stmt_url->execute();
+                                                    $url = $stmt_url->fetch(PDO::FETCH_ASSOC);
+                                                    
+                                                    if ($url && isset($url['url'])) {
+                                                        ?>
+                                                        <div class="col-lg-12">
+                                                            <div class="card border rounded-3 shadow-sm">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-8">
+                                                                            <div class="d-flex mt-4">
+                                                                                <i class="bi bi-link-45deg text-primary me-2"></i>
+                                                                                <h5><?= $url['description']; ?></h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <div class="videos">
+                                                                            <a href="<?= $url['url']; ?>" target="_blank">ดูวิดีโอบน YouTube</a>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                
                                                             </div>
-                                                            <div class="col-md-12">
-                                                                    <div class="videos">
-                                                                        <iframe width="320" height="240" src="<?= $url['url']; ?>" frameborder="0" allowfullscreen></iframe>
-                                                                    </div>
-                                                                </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            <?php 
-                                            } 
-                                                             
+                                                        <?php
+                                                    } else {
+                                                        // แสดงข้อความแจ้งเตือนว่า URL ไม่ถูกต้อง
+                                                        ?>
+                                                        <div class="col-lg-12">
+                                                            <div class="alert alert-danger" role="alert">
+                                                                URL วิดีโอนี้ไม่ถูกต้อง กรุณาตรวจสอบ URL และลองอีกครั้ง
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                } 
+                                                                                                                                                                                                   
+                                            }
+                                        } else {
+                                            echo "";
                                         }
-                                    } else {
-                                        echo "";
-                                    }
-                                    ?>
+                                        ?>
                                         <div class="dropdown dropdown-mega mt-5 position-static dropdown-center" >
                                             <button  class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                เพิ่มหัวข้อ
+                                                เพิ่มกิจกรรม
                                             </button>
                                             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
                                                 <li class="mega-content px-4">
@@ -220,29 +235,23 @@
                                                             <button type="button" class="btn btn-outline-info btn-block mx-2 open-file-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo isset($_POST['course_id']) ? $_POST['course_id'] : ''; ?>">
                                                                 <i class="bi bi-journal-arrow-up text-info"></i><br>File
                                                             </button>
-
                                                         </div>
                                                     </div>
                                                     <div class="row mt-3">
-                                                         <div class="card border rounded-3 shadow-sm ">
-                                                            <div class="card-body">
-                                                                <h4 class="card-title">Video</h4>
-                                                                <div class="col-12 d-flex justify-content-center">
-                                                                    <button type="button" class="btn btn-outline-info btn-block mx-2 open-Embed-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>" >
-                                                                        <i class="bi bi-journal-arrow-up text-info"></i><br>Video Embed
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-outline-info btn-block mx-2 open-File-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-                                                                        <i class="bi bi-journal-arrow-up text-info"></i><br>Video File
-                                                                    </button>
-                                                                  
-                                                                    <button type="button" class="btn btn-outline-info btn-block mx-2 open-URL-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-                                                                        <i class="bi bi-journal-arrow-up text-info"></i><br>URL
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <h4 class="card-title">Video</h4>
+                                                        <div class="col-12 d-flex justify-content-center">
+                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-Embed-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>" >
+                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>Video Embed
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-File-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>Video File
+                                                            </button>
+                                                            
+                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-URL-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>URL
+                                                            </button>
+                                                        </div>           
                                                     </div>
-                                                    
                                                 </div>
                                                 </li>
                                             </ul>

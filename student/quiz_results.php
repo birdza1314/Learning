@@ -23,26 +23,25 @@ try {
     echo "เกิดข้อผิดพลาด: " . $e->getMessage();
 }
 
-try {
-    // กำหนดค่า student_id
-    $student_id = $_SESSION['user_id'];
+// ตรวจสอบว่ามีค่าของ Quiz_id ที่ส่งมาหรือไม่
+if (!isset($_GET['quiz_id'])) {
+    header('Location: index.php');
+    exit();
+}
 
-    // ทำคำสั่ง SQL เพื่อดึงข้อมูลผลการสอบทั้งหมดของนักเรียน
-    $stmt = $db->prepare("SELECT qr.quiz_id, qr.score, qr.timestamp, q.quiz_title 
+$quiz_id = $_GET['quiz_id'];
+
+try {
+    $stmt = $db->prepare("SELECT qr.score, qr.timestamp, q.question_limit, q.quiz_title 
                           FROM quiz_results qr 
                           JOIN quizzes q ON qr.quiz_id = q.quiz_id 
-                          WHERE qr.user_id = :student_id");
-    $stmt->bindParam(':student_id', $student_id);
+                          WHERE qr.user_id = :user_id AND qr.quiz_id = :quiz_id");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':quiz_id', $quiz_id);
     $stmt->execute();
-
-    // ดึงข้อมูลผลการสอบจากผลลัพธ์ของคำสั่ง SQL
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // ทำสิ่งที่ต้องการกับ $results ต่อไป เช่น แสดงผลหรือประมวลผลเพิ่มเติม
-    // ...
-
 } catch (PDOException $e) {
-    // แสดงข้อผิดพลาดหากเกิดข้อผิดพลาดในการดึงข้อมูล
     echo "เกิดข้อผิดพลาด: " . $e->getMessage();
 }
 ?>
@@ -53,41 +52,31 @@ try {
     <?php include('sidebar.php'); ?>
     
     <main id="main" class="main">
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <h1>Quiz Results</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h1>ผลการสอบ</h1>
+                </div>
+                <?php if(!empty($results)): ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <?php foreach ($results as $result): ?>
+                                <p><strong>หัวข้อ:</strong> <?php echo $result['quiz_title']; ?></p>
+                                <p><strong>คะแนน:</strong> <span style="<?php echo ($result['score'] < $result['question_limit'] / 2) ? 'color:red;' : 'color:green;'; ?>"><?php echo $result['score']; ?></span></p>
+                                <p><strong>คะแนนเต็ม:</strong> <?php echo $result['question_limit']; ?></p>
+                                <p><strong>ส่งเมื่อ:</strong> <?php echo $result['timestamp']; ?></p>
+                                <hr>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <p>ไม่พบผลการสอบ</p>
+                <?php endif; ?>
             </div>
-            <?php if(!empty($results)): ?>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Quiz Title</th>
-                            <th>Score</th>
-                            <th>Submitted At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><?php echo $results[0]['quiz_title']; ?></td>
-                            <td <?php echo (isset($results[0]['total_questions']) && $results[0]['score'] < $results[0]['total_questions'] / 2) ? 'style="color:red;"' : 'style="color:green;"'; ?>>
-                                <?php echo $results[0]['score']; ?>
-                            </td>
-                            <td><?php echo $results[0]['timestamp']; ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <p>ไม่พบผลการสอบ</p>
-            <?php endif; ?>
         </div>
-    </div>
-</main>
+    </main>
 
-
-    <!-- ======= Footer ======= -->
     <?php include('footer.php');?>
-    <!-- ======= scripts ======= -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <?php include('scripts.php');?>
 </body>

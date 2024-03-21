@@ -38,21 +38,9 @@
         <li class="nav-item ">
             <a class="nav-link collapsed " href="profile.php">
                 <i class="bi bi-person"></i>
-                <span>Profile</span>
+                <span>โปรไฟล์</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="../logout.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>sign out</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
         <!-- ปฏิทิน -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="calendar_event.php">
@@ -60,5 +48,10 @@
                 <span>ปฏิทิน</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="../logout.php">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>ออกจากระะบบ</span>
+            </a>
     </ul>
 </aside>

@@ -37,18 +37,20 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
     $file_path = ""; // กำหนดให้เป็นค่าว่างหากไม่มีไฟล์ถูกอัปโหลด
 }
 
-    // เพิ่ม Assignment ใหม่
-    $sql = "INSERT INTO assignments (lesson_id, title, description, deadline, file_path,file_name, open_time, close_time, status) VALUES (:lesson_id, :title, :description, :deadline, :file_path, :file_name, :open_time, :close_time, :status)";
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':lesson_id', $lesson_id);
-    $stmt->bindParam(':title', $title);
-    $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':deadline', $deadline);
-    $stmt->bindParam(':file_path', $file_path);
-    $stmt->bindParam(':file_name', $file_name);
-    $stmt->bindParam(':open_time', $open_time);
-    $stmt->bindParam(':close_time', $close_time);
-    $stmt->bindParam(':status', $status);
+// เพิ่ม Assignment ใหม่
+$sql = "INSERT INTO assignments (lesson_id, course_id, title, description, deadline, file_path, file_name, open_time, close_time, status) VALUES (:lesson_id, :course_id, :title, :description, :deadline, :file_path, :file_name, :open_time, :close_time, :status)";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':lesson_id', $lesson_id);
+$stmt->bindParam(':course_id', $course_id); // เพิ่มบรรทัดนี้เพื่อรับค่า course_id จาก URL
+$stmt->bindParam(':title', $title);
+$stmt->bindParam(':description', $description);
+$stmt->bindParam(':deadline', $deadline);
+$stmt->bindParam(':file_path', $file_path);
+$stmt->bindParam(':file_name', $file_name);
+$stmt->bindParam(':open_time', $open_time);
+$stmt->bindParam(':close_time', $close_time);
+$stmt->bindParam(':status', $status);
+
 
     if ($stmt->execute()) {
         $assignment_id = $db->lastInsertId(); // รับค่า ID ของ Assignment ที่เพิ่มล่าสุด

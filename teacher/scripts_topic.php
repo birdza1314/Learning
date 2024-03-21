@@ -6,6 +6,12 @@ function editQuiz(quizId) {
 }
 </script>
 <script>
+    function viewQuizResults(quizId) {
+        window.location.href = "view_quiz_results.php?quiz_id=" + quizId;
+    }
+</script>
+
+<script>
     // ฟังก์ชั่นสำหรับการลบ file
     function deleteQuiz(quizId) {
         // ใช้ SweetAlert เพื่อแสดงการยืนยันก่อนลบ

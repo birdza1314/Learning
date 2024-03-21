@@ -141,7 +141,7 @@ if (isset($_GET['course_id'])) {
         </div>
 
             <div class="row">
-                    <button type="button"  class="btn btn-outline-primary btn-block mt-3" data-toggle="modal" data-target="#addLessonModal">เพิ่มบทเรียน</button>
+                    <button type="button"  class="btn btn-outline-primary btn-block mt-3 open-Lesson-modal">เพิ่มบทเรียน</button>
             </div>
             <!-- เพิ่ม Element input hidden สำหรับ courseId -->
             <input type="hidden" id="courseId" value="<?= $course_id ?>">

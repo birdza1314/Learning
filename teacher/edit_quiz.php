@@ -46,21 +46,21 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Quiz Information</h2>
+                    <h2 class="card-title">ข้อมูลแบบทดสอบ</h2>
                 </div>
                 <div class="card-body">
                     <form action="update_quiz.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="quiz_id" value="<?php echo $quiz['quiz_id']; ?>">
                         <div class="form-group">
-                            <label>Quiz Title</label>
+                            <label>ชื่อเรื่อง</label>
                             <input type="text" name="Quiz_Title" class="form-control" value="<?php echo $quiz['quiz_title']; ?>" required>
                         </div>
                         <div class="form-group">
-                            <label>Quiz Description</label>
+                            <label>คำอธิบายแบบทดสอบ</label>
                             <textarea name="QuizDesc" class="form-control" rows="4"><?php echo $quiz['quiz_description']; ?></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="timeLimit">Quiz Time Limit (Minutes)</label>
+                            <label for="timeLimit">กำหนดเวลาทำแบบทดสอบ (นาที)</label>
                             <input type="number" class="form-control" id="timeLimit" name="timeLimit" min="1" max="120" value="<?php echo $quiz['time_limit']; ?>" required>
                         </div>
 
@@ -68,7 +68,7 @@
                             <label>Question Limit to Display</label>
                             <input type="number" name="QuestDipLimit" class="form-control" value="<?php echo $quiz['question_limit']; ?>" required>
                         </div>
-                        <button type="submit" style="float: right;" class="btn btn-outline-primary">Update Quiz</button>
+                        <button type="submit" style="float: right;" class="btn btn-outline-primary">อัพเดทแบบทดสอบ</button>
                     </form>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             ?>
             <div class="main-card mb-3 card">
                 <div class="card-header">
-                    <i class="header-icon lnr-license icon-gradient bg-plum-plate"> </i>Quiz Question's 
+                    <i class="header-icon lnr-license icon-gradient bg-plum-plate"> </i>คำถาม
                     <span class="badge badge-pill badge-primary ml-2">
                         <?php echo ($selQuest ? $selQuest->rowCount() : 0); ?>
                     </span>
@@ -97,8 +97,8 @@
                                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
                                         <thead>
                                             <tr>
-                                                <th class="text-left pl-1">Course Name</th>
-                                                <th class="text-center" width="20%">Action</th>
+                                                <th class="text-left pl-1">ชื่อวิชา</th>
+                                                <th class="text-center" width="20%">การกระทำ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
