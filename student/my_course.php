@@ -30,41 +30,59 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php
      include('header.php');
      include('sidebar.php');
-     
 ?>
-<main id="main" class="main">
-    
-        <div class="card ">
-            <div class="card-body">
-                <div class="container mt-5">
-                    <h2>My Courses</h2>
-                    <div class="row mt-3">
-                        <?php if ($courses): ?>
-                            <?php foreach ($courses as $course): ?>
-                                <div class="col-md-4 mb-4">
-                                    <div class="card">
-                                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
-                                            <p class="card-text">Course ID: <?php echo $course['course_code']; ?></p>
-                                            <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-primary">View Details</a>
-                                        </div>
+    <main id="main" class="main">
+        <div class="container mt-5">
+            <h2>วิชาเรียนของฉัน</h2>
+            <div class="row mt-3">
+                <?php if ($courses): ?>
+                    <?php foreach ($courses as $course): ?>
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                                    <p class="card-text">Course ID: <?php echo $course['course_code']; ?></p>
+                                    <?php 
+                                        // ดึงบทเรียนทั้งหมดในรายวิชานี้
+                                        $stmt = $db->prepare("SELECT COUNT(*) as total_lessons FROM lessons WHERE course_id = :course_id");
+                                        $stmt->bindParam(':course_id', $course['c_id']);
+                                        $stmt->execute();
+                                        $total_lessons = $stmt->fetch(PDO::FETCH_ASSOC)['total_lessons'];
+
+                                        // ดึงบทเรียนที่เสร็จสิ้นแล้วในรายวิชานี้
+                                        $stmt = $db->prepare("SELECT COUNT(*) as completed_lessons FROM marks_as_done WHERE course_id = :course_id AND student_id = :student_id");
+                                        $stmt->bindParam(':course_id', $course['c_id']);
+                                        $stmt->bindParam(':student_id', $user_id);
+                                        $stmt->execute();
+                                        $completed_lessons = $stmt->fetch(PDO::FETCH_ASSOC)['completed_lessons'];
+
+                                        // คำนวณเปอร์เซ็นต์ของบทเรียนที่เสร็จสิ้น
+                                        if ($total_lessons > 0) {
+                                            $completion_percentage = ($completed_lessons / $total_lessons) * 100;
+                                            // ตัดทศนิยมออกถ้ามีเศษ
+                                            $completion_percentage = round($completion_percentage);
+                                        } else {
+                                            $completion_percentage = 0;
+                                        }
+                                    ?>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: <?php echo $completion_percentage; ?>%" aria-valuenow="<?php echo $completion_percentage; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $completion_percentage; ?>% complete</div>
                                     </div>
+                                    <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-primary mt-1">View Details</a>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <div class="col">
-                                <p>No courses found.</p>
                             </div>
-                        <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col">
+                        <p>No courses found.</p>
                     </div>
-                </div>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-</main>
-  <!-- ======= Footer ======= -->
-  <?php include('footer.php');?>
- <!-- ======= scripts ======= -->
+    </main>
+<?php include('footer.php');?>
  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <?php include('scripts.php');?>
 <script>

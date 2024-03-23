@@ -64,7 +64,6 @@ try {
     </ul>
   </div>
 </div>
-
           <hr color="blue" size="2" width="100%">
           <div class="row mt-5">
           <?php foreach ($courses as $course): ?>
@@ -151,14 +150,23 @@ document.addEventListener("DOMContentLoaded", function() {
         var card = document.createElement('div');
         card.classList.add('col-md-4', 'mb-4');
         card.innerHTML = `
-          <div class="card">
-            <img src="${course.c_img}" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title">${course.course_name}</h5>
-              <p class="card-text">Course ID: ${course.course_code}</p>
-              <a href="course_details.php?course_id=${course.c_id}" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
+        <div class="card" style="width: 18rem;">
+                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
+                    <div class="card-body">
+                    <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                    <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
+                    <?php
+                    // เรียกข้อมูลผู้สอนจากตาราง teachers โดยใช้ teacher_id จากตาราง courses เป็นเงื่อนไข
+                    $teacher_id = $course['teacher_id'];
+                    $teacher_stmt = $db->prepare("SELECT * FROM teachers WHERE t_id = :teacher_id");
+                    $teacher_stmt->bindParam(':teacher_id', $teacher_id);
+                    $teacher_stmt->execute();
+                    $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
+                    ?>
+                    <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
+                    <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+                    </div>
+                </div>
         `;
         courseContainer.appendChild(card);
       });

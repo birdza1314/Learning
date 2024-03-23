@@ -60,10 +60,16 @@ try {
                   <div class="card-header d-flex">
                   <h4 class="mt-2">My Course</h4>
                   </div>    
-                  <a href="add_course.php"  class="btn btn-outline-primary mt-2" style=" float: right;">Add Course</a>
-                  <div class="mt-5">           
-                  <table class="table table-borderless datatable">
+                  <div class="form-group">
+                      <label for="display-format">Display Format:</label>
+                      <select class="form-control" id="display-format">
+                          <option value="table">Table</option>
+                          <option value="card">Card</option>
+                      </select>
                   </div>
+                  <a href="add_course.php"  class="btn btn-outline-primary mt-2 " style=" float: right;">Add Course</a>
+                  <div class="mt-6">           
+                  <table class="table table-borderless datatable table-format mt-5">
                     <thead>
                     <tr>
                         <th scope="col">รูป</th>
@@ -71,6 +77,7 @@ try {
                         <th scope="col">รหัสวิชา</th>
                         <th scope="col">รายละเอียด</th>
                         <th scope="col">รหัสลงทะเบียนเข้าเรียน</th>
+                        <th scope="col">สถานะ</th>
                         <th scope="col">ตัวเลือก</th>
                     </tr>
                     </thead>
@@ -116,32 +123,96 @@ try {
                                             </div>
                                         </div>
                                     </td>
-                                    <td align="center">
-                                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning btn-xs"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="Delete_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-danger btn-xs" onclick="return confirm('คุณต้องการลบคอร์สนี้ใช่หรือไม่?')"><i class="bi bi-trash-fill"></i></a>
+                                    <td>
+                                        <?php 
+                                            if ($row['is_open'] == 1) {
+                                                echo '<span style="color: green;">เปิด</span>';
+                                            } else {
+                                                echo '<span style="color: red;">ปิด</span>';
+                                            }
+                                        ?>
                                     </td>
-                                </tr>
-                        <?php
+                                    <td class="td-button" align="center">
+                                    <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning btn-xs me-2"><i class="bi bi-pencil-fill"></i></a>
+                                    <!-- เพิ่มฟอร์มสำหรับคัดลอกและบันทึก -->
+                                    <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
+                                        <input type="hidden" name="existing_course" value="<?= $row['c_id']; ?>">
+                                        <input type="hidden" name="new_course_name" value="Copy of <?= $row['course_name']; ?>">
+                                        <button type="submit" class="btn btn-outline-primary"><i class="bi bi-copy"></i></button>
+                                    </form>
+                                </td>
+
+                                <script>
+                                    function confirmCopy() {
+                                        return confirm("คุณแน่ใจหรือไม่ที่ต้องการคัดลอกและบันทึกเป็นคอร์สใหม่?");
+                                    }
+                                </script>
+
+                                    </tr>
+                              <?php
                             }
                         }
-                        ?>
-                    </tbody>
-                  </table>
+                                        ?>
+                </tbody>
+                </table>
+                <div class="card-columns card-format">
+    <?php
+        $i = 0;
+        foreach ($courses as $row) {
+            if ($i % 3 == 0) {
+                echo '<div class="row">';
+            }
+    ?>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="<?= $row['c_img']; ?>" class="card-img-top" alt="Course Image">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $row['course_name']; ?></h5>
+                        <p class="card-text"><?= $row['course_code']; ?></p>
+                        <p class="card-text description-card"><?= $row['description']; ?></p>
+                        <p style="color: <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>">
+                                    <?php echo ($row['is_open'] == 1) ? 'เปิด' : 'ปิด'; ?>
+                                </p>
 
+                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                    </div>
                 </div>
+            </div>
+    <?php
+            $i++;
+            if ($i % 3 == 0) {
+                echo '</div>';
+            }
+        }
+    ?>
+</div><!-- End card-format -->
 
-              </div>
-            </div><!-- My Course -->
-      </div>
-    </section>
 
-  </main><!-- End #main -->
+            </div>
 
+          </div>
+        </div><!-- My Course -->
+  </div>
+</section>
+</main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- ======= Footer ======= -->
 <?php include('footer.php');?>
  <!-- ======= scripts ======= -->
 <?php include('scripts.php');?>
-
-
+<script>
+  $(document).ready(function() {
+    $('#display-format').change(function() {
+      var format = $(this).val();
+      if (format === 'table') {
+        $('.card-format').hide();
+        $('.table-format').show();
+      } else if (format === 'card') {
+        $('.table-format').hide();
+        $('.card-format').show();
+      }
+    });
+  });
+</script>
 </body>
 </html>

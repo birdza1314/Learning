@@ -395,7 +395,10 @@
     color: red;
     cursor: pointer;
 }
-
+   /* เพิ่มความกว้างให้ progress bar กว้างขึ้น */
+   .progress {
+            height: 30px;
+        }
     </style>
     
 </head>

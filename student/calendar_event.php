@@ -104,130 +104,134 @@ function getCourseName($course_id) {
 ?>
 
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ปฎิทินพร้อมกิจกรรม</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-.calendar {
-    width: 100%;
-    max-width: 800px; /* เพิ่มความกว้างเพื่อให้ปฎิทินมีขนาดใหญ่ขึ้น */
-    margin: 0 auto;
-    border-collapse: collapse;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ปฏิทินกิจกรรม</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-.calendar th,
-.calendar td {
-    border: 1px solid #ddd;
-    padding: 12px; /* เพิ่ม Padding เพื่อให้ข้อความมีพื้นที่ค่อนข้างกว้าง */
-    text-align: center;
-}
+    .calendar {
+        max-width: 900px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
 
-.calendar th {
-    background-color: #f2f2f2;
-    font-weight: bold; /* เพิ่มหน้าตาตัวหนังสือเป็นตัวหนา */
-}
+    .calendar th,
+    .calendar td {
+      border: 1px solid #ddd;
+      padding: 15px;
+      text-align: center;
+    }
 
-.today {
-    background-color: #ffffcc;
-    font-weight: bold; /* เน้นวันที่ปัจจุบันด้วยการเป็นตัวหนา */
-}
+    .calendar th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
 
-.submitted,
-.not-submitted {
-    padding: 8px; /* ปรับขนาด Padding ให้เหมาะสม */
-    border-radius: 5px; /* เพิ่มขอบโค้งให้กับกล่องของกิจกรรม */
-    margin-bottom: 5px; /* เพิ่มระยะห่างระหว่างกิจกรรม */
-    display: inline-block; /* ให้กิจกรรมแสดงในแถวเดียวกัน */
-    width: 100%; /* ให้กิจกรรมครอบคลุมทั้งความกว้าง */
-}
+    .today {
+      background-color: #ffffcc;
+      font-weight: bold;
+    }
 
-.submitted {
-    background-color: #90EE90; /* เขียว */
-}
+    .submitted,
+    .not-submitted {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      width: 100%;
+    }
 
-.not-submitted {
-    background-color: #FFA07A; /* แดง */
-}
+    .submitted {
+      background-color: #90EE90; /* Green */
+    }
 
-a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: bold; /* เน้นลิงก์ด้วยการเป็นตัวหนา */
-}
+    .not-submitted {
+      background-color: #FFA07A; /* Red */
+    }
 
-    </style>
+    a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .activity-box {
+      font-size: 0.9rem;
+    }
+  </style>
+
 </head>
 <body>
-<div class="container">
-  <h1 style="text-align: center; " class="mt-5">ปฏิทินกิจกรรม</h1>
-</div>
-<?php
-// กำหนดวันที่ปัจจุบัน
-$today = date("Y-m-d");
+  <div class="container">
+    <h1 class="text-center mt-5">ปฏิทินกิจกรรม</h1>
+  </div>
 
-// สร้างปฎิทินขนาด 7x7
-echo "<table class='calendar'>";
-echo "<tr><th>อา.</th><th>จ.</th><th>อ.</th><th>พ.</th><th>พฤ.</th><th>ศ.</th><th>ส.</th></tr>";
+  <?php
+  // กำหนดวันที่ปัจจุบัน
+  $today = date("Y-m-d");
 
-// กำหนดวันแรกของเดือน
-$firstDayOfMonth = date('Y-m-01');
+  // สร้างปฏิทินขนาด 7x7
+  echo "<table class='calendar'>";
+  echo "<tr><th>อา.</th><th>จ.</th><th>อ.</th><th>พ.</th><th>พฤ.</th><th>ศ.</th><th>ส.</th></tr>";
 
-// หาวันของสัปดาห์ที่ 1
-$firstDayOfWeek = date('w', strtotime($firstDayOfMonth));
+  // กำหนดวันแรกของเดือน
+  $firstDayOfMonth = date('Y-m-01');
 
-// หาวันสุดท้ายของเดือน
-$lastDayOfMonth = date('Y-m-t', strtotime($firstDayOfMonth));
+  // หาวันของสัปดาห์ที่ 1
+  $firstDayOfWeek = date('w', strtotime($firstDayOfMonth));
 
-// กำหนดวันที่เริ่มต้นและสิ้นสุดของการวนลูป
-$start_date = date('Y-m-d', strtotime("-" . $firstDayOfWeek . " days", strtotime($firstDayOfMonth)));
-$end_date = date('Y-m-d', strtotime("+6 days", strtotime($lastDayOfMonth)));
+  // หาวันสุดท้ายของเดือน
+  $lastDayOfMonth = date('Y-m-t', strtotime($firstDayOfMonth));
 
-// วนลูปเพื่อสร้างช่วงวันที่
-$current_date = $start_date;
-while ($current_date <= $end_date) {
+  // กำหนดวันที่เริ่มต้นและสิ้นสุดของการวนลูป
+  $start_date = date('Y-m-d', strtotime("-" . $firstDayOfWeek . " days", strtotime($firstDayOfMonth)));
+  $end_date = date('Y-m-d', strtotime("+6 days", strtotime($lastDayOfMonth)));
+
+  // วนลูปเพื่อสร้างช่วงวันที่
+  $current_date = $start_date;
+  while ($current_date <= $end_date) {
     echo "<tr>";
     for ($i = 0; $i < 7; $i++) {
-        echo "<td";
-        if ($current_date == $today) {
-            echo " class='today'";
+      echo "<td";
+      if ($current_date == $today) {
+        echo " class='today'";
+      }
+      echo ">";
+      echo strftime("%e", strtotime($current_date)) . "<br>";
+
+      // เรียกดูกิจกรรมที่เกี่ยวข้องกับวันนี้จากฐานข้อมูล
+      $assignments = getAssignmentsByDate($current_date); // ฟังก์ชันเรียกข้อมูลจากฐานข้อมูล
+      if ($assignments) {
+        foreach ($assignments as $assignment) {
+          $status = getSubmissionStatus($assignment['assignment_id']); // ฟังก์ชันเรียกข้อมูลสถานะการส่งงาน
+          if ($status) {
+            $color_class = ($status == 'ตรวจแล้ว') ? 'submitted' : 'not-submitted';
+            $deadline = getAssignmentDeadline($assignment['assignment_id']); // เรียกดูเวลาส่งงาน
+            $course_id = isset($assignment['course_id']) ? $assignment['course_id'] : null; // รหัสวิชาที่เกี่ยวข้องกับงาน
+            $course_name = getCourseName($course_id); // เรียกดูชื่อวิชา
+            echo "<span class='$color_class'>- <a href='course_details.php?course_id=$course_id'>" . $assignment['title'] . "</a> (กำหนดส่งเวลา $deadline)</span><br>";
+          }
         }
-        echo ">" . strftime("%e", strtotime($current_date))
-        . "<br>";
+      } else {
+        // กรณีไม่มีกิจกรรมในวันที่นั้น
+      }
 
-        // เรียกดูกิจกรรมที่เกี่ยวข้องกับวันนี้จากฐานข้อมูล
-        $assignments = getAssignmentsByDate($current_date); // ฟังก์ชันเรียกข้อมูลจากฐานข้อมูล
-        if ($assignments) {
-            foreach ($assignments as $assignment) {
-                $status = getSubmissionStatus($assignment['assignment_id']); // ฟังก์ชันเรียกข้อมูลสถานะการส่งงาน
-                if ($status) {
-                    $color_class = ($status == 'submitted') ? 'submitted' : 'not-submitted';
-                    $deadline = getAssignmentDeadline($assignment['assignment_id']); // เรียกดูเวลาส่งงาน
-                    $course_id = isset($assignment['course_id']) ? $assignment['course_id'] : null; // รหัสวิชาที่เกี่ยวข้องกับงาน
-                    $course_name = getCourseName($course_id); // เรียกดูชื่อวิชา
-                    echo "<span class='$color_class'>- <a href='course_details.php?course_id=$course_id'>" . $assignment['title'] . "</a> (กำหนดส่งเวลา $deadline)</span><br>";
-
-                }
-            }
-        } else {
-            // กรณีไม่มีกิจกรรมในวันที่นั้น
-        }
-
-        echo "</td>";
-        $current_date = date('Y-m-d', strtotime("+1 day", strtotime($current_date)));
+      echo "</td>";
+      $current_date = date('Y-m-d', strtotime("+1 day", strtotime($current_date)));
     }
     echo "</tr>";
-}
-echo "</table>";
-?>
+  }
+  echo "</table>";
+  ?>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

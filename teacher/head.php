@@ -139,6 +139,25 @@
         max-height: 400px; /* ความสูงสูงสุดของตาราง */
         overflow-y: auto; /* เลื่อนในแนวตั้ง */
     }
+   
+  .card-format {
+    display: none;
+  }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px; /* ปรับความสูงตามที่ต้องการ */
+        object-fit: cover; /* จัดการขนาดรูปภาพ */
+    }
+    .description-card {
+        height: 100px; /* ปรับความสูงตามที่ต้องการ */
+        overflow: hidden; /* ซ่อนเนื้อหาที่เกินขอบเขต */
+    }
+    .td-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 </style>
 <style>

@@ -66,44 +66,58 @@ try {
     echo "Error: " . $e->getMessage();
     exit();
 }
+
 ?>
 
 <?php include('head.php'); ?>
 <body>
     <?php include('header.php'); ?>
     <?php include('sidebar.php'); ?>
-    
     <main id="main" class="main">
         <div class="container mt-5">
             <h2>Course Details</h2>
             <div class="card mt-3">
-            <div class="card-body">
-            
-            <?php if (!empty($course['c_img'])): ?>
-                <div class="text-center">
-                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="max-width: 50%; height: auto;">
+                <div class="card-body">
+                    <?php if (!empty($course['c_img'])): ?>
+                        <div class="text-center">
+                            <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="max-width: 50%; height: auto;">
+                        </div>
+                    <?php endif; ?>
+                    <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                    <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
+                    <p class="card-text">รายละเอียด: <?php echo $course['description']; ?></p>
                 </div>
-            <?php endif; ?>
-
-
-                <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
-                <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
-                <p class="card-text">รายละเอียด: <?php echo $course['description']; ?></p>
-
             </div>
-        </div>
             <div id="accordionContainer">
                 <?php foreach($lessons as $lesson): ?>
                     <section class="section card mb-3 mt-5">
                         <div class="accordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header d-flex align-items-center">
-                                    <button class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse<?= $lesson['lesson_id']; ?>" aria-expanded="true" aria-controls="collapse<?= $lesson['lesson_id']; ?>">
+                                    <button class="accordion-button" type="button" data-toggle="collapse" data-target="#collapse<?= $lesson['lesson_id']; ?>" aria-expanded="true" aria-controls="collapse<?= $lesson['lesson_id']; ?>" >
                                         <?= $lesson['lesson_name']; ?>
                                     </button>
                                 </h2>
                                 <div id="collapse<?= $lesson['lesson_id']; ?>" class="accordion-collapse collapse show">
                                     <div class="accordion-body">
+                                    <button id="markAsDoneButton<?= $lesson['lesson_id']; ?>" onclick="markAsDone(<?= $lesson['lesson_id']; ?>, <?= $course_id; ?>)" class="btn btn-outline-primary" style="float: inline-end;">
+                                            <?php
+                                            // Check if the lesson_id, student_id, and course_id exist in the Marks_as_done table
+                                            $stmt = $db->prepare("SELECT COUNT(*) as count FROM Marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
+                                            $stmt->bindParam(':lesson_id', $lesson['lesson_id'], PDO::PARAM_INT);
+                                            $stmt->bindParam(':student_id', $user_id, PDO::PARAM_INT); // เปลี่ยน $student_id เป็น $user_id
+                                            $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                            // If the lesson is marked as done, display "Done", otherwise display "Mark as done"
+                                            if ($row['count'] > 0) {
+                                                echo 'Done';
+                                            } else {
+                                                echo 'Mark as done';
+                                            }
+                                            ?>
+                                        </button>
                                         <!-- เริ่มต้นการวนลูปการแสดงผลข้อมูลหัวข้อ -->
                                         <?php include('display_topics.php'); ?>
                                         <!-- สิ้นสุดการวนลูปการแสดงผลข้อมูลหัวข้อ -->
@@ -156,6 +170,46 @@ function editQuiz(quizId) {
                 $("#show-list").html("");
             });
         });
+    </script>
+ <script>
+     function markAsDone(lessonId, courseId) {
+    var button = document.getElementById('markAsDoneButton' + lessonId);
+    var buttonText = button.innerText.trim();
+    if (buttonText === 'Done') {
+        if (confirm('คุณต้องการยกเลิกการทำเครื่องหมายว่าเสร็จสิ้นใช่หรือไม่?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'delete_mark_as_done.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    button.innerHTML = 'Mark as done';
+                 
+                    alert('การทำเครื่องหมายว่าเสร็จสิ้นถูกยกเลิกแล้ว');
+                } else {
+                    alert('เกิดข้อผิดพลาดในการทำคำขอ: ' + xhr.statusText);
+                }
+            };
+            xhr.send('lesson_id=' + lessonId + '&course_id=' + courseId);
+        }
+    } else {
+        if (confirm('คุณต้องการทำเครื่องหมายว่าเสร็จสิ้นใช่หรือไม่?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'mark_as_done.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    button.innerHTML = 'Done';
+                    
+                    alert('บทเรียนถูกทำเครื่องหมายว่าเสร็จสิ้นแล้ว');
+                } else {
+                    alert('เกิดข้อผิดพลาดในการทำคำขอ: ' + xhr.statusText);
+                }
+            };
+            xhr.send('lesson_id=' + lessonId + '&course_id=' + courseId);
+        }
+    }
+}
+
     </script>
 </body>
 </html>
