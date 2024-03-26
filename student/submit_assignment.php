@@ -71,7 +71,7 @@ $endDateTime = strftime('%A, %e %B %Y %I:%M %p', strtotime($assignment['close_ti
 
                             <!-- Dropzone -->
                             <div class="fallback">
-                                <input name="file" type="file" multiple />
+                                <input name="file[]" type="file" multiple />
                             </div>
                             <div class="dz-message needsclick">
                                 <i class="h1 text-muted ri-upload-cloud-2-line"></i>
@@ -131,6 +131,7 @@ Dropzone.options.myAwesomeDropzone = {
     }
 };
 
+    
     </script>
 
     <script>

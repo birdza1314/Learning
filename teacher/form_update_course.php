@@ -78,24 +78,18 @@ if (isset($_GET['course_id'])) {
     <body>
     <?php include('header.php'); ?>
         <?php include('sidebar.php'); ?>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Edit Course</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="history.back()">My Course</a></li>   
+                <li class="breadcrumb-item active">Edit Course</li>
+            </ol>
+        </nav>      
+    </div><!-- End Page Title -->
 
-        <main id="main" class="main">
-        <?php
-            include('pagetitle.php'); // เรียกไฟล์ที่เก็บฟังก์ชัน
-
-            // ดึงชื่อหน้าปัจจุบันจาก URL หรือไฟล์ที่เก็บ
-            $currentPage = 'Edit_course'; // ตั้งค่าตามที่ต้องการ
-
-            // ส่วน HTML แสดง breadcrumb
-            echo '<div class="pagetitle">
-                    <h1>Form Edit</h1>
-                    <nav>
-                        <ol class="breadcrumb">
-                            ' . generateBreadcrumb($currentPage) . '
-                        </ol>
-                    </nav>
-                </div><!-- End Page Title -->';
-            ?>
 
             <section class="section">
                 <div class="row">

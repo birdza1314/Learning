@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
 
                 // Redirect with success message
-                header("Location: success.php");
+                echo "<script>window.history.back();</script>";
                 exit();
             } else {
                 // Handle error: Original course not found

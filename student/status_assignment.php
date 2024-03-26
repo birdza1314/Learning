@@ -168,16 +168,20 @@ if ($time_remaining->invert) {
                                 <tr>
                                 <th>ไฟล์ที่ส่ง</th>
                                 <td>
-                                    <?php 
-                                    if ($submission !== false && isset($submission['submitted_file'])) {
-                                        // หากมีการส่งไฟล์
-                                        echo "<a href='../student/uploads/{$submission['submitted_file']}' download>{$submission['submitted_file']}</a>";
-                                    } else {
-                                        // หากยังไม่มีการส่งไฟล์
-                                        echo "-";
+                                    <?php
+                                    // Fetch submitted files for the assignment
+                                    $stmt_files = $db->prepare("SELECT * FROM submitted_assignments WHERE assignment_id = :assignment_id AND student_id = :student_id");
+                                    $stmt_files->bindParam(':assignment_id', $assignment_id);
+                                    $stmt_files->bindParam(':student_id', $user_id);
+                                    $stmt_files->execute();
+                                    $files = $stmt_files->fetchAll(PDO::FETCH_ASSOC);
+
+                                    foreach ($files as $file) {
+                                        echo "<li><a href='../student/uploads/{$submission['submitted_file']}' download>{$submission['submitted_file']}</a></li>";
                                     }
                                     ?>
                                 </td>
+
                             </tr>
                             <tr>
     <th>ความคิดเห็น</th>

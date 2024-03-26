@@ -1,36 +1,5 @@
 <script>
-    $(document).ready(function() {
-  $('.modal').modal();
-});
-$(document).ready(function() {
 
-// ฟังก์ชันสำหรับดึงข้อมูลคำถาม
-function getQuestionData(questionId) {
-  $.ajax({
-    url: "getQuestionData.php",
-    method: "POST",
-    data: {
-      question_id: questionId
-    },
-    success: function(data) {
-      // แสดงข้อมูลคำถามใน Modal
-      $("#updatedQuestionText").val(data.question_text);
-      $("#updatedChoice1").val(data.choice_ch1);
-      $("#updatedChoice2").val(data.choice_ch2);
-      $("#updatedChoice3").val(data.choice_ch3);
-      $("#updatedChoice4").val(data.choice_ch4);
-      $("#updatedCorrectAnswer").val(data.correct_answer);
-    }
-  });
-}
-
-// โค้ดสำหรับเปิด Modal
-$(".open-update-modal").click(function() {
-  var questionId = $(this).data("question-id");
-  getQuestionData(questionId);
-});
-
-});
     // Handle click event on "Video" button to open modal
     $(document).on('click', '.open-video-modal', function() {
         var lessonId = $(this).data('lesson-id'); // Get lesson ID from data attribute
@@ -89,16 +58,7 @@ $(document).on('click', '.open-Embed-modal', function() {
      $('#embedModal').modal('show'); 
 });
 
-$(document).on('click', '.open-File-modal', function() {
-    var lesson_id = $(this).data('lesson-id');
-    var course_id = $(this).data('course-id');
-    console.log("Lesson ID: ", lesson_id); // Check lesson_id in console
-    console.log("Course ID: ", course_id); // Check course_id in console
-    $('#videoFileModal').find('#file_lesson_id').val(lesson_id);
-    $('#videoFileModal').find('#file_course_id').val(course_id);
-     // Show the modal
-     $('#videoFileModal').modal('show'); 
-});
+
 
 $(document).on('click', '.open-URL-modal', function() {
     var lesson_id = $(this).data('lesson-id');

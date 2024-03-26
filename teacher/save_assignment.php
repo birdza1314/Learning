@@ -21,7 +21,6 @@ if (isset($_POST['submit'])) {
     $close_time = $_POST['close_time'];
     $status = $_POST['status'];
 // ตรวจสอบเงื่อนไขว่ามีการอัปโหลดไฟล์หรือไม่
-
 if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
     $file_name = $_FILES['file_path']['name']; // ดึงชื่อไฟล์จริง
     $temp_name = $_FILES['file_path']['tmp_name']; // ดึงชื่อไฟล์ชั่วคราว
@@ -29,12 +28,17 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
 
     // ย้ายไฟล์ไปยังโฟลเดอร์ปลายทาง
     if (move_uploaded_file($temp_name, $file_path)) {
+        // ถ้ามีการอัปโหลดไฟล์เรียบร้อยแล้ว
         echo "<script>alert('ไฟล์ถูกอัปโหลดเรียบร้อยแล้ว');</script>";
+        echo "<script>window.history.back();</script>";
     } else {
+        // ถ้ามีปัญหาในการอัปโหลดไฟล์
         echo "<script>alert('มีปัญหาในการอัปโหลดไฟล์');</script>";
     }
 } else {
-    $file_path = ""; // กำหนดให้เป็นค่าว่างหากไม่มีไฟล์ถูกอัปโหลด
+    // หากไม่มีการอัปโหลดไฟล์ กำหนดค่าเป็นค่าว่าง
+    $file_path = ""; 
+    $file_name = ""; 
 }
 
 // เพิ่ม Assignment ใหม่
@@ -52,23 +56,29 @@ $stmt->bindParam(':close_time', $close_time);
 $stmt->bindParam(':status', $status);
 
 
+
+
     if ($stmt->execute()) {
         $assignment_id = $db->lastInsertId(); // รับค่า ID ของ Assignment ที่เพิ่มล่าสุด
 
-        // เพิ่มข้อมูลลงในตาราง add_topic
-        $sql_add_topic = "INSERT INTO add_topic (lesson_id, assignment_id) VALUES (:lesson_id, :assignment_id)";
-        $stmt_add_topic = $db->prepare($sql_add_topic);
-        $stmt_add_topic->bindParam(':lesson_id', $lesson_id);
-        $stmt_add_topic->bindParam(':assignment_id', $assignment_id);
+    // เพิ่มข้อมูลลงในตาราง add_topic
+$sql_add_topic = "INSERT INTO add_topic (lesson_id, assignment_id, topic_type) VALUES (:lesson_id, :assignment_id, :topic_type)";
+$stmt_add_topic = $db->prepare($sql_add_topic);
+$stmt_add_topic->bindParam(':lesson_id', $lesson_id);
+$stmt_add_topic->bindParam(':assignment_id', $assignment_id);
+$stmt_add_topic->bindParam(':topic_type', $topic_type); // ประกาศ $topic_type ก่อนการใช้งานและกำหนดค่าของมัน
 
-        if ($stmt_add_topic->execute()) {
-            // แสดงข้อความแจ้งเตือนเมื่อเพิ่มข้อมูลสำเร็จ
-            echo "<script>alert('เพิ่ม Assignment ใหม่เรียบร้อยแล้ว');</script>";
-            echo "<script>window.history.back();</script>";
-        } else {
-            // แสดงข้อความผิดพลาดเมื่อไม่สามารถเพิ่มข้อมูลได้
-            echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: ');</script>" . $stmt_add_topic->errorInfo()[2];
-        }
+// ตรวจสอบว่า $topic_type ถูกกำหนดค่าไว้ก่อนการใช้งานหรือไม่
+$topic_type = 'แบบฝึกหัด';
+
+if ($stmt_add_topic->execute()) {
+    // แสดงข้อความแจ้งเตือนเมื่อเพิ่มข้อมูลสำเร็จ
+    echo "<script>alert('เพิ่ม Assignment ใหม่เรียบร้อยแล้ว');</script>";
+    echo "<script>window.history.back();</script>";
+} else {
+    // แสดงข้อความผิดพลาดเมื่อไม่สามารถเพิ่มข้อมูลได้
+    echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: ');</script>" . $stmt_add_topic->errorInfo()[2];
+}
     } else {
         // แสดงข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง assignments
         echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง assignments:');</script> " . $stmt->errorInfo()[2];

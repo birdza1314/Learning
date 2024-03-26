@@ -34,21 +34,15 @@ try {
      
 ?>
   <main id="main" class="main">
-  <?php
-            include('pagetitle.php'); // เรียกไฟล์ที่เก็บฟังก์ชัน
-
-            // ดึงชื่อหน้าปัจจุบันจาก URL หรือไฟล์ที่เก็บ
-            $currentPage = 'course'; // ตั้งค่าตามที่ต้องการ
-
-            // ส่วน HTML แสดง breadcrumb
-            echo '<div class="pagetitle">
-                    <nav>
-                        <ol class="breadcrumb">
-                            ' . generateBreadcrumb($currentPage) . '
-                        </ol>
-                    </nav>
-                </div><!-- End Page Title -->';
-            ?>
+  <div class="pagetitle">
+      <h1>My Course</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          <li class="breadcrumb-item active">My Course</li>
+        </ol>
+      </nav>      
+    </div><!-- End Page Title -->
 </nav>
     <section class="section dashboard">
       <div class="row">
@@ -58,7 +52,7 @@ try {
               <div class="card overflow-auto">
                 <div class="card-body">
                   <div class="card-header d-flex">
-                  <h4 class="mt-2">My Course</h4>
+                  <h4 class="mt-2">รายวิชาของฉัน</h4>
                   </div>    
                   <div class="form-group">
                       <label for="display-format">Display Format:</label>
@@ -67,7 +61,7 @@ try {
                           <option value="card">Card</option>
                       </select>
                   </div>
-                  <a href="add_course.php"  class="btn btn-outline-primary mt-2 " style=" float: right;">Add Course</a>
+                  <a href="add_course.php"  class="btn btn-outline-primary mt-2 me-2" style=" float: right;">Add Course</a>
                   <div class="mt-6">           
                   <table class="table table-borderless datatable table-format mt-5">
                     <thead>
@@ -142,11 +136,7 @@ try {
                                     </form>
                                 </td>
 
-                                <script>
-                                    function confirmCopy() {
-                                        return confirm("คุณแน่ใจหรือไม่ที่ต้องการคัดลอกและบันทึกเป็นคอร์สใหม่?");
-                                    }
-                                </script>
+                               
 
                                     </tr>
                               <?php
@@ -169,12 +159,19 @@ try {
                     <div class="card-body">
                         <h5 class="card-title"><?= $row['course_name']; ?></h5>
                         <p class="card-text"><?= $row['course_code']; ?></p>
-                        <p class="card-text description-card"><?= $row['description']; ?></p>
-                        <p style="color: <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>">
-                                    <?php echo ($row['is_open'] == 1) ? 'เปิด' : 'ปิด'; ?>
-                                </p>
-
-                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                        <p class="card-text" style="max-height: 70px; overflow-y: auto;"><?= $row['description']; ?></p>
+                        <p style="color: <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>; border: 1px solid <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>; padding: 5px; border-radius: 5px;">
+                            สถานะ: <?php echo ($row['is_open'] == 1) ? 'เปิด' : 'ปิด'; ?>
+                        </p>
+                        <div class="td-button" style="float: inline-end;">         
+                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning me-1"><i class="bi bi-pencil-fill"></i></a>
+                    <!-- เพิ่มฟอร์มสำหรับคัดลอกและบันทึก -->
+                        <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
+                            <input type="hidden" name="existing_course" value="<?= $row['c_id']; ?>">
+                            <input type="hidden" name="new_course_name" value="Copy of <?= $row['course_name']; ?>">
+                            <button type="submit" class="btn btn-outline-primary "><i class="bi bi-copy"></i></button>
+                        </form>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -195,6 +192,11 @@ try {
   </div>
 </section>
 </main><!-- End #main -->
+<script>
+    function confirmCopy() {
+        return confirm("คุณแน่ใจหรือไม่ที่ต้องการคัดลอกและบันทึกเป็นคอร์สใหม่?");
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- ======= Footer ======= -->
 <?php include('footer.php');?>

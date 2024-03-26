@@ -118,7 +118,18 @@ if (isset($_GET['course_id'])) {
   <?php include('sidebar.php'); ?>
 
   <main id="main" class="main">
-    
+  <div class="pagetitle">
+        <h1>Edit Course</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="history.back()">My Course</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="history.back()">Edit Course</a></li>
+                <li class="breadcrumb-item active">Ad Lessons</li>
+            </ol>
+        </nav>      
+    </div><!-- End Page Title -->
+
   <div class="container">
     <div class="card">
         <div class="card-body">

@@ -23,10 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->execute()) {
                     $file_id = $db->lastInsertId();
 
-                    $stmt_add_topic = $db->prepare("INSERT INTO add_topic (lesson_id, file_id) VALUES (:lesson_id, :file_id)");
+                    $stmt_add_topic = $db->prepare("INSERT INTO add_topic (lesson_id, file_id,topic_type) VALUES (:lesson_id, :file_id,:topic_type)");
                     $stmt_add_topic->bindParam(':lesson_id', $lesson_id);
                     $stmt_add_topic->bindParam(':file_id', $file_id);
+                    $stmt_add_topic->bindParam(':topic_type', $topic_type); // ประกาศ $topic_type ก่อนการใช้งานและกำหนดค่าของมัน
 
+                    // ตรวจสอบว่า $topic_type ถูกกำหนดค่าไว้ก่อนการใช้งานหรือไม่
+                    $topic_type = 'ไฟล์';
                     if ($stmt_add_topic->execute()) {
                         echo "<script>alert('อัปโหลดไฟล์และบันทึกข้อมูลสำเร็จ');</script>";
                         echo "<script>window.history.back();</script>";

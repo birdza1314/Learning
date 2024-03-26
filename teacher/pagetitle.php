@@ -12,10 +12,15 @@ function generateBreadcrumb($currentPage) {
         $breadcrumb .= '<li class="breadcrumb-item active">Edit Course</li>';
     } elseif ($currentPage == 'lessons') {
         $breadcrumb = '<li class="breadcrumb-item"><a href="course.php">Home</a></li>';
-        $breadcrumb .= '<li class="breadcrumb-item"><a href="form_update_course.php">add_course</li>';
         $breadcrumb .= '<li class="breadcrumb-item active">Lesson</li>';
+    } elseif ($currentPage == 'index') {
+        $breadcrumb = '<li class="breadcrumb-item"><a href="index.php">Home</a></li>';
+        $breadcrumb .= '<li class="breadcrumb-item active">Dashboard</li>';
+    } elseif ($currentPage == 'My Course') {
+        $breadcrumb = '<li class="breadcrumb-item"><a href="index.php">Home</a></li>';
+        $breadcrumb .= '<li class="breadcrumb-item active">My Course</li>';
     }
-
     return $breadcrumb;
 }
 ?>
+My Course

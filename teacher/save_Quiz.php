@@ -29,9 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $quiz_id = $db->lastInsertId();
 
             // Insert into add_topic table
-            $stmt_add_topic = $db->prepare("INSERT INTO add_topic (lesson_id, quiz_id) VALUES (:lesson_id, :quiz_id)");
+            $stmt_add_topic = $db->prepare("INSERT INTO add_topic (lesson_id, quiz_id,topic_type) VALUES (:lesson_id, :quiz_id,:topic_type)");
             $stmt_add_topic->bindParam(':lesson_id', $lesson_id);
             $stmt_add_topic->bindParam(':quiz_id', $quiz_id);
+            $stmt_add_topic->bindParam(':topic_type', $topic_type); // ประกาศ $topic_type ก่อนการใช้งานและกำหนดค่าของมัน
+
+            // ตรวจสอบว่า $topic_type ถูกกำหนดค่าไว้ก่อนการใช้งานหรือไม่
+            $topic_type = 'แบบทดสอบ';
 
             // Execute the SQL statement
             if ($stmt_add_topic->execute()) {

@@ -1,69 +1,123 @@
 <?php
-    // Include database connection
-    include('../connections/connection.php');
+// เชื่อมต่อกับฐานข้อมูล
+include('../connections/connection.php');
 
-    // Check if quiz_id is set in the URL
-    if(isset($_POST['quiz_id'])) {
-        // Retrieve quiz_id from the form data
-        $quiz_id = $_POST['quiz_id'];
-        
-        // Prepare SQL statement to select quiz data based on quiz_id
-        $stmt = $db->prepare("SELECT * FROM quizzes WHERE quiz_id = :quiz_id");
-        $stmt->bindParam(':quiz_id', $quiz_id);
-        
-        try {
-            // Execute the SQL statement
-            $stmt->execute();
-            
-            // Fetch quiz data
-            $quiz = $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            // If an error occurs, display the error message
-            echo "Error: " . $e->getMessage();
-        }
-    } else {
-        // If quiz_id is not set in the form data, redirect back to the page with an error message
-        echo "<script>window.location.href = 'add_lessons.php?error=Quiz ID not provided';</script>";
-    }
-
-   // Check if the form is submitted and quiz_id is set
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quiz_id'])) {
-    // Retrieve the question_id and other updated data from the form
-    $question_id = $_POST['question_id'];
-    $quiz_id = $_POST['quiz_id'];
-    $updatedQuestionText = $_POST['updatedQuestionText'];
-    $updatedChoice1 = $_POST['updatedChoice1'];
-    $updatedChoice2 = $_POST['updatedChoice2'];
-    $updatedChoice3 = $_POST['updatedChoice3'];
-    $updatedChoice4 = $_POST['updatedChoice4'];
-    $updatedCorrectAnswer = $_POST['updatedCorrectAnswer'];
-
-    // Prepare SQL statement to update the question data
-    $stmt = $db->prepare("UPDATE questions SET question_text = :question_text, choice_ch1 = :choice_ch1, choice_ch2 = :choice_ch2, choice_ch3 = :choice_ch3, choice_ch4 = :choice_ch4, correct_answer = :correct_answer WHERE question_id = :question_id");
-
-    // Bind parameters
-    $stmt->bindParam(':question_text', $updatedQuestionText);
-    $stmt->bindParam(':choice_ch1', $updatedChoice1);
-    $stmt->bindParam(':choice_ch2', $updatedChoice2);
-    $stmt->bindParam(':choice_ch3', $updatedChoice3);
-    $stmt->bindParam(':choice_ch4', $updatedChoice4);
-    $stmt->bindParam(':correct_answer', $updatedCorrectAnswer);
-    $stmt->bindParam(':question_id', $question_id);
-
-    // Execute the SQL statement
-    try {
-        $stmt->execute();
-        // Redirect back to the edit_quiz.php page with the quiz_id
-        
-        header("Location: edit_quiz.php?quiz_id={$quiz_id}");
-        exit();
-    } catch (PDOException $e) {
-        // If an error occurs, display the error message
-        echo "Error: " . $e->getMessage();
-    }
-} else {
-    // If quiz_id is not set in the form data, redirect back to the page with an error message
-    echo "<script>window.location.href = 'add_lessons.php?error=Quiz ID not provided';</script>";
+// ตรวจสอบว่ามีการส่งค่า question_id มาหรือไม่
+if (!isset($_GET['question_id'])) {
+    echo "Question ID not provided.";
+    exit;
 }
 
+// รับค่า question_id ที่ส่งมาจากหน้ารายการคำถาม
+$question_id = $_GET['question_id'];
+
+// ตรวจสอบว่ามีการ submit ฟอร์มหรือไม่
+if (isset($_POST['submit'])) {
+    // ดึงข้อมูลจากฟอร์ม
+    $question_text = $_POST['question_text'];
+    $choice_ch1 = $_POST['choice_ch1'];
+    $choice_ch2 = $_POST['choice_ch2'];
+    $choice_ch3 = $_POST['choice_ch3'];
+    $choice_ch4 = $_POST['choice_ch4'];
+    $correct_answer = $_POST['correct_answer'];
+    $description = $_POST['description'];
+
+    // เตรียมคำสั่ง SQL สำหรับการอัปเดตข้อมูล
+    $sql = "UPDATE questions SET question_text = :question_text, choice_ch1 = :choice_ch1, choice_ch2 = :choice_ch2, choice_ch3 = :choice_ch3, choice_ch4 = :choice_ch4, correct_answer = :correct_answer, description = :description WHERE question_id = :question_id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':question_text', $question_text);
+    $stmt->bindParam(':choice_ch1', $choice_ch1);
+    $stmt->bindParam(':choice_ch2', $choice_ch2);
+    $stmt->bindParam(':choice_ch3', $choice_ch3);
+    $stmt->bindParam(':choice_ch4', $choice_ch4);
+    $stmt->bindParam(':correct_answer', $correct_answer);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':question_id', $question_id);
+
+    // ทำการ execute คำสั่ง SQL
+    if ($stmt->execute()) {
+        echo "<script>alert('Question updated successfully');</script>";
+        echo "<script>window.history.back(-2);</script>";
+    } else {
+        echo "Failed to update question: " . $stmt->errorInfo()[2];
+    }
+}
+
+// ดึงข้อมูลคำถามที่ต้องการแก้ไขจากฐานข้อมูล
+$sql = "SELECT * FROM questions WHERE question_id = :question_id";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':question_id', $question_id);
+$stmt->execute();
+$question = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ตรวจสอบว่ามีข้อมูลคำถามหรือไม่
+if (!$question) {
+    echo "Question not found.";
+    exit;
+}
 ?>
+
+<?php include('session.php'); ?>
+<!-- ======= Head ======= -->
+<?php include('head.php'); ?>
+<!-- ======= Head ======= -->
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <?php include('header.php'); ?>
+
+  <!-- ======= Sidebar ======= -->
+  <?php include('sidebar.php'); ?>
+
+  <main id="main" class="main">
+    <h2>แก้ไขแบบทดสอบ</h2>
+    <form method="post">
+    <div class="form-group">
+        <label for="question_text">คำถาม:</label>
+        <input type="text" id="question_text" name="question_text" value="<?php echo $question['question_text']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="choice_ch1">ตัวเลือก 1:</label>
+        <input type="text" id="choice_ch1" name="choice_ch1" value="<?php echo $question['choice_ch1']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="choice_ch2">ตัวเลือก 2:</label>
+        <input type="text" id="choice_ch2" name="choice_ch2" value="<?php echo $question['choice_ch2']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="choice_ch3">ตัวเลือก 3:</label>
+        <input type="text" id="choice_ch3" name="choice_ch3" value="<?php echo $question['choice_ch3']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="choice_ch4">ตัวเลือก 4:</label>
+        <input type="text" id="choice_ch4" name="choice_ch4" value="<?php echo $question['choice_ch4']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="correct_answer">คำตอบที่ถูกต้อง (ตัวเลือก)</label>
+        <select id="correct_answer" name="correct_answer">
+        <option value="<?php echo $question['choice_ch1']; ?>">ตัวเลือก 1</option>
+        <option value="<?php echo $question['choice_ch2']; ?>">ตัวเลือก 2</option>
+        <option value="<?php echo $question['choice_ch3']; ?>">ตัวเลือก 3</option>
+        <option value="<?php echo $question['choice_ch4']; ?>">ตัวเลือก 4</option>
+    </select>
+
+    </div>
+    <div class="form-group">
+        <label for="description">รายละเอียด</label>
+        <textarea class="form-control" id="description" name="description"><?php echo $question['description']; ?></textarea>
+    </div>
+    <input type="submit" name="submit" value="Update">
+</form>
+
+</main>
+  <!-- ======= Footer ======= -->
+  <?php include('footer.php');?>
+ <!-- ======= scripts ======= -->
+  <?php include('scripts.php');?>
+  <!-- Add jQuery script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+</html>
+

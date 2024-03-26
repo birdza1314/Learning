@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Question Limit to Display</label>
+                            <label>จำนวนแบททดสอบ</label>
                             <input type="number" name="QuestDipLimit" class="form-control" value="<?php echo $quiz['question_limit']; ?>" required>
                         </div>
                         <button type="submit" style="float: right;" class="btn btn-outline-primary">อัพเดทแบบทดสอบ</button>
@@ -119,9 +119,9 @@
                                                         <?php } ?>
                                                     </td>
                                                     <td class="text-center">
-                                                         <button type="button" class="btn btn-outline-primary btn-sm" onclick="showUpdateQuestionModal(<?php echo $selQuestionRow['question_id']; ?>, '<?php echo $selQuestionRow['question_text']; ?>', '<?php echo $selQuestionRow['choice_ch1']; ?>', '<?php echo $selQuestionRow['choice_ch2']; ?>', '<?php echo $selQuestionRow['choice_ch3']; ?>', '<?php echo $selQuestionRow['choice_ch4']; ?>', '<?php echo $selQuestionRow['correct_answer']; ?>', '<?php echo $quiz_id; ?>')">
-                                                         <i class="bi bi-pencil"></i>
-                                                        </button>
+                                                    <button type="button" class="btn btn-outline-info btn-sm" onclick="editQuestion(<?php echo $selQuestionRow['question_id']; ?>)">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
                                                         <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete(<?php echo $selQuestionRow['question_id']; ?>)">
                                                             <i class="bi bi-trash3"></i>
                                                         </button>
@@ -183,7 +183,13 @@ function showUpdateQuestionModal(question_id, question_text, choice1, choice2, c
 }
 
 </script>
+<script>
+    function editQuestion(question_id) {
+    // ส่ง question_id ไปยังหน้าแก้ไขคำถาม
+    window.location.href = "update_question.php?question_id=" + question_id;
+}
 
+</script>
 
 
 

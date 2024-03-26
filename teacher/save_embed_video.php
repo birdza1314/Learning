@@ -28,10 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $last_video_id = $db->lastInsertId();
 
                     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูลลงในตาราง add_topic
-                    $stmt_add_topic = $db->prepare("INSERT INTO add_topic (lesson_id, video_embed_id, video_file_id) VALUES (:lesson_id, :video_embed_id, NULL)");
+                    $stmt_add_topic = $db->prepare("INSERT INTO add_topic (lesson_id, video_embed_id,topic_type) VALUES (:lesson_id, :video_embed_id,:topic_type)");
                     $stmt_add_topic->bindParam(':lesson_id', $lesson_id);
                     $stmt_add_topic->bindParam(':video_embed_id', $last_video_id);
+                    $stmt_add_topic->bindParam(':topic_type', $topic_type); // ประกาศ $topic_type ก่อนการใช้งานและกำหนดค่าของมัน
 
+                    // ตรวจสอบว่า $topic_type ถูกกำหนดค่าไว้ก่อนการใช้งานหรือไม่
+                    $topic_type = 'วิดีโอ';
+                    
                     // Execute คำสั่ง SQL
           if ($stmt_add_topic->execute()) {
             echo "<script>alert('บันทึกข้อมูลเสร็จสิ้น');</script>";

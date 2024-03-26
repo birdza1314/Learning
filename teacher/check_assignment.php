@@ -65,45 +65,57 @@ if(isset($_GET['assignment_id'])) {
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach($assignments as $assignment): ?>
-                      <?php
-                          // Retrieve student data from related table (e.g., students or users)
-                          $stmt_student = $db->prepare("SELECT first_name, last_name FROM students WHERE s_id = :student_id");
-                          $stmt_student->bindParam(':student_id', $assignment['student_id']);
-                          $stmt_student->execute();
-                          $student = $stmt_student->fetch(PDO::FETCH_ASSOC);
-                      ?>
-                      <tr>
-                        <td><?= $student['first_name'] ?> <?= $student['last_name'] ?></td>               
-                        <td>
-                        <?php
-                        $file_path = "../student/uploads/{$assignment['submitted_file']}";
-                        if (file_exists($file_path)) {
-                            echo "<a href=\"{$file_path}\" download>{$assignment['submitted_file']}</a>";
-                        } else {
-                            echo "ไม่พบไฟล์";
-                        }
-                        ?>
-                       </td>        
-                        <td><?= $assignment['submitted_datetime'] ?></td>
-                        <td>
-                            <?php
-                            // Check if there is a comment in the database for this assignment
-                            $comment = isset($assignment['comment']) ? $assignment['comment'] : '';
-                            ?>
-                            <input type="text" id="comment_<?= $assignment['id'] ?>" class="form-control" value="<?= $comment ?>" placeholder="พิมพ์ความคิดเห็นของคุณที่นี่" onchange="updateStatus(<?= $assignment['id'] ?>, this.value)">
-                        </td>
+    <?php 
+    $unique_student_ids = array(); // เก็บ student_id เพื่อตรวจสอบว่าถูกดึงมาแล้วหรือยัง
+    foreach($assignments as $assignment):
+        $student_id = $assignment['student_id'];
+        // ตรวจสอบว่า student_id นี้เคยถูกดึงมาแล้วหรือยัง
+        if (!in_array($student_id, $unique_student_ids)) {
+            $unique_student_ids[] = $student_id; // เพิ่ม student_id เข้าไปในอาร์เรย์เพื่อไม่ให้ถูกดึงซ้ำอีก
+            // ดึงข้อมูลของนักเรียนจากฐานข้อมูล
+            $stmt_student = $db->prepare("SELECT first_name, last_name FROM students WHERE s_id = :student_id");
+            $stmt_student->bindParam(':student_id', $student_id);
+            $stmt_student->execute();
+            $student = $stmt_student->fetch(PDO::FETCH_ASSOC);
+    ?>
+    <tr>
+        <td><?= $student['first_name'] ?> <?= $student['last_name'] ?></td>
+        <td>
+            <?php
+            // แสดงไฟล์ที่เกี่ยวข้องกับนักเรียนนี้
+            foreach($assignments as $file_assignment) {
+                if ($file_assignment['student_id'] == $student_id) {
+                    $file_path = "../student/uploads/{$file_assignment['submitted_file']}";
+                    if (file_exists($file_path)) {
+                        echo "<a href=\"{$file_path}\" download>{$file_assignment['submitted_file']}</a><br>";
+                    } else {
+                        echo "ไม่พบไฟล์<br>";
+                    }
+                }
+            }
+            ?>
+        </td>
+        <td><?= $assignment['submitted_datetime'] ?></td>
+            <td>
+                <?php
+                // Check if there is a comment in the database for this assignment
+                $comment = isset($assignment['comment']) ? $assignment['comment'] : '';
+                ?>
+                <input type="text" id="comment_<?= $assignment['id'] ?>" class="form-control" value="<?= $comment ?>" placeholder="พิมพ์ความคิดเห็นของคุณที่นี่" onchange="updateStatus(<?= $assignment['id'] ?>, this.value)">
+            </td>
+            <td id="assignment_row_<?= $assignment['id'] ?>">
+                <select class="form-select" name="status" onchange="updateStatus(<?= $assignment['id'] ?>, this.value)">
+                    <option value="ตรวจแล้ว" <?= ($assignment['status'] == 'ตรวจแล้ว') ? 'selected' : '' ?>>ตรวจแล้ว</option>
+                    <option value="ยังไม่ตรวจ" <?= ($assignment['status'] == 'ยังไม่ตรวจ') ? 'selected' : '' ?>>ยังไม่ตรวจ</option>
+                </select>
+            </td>
+    </tr>
+    <?php 
+        }
+    endforeach; 
+    ?>
+</tbody>
 
-                        <td id="assignment_row_<?= $assignment['id'] ?>">
-                        <select class="form-select" name="status" onchange="updateStatus(<?= $assignment['id'] ?>, this.value)">
-                            <option value="ตรวจแล้ว" <?= ($assignment['status'] == 'ตรวจแล้ว') ? 'selected' : '' ?>>ตรวจแล้ว</option>
-                            <option value="ยังไม่ตรวจ" <?= ($assignment['status'] == 'ยังไม่ตรวจ') ? 'selected' : '' ?>>ยังไม่ตรวจ</option>
-                        </select>
-                    </td>
-
-                      </tr>
-                    <?php endforeach; ?>
-                  </tbody>
                 </table>
               </div>
             </div>

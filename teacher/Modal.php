@@ -134,7 +134,7 @@
                 <form action="save_question.php" method="post">
                     <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
                     <div class="form-group">
-                        <label for="questionText">ข้อความคำถาม</label>
+                        <label for="questionText">คำถาม</label>
                         <textarea class="form-control" id="questionText" name="questionText" rows="3" required></textarea>
                     </div>
                     <div class="form-group">
@@ -164,6 +164,10 @@
                         </select>
                         <input type="hidden" id="correctAnswer" name="correctAnswer" value="" required>
                     </div>
+                    <div class="form-group">
+                        <label for="choice4">รายละเอียด</label>
+                        <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+                    </div>
                     <button type="submit" class="btn btn-primary">ส่งคำตอบ</button>
                 </form>
             </div>
@@ -179,58 +183,6 @@
         document.getElementById('correctAnswer').value = choiceValue;
     }
 </script>
-
-
-
-<!-- Modal update Question -->
-
-<div class="modal fade" id="updateQuestionModal" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateQuestionModalLabel">Update Question</h5>
-                <button type="button" class="close" aria-label="Close" onclick="closeModal()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <form action="update_Question.php" method="POST">
-                    <input type="hidden" name="question_id" value="<?php echo isset($selQuestionRow['question_id']) ? $selQuestionRow['question_id'] : ''; ?>">
-                    <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
-                    <div class="form-group">
-                        <label for="updatedQuestionText">Question Text</label>
-                        <textarea class="form-control" id="updatedQuestionText" name="updatedQuestionText"><?php echo isset($selQuestionRow['question_text']) ? $selQuestionRow['question_text'] : ''; ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="updatedChoice1">Choice 1</label>
-                        <input type="text" class="form-control" id="updatedChoice1" name="updatedChoice1" value="<?php echo isset($selQuestionRow['choice_ch1']) ? $selQuestionRow['choice_ch1'] : ''; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="updatedChoice2">Choice 2</label>
-                        <input type="text" class="form-control" id="updatedChoice2" name="updatedChoice2" value="<?php echo isset($selQuestionRow['choice_ch2']) ? $selQuestionRow['choice_ch2'] : ''; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="updatedChoice3">Choice 3</label>
-                        <input type="text" class="form-control" id="updatedChoice3" name="updatedChoice3" value="<?php echo isset($selQuestionRow['choice_ch3']) ? $selQuestionRow['choice_ch3'] : ''; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="updatedChoice4">Choice 4</label>
-                        <input type="text" class="form-control" id="updatedChoice4" name="updatedChoice4" value="<?php echo isset($selQuestionRow['choice_ch4']) ? $selQuestionRow['choice_ch4'] : ''; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="updatedCorrectAnswer">Correct Answer</label>
-                        <input type="text" class="form-control" id="updatedCorrectAnswer" name="updatedCorrectAnswer" value="<?php echo isset($selQuestionRow['correct_answer']) ? $selQuestionRow['correct_answer'] : ''; ?>">
-                            
-                    </div>
-                    <button type="submit" class="btn btn-outline-primary">Update</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()" >Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal embed Modal -->
 <div class="modal fade" id="embedModal" tabindex="-1" aria-labelledby="embedModalLabel" aria-hidden="true">
@@ -259,35 +211,6 @@
     </div>
 </div>
 
-<!-- Video File Modal -->
-<div class="modal fade" id="videoFileModal" tabindex="-1" aria-labelledby="videoFileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="videoFileModalLabel">Upload Video File</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Form for uploading video file -->
-                <form action="save_file_video.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="lesson_id" id="file_lesson_id" value="">
-                    <input type="hidden" name="course_id" id="file_course_id" value="">
-                    <div class="form-group">
-                        <label for="description_file">Description:</label>
-                        <textarea name="description_file" id="description_file" rows="2" cols="50" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="video_file">Choose Video File:</label>
-                        <input type="file" name="video_file" id="video_file" class="form-control-file">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Modal add Images -->
 <div class="modal fade" id="videoFileModal" tabindex="-1" aria-labelledby="videoFileModalLabel" aria-hidden="true">
     <div class="modal-dialog">

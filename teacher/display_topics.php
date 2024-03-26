@@ -243,9 +243,6 @@
                                                             <button type="button" class="btn btn-outline-info btn-block mx-2 open-Embed-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>" >
                                                                 <i class="bi bi-journal-arrow-up text-info"></i><br>Video Embed
                                                             </button>
-                                                            <button type="button" class="btn btn-outline-info btn-block mx-2 open-File-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-                                                                <i class="bi bi-journal-arrow-up text-info"></i><br>Video File
-                                                            </button>
                                                             
                                                             <button type="button" class="btn btn-outline-info btn-block mx-2 open-URL-modal" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
                                                                 <i class="bi bi-journal-arrow-up text-info"></i><br>URL
