@@ -38,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // ตรวจสอบชนิดของไฟล์ที่อัปโหลด
         $imageFileType = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        if (!in_array($imageFileType, array("pdf", "doc", "docx", "ppt", "pptx", "txt", "jpg", "jpeg", "png", "gif"))) {
-            echo "Sorry, only PDF, DOC, DOCX, PPT, PPTX, TXT, JPG, JPEG, PNG, GIF files are allowed.";
+        if (!in_array($imageFileType, array("pdf", "doc", "docx", "ppt", "pptx", "txt", "jpg", "jpeg", "png", "gif", "xls", "xlsx", "csv"))) {
+            echo "Sorry, only PDF, DOC, DOCX, PPT, PPTX, TXT, JPG, JPEG, PNG, GIF, XLS, XLSX, CSV files are allowed.";
             exit();
         }
+        
         
         // ย้ายไฟล์ไปยังโฟลเดอร์ที่ต้องการ
         if (move_uploaded_file($file_tmp, $file_path)) {

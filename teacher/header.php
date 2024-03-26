@@ -10,59 +10,6 @@
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
-
-  <li class="nav-item dropdown pe-4">
-  <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-    <span class="badge1 bg-primary badge circle">4</span>
-    <i class="bi bi-bell fs-4"></i>
-</a>
-
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-      <li class="dropdown-header1">
-        <h6>Notifications</h6>
-        <span class="text-muted">You have 4 new notifications</span>
-      </li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-
-      <li class="notification-item1">
-        <a class="dropdown-item1 d-flex align-items-center" href="#">
-          <i class="bi bi-exclamation-circle text-warning"></i>
-          <span>Lorem Ipsum</span><br>
-          <p class="text-muted">Quae dolorem earum veritatis oditseno</p>
-        </a>
-      </li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li class="notification-item1">
-        <a class="dropdown-item1 d-flex align-items-center" href="#">
-          <i class="bi bi-x-circle text-danger"></i>
-          <span>Atque rerum nesciunt</span>
-          <p class="text-muted">Quae dolorem earum veritatis oditseno</p>
-        </a>
-      </li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li class="notification-item1">
-        <a class="dropdown-item1 d-flex align-items-center" href="#">
-          <i class="bi bi-check-circle text-success"></i>
-          <span>Sit rerum fuga</span>
-          <p class="text-muted">Quae dolorem earum veritatis oditseno</p>
-        </a>
-      </li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li class="dropdown-footer">
-      <a href="#">Show all notifications</a>
-    </li>
-     </ul>
-  </li>
-
-
     <li class="nav-item dropdown pe-3">
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -105,7 +52,7 @@
         <li>
           <a class="dropdown-item d-flex align-items-center" href="profile.php">
             <i class="bi bi-person"></i>
-            <span>ประวัติส่วนตัว</span>
+            <span>โปรไฟล์</span>
           </a>
         </li>
         <li>

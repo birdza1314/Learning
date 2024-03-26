@@ -399,6 +399,20 @@
    .progress {
             height: 30px;
         }
+    #timeRemaining {
+    position: fixed;
+    top: 100px; /* ระยะห่างจากด้านบนของหน้าจอ */
+    right: 40px; /* ระยะห่างจากด้านขวาของหน้าจอ */
+    z-index: 999;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-weight: bold; /* กำหนดให้ตัวเลขหนา */
+    font-size: 20px; /* กำหนดขนาดตัวเลข */
+    color: #3e4f6f;
+}
+
     </style>
     
 </head>

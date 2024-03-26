@@ -84,80 +84,86 @@
                                                     $stmt_quiz->bindParam(':quiz_id', $topic['quiz_id']);
                                                     $stmt_quiz->execute();
                                                     $quiz = $stmt_quiz->fetch(PDO::FETCH_ASSOC);
+                                                
+                                                    // เพิ่มเงื่อนไขเช็คสถานะของแบบทดสอบ
+                                                    if ($quiz['status'] == 'เปิดใช้งาน') {
+                                                        // แสดงแบบทดสอบเฉพาะเมื่อสถานะเป็น "เปิดใช้งาน"
                                                 ?>
-                                                   
-                                                    <div class="card border rounded-3 shadow-sm">
-                                                        <div class="card-body hover-effect text-hover-white">
-                                                        <div class="row">
-                                                            <div class="col-md-8">
-                                                            <div class="d-flex  mt-4">
-                                                                <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
-                                                                <h5><?= $quiz['quiz_title']; ?></h5>
+                                                        <div class="card border rounded-3 shadow-sm">
+                                                            <div class="card-body hover-effect text-hover-white">
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        <div class="d-flex  mt-4">
+                                                                            <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                                                                            <h5><?= $quiz['quiz_title']; ?></h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 ">
+                                                                        <div class="d-flex justify-content-end mt-3 ">
+                                                                            <button type="button" class="btn btn-outline-primary me-2 " onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">
+                                                                                <i class="bi bi-pencil-square"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            </div>
-                                                            <div class="col-md-4 ">
-                                                            <div class="d-flex justify-content-end mt-3 ">
-                                                            <button type="button" class="btn btn-outline-primary me-2 " onclick="editQuiz(<?= $quiz['quiz_id']; ?>)">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                            </button>
                                                         </div>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                              
-                                                <?php 
+                                                <?php
+                                                    } // ปิดเงื่อนไขตรวจสอบสถานะของแบบทดสอบ 
                                                 }elseif ($topic['assignment_id'] != null) {
                                                     $stmt_assignment = $db->prepare("SELECT * FROM assignments WHERE assignment_id = :assignment_id");
                                                     $stmt_assignment->bindParam(':assignment_id', $topic['assignment_id']);
                                                     $stmt_assignment->execute();
                                                     $assignment = $stmt_assignment->fetch(PDO::FETCH_ASSOC);
-                                                    
+                                                
                                                     // เช็คเวลา
                                                     $currentDateTime = date('Y-m-d H:i:s');
-                                                    $endDateTime = $assignment['deadline']; // ปรับเป็นชื่อคอลัมน์ที่เก็บเวลาสิ้นสุดของการส่งงาน
-                                                    $isOverdue = ($currentDateTime > $endDateTime) ? true : false; // เช็คว่าเกินเวลาหรือไม่
+                                                    $endDateTime = $assignment['deadline'];
+                                                    $isOverdue = ($currentDateTime > $endDateTime) ? true : false;
                                                 
                                                     // สร้างตัวแปรสีของการ์ด
-                                                    $cardColor = ($isOverdue) ? 'text-danger' : ''; // กำหนดสีแดงถ้าเกินเวลา
+                                                    $cardColor = ($isOverdue) ? 'text-danger' : '';
                                                 
                                                     // แสดงวันที่และเวลาเริ่มและสิ้นสุดการส่งงาน
                                                     $startDateTime = date('d/m/Y H:i', strtotime($assignment['open_time']));
                                                     $endDateTime = date('d/m/Y H:i', strtotime($assignment['close_time']));
                                                 
-                                                    ?>
-                                                    <div class="col-lg-12">
-                                                        <div class="card border rounded-3 shadow-sm  <?= $cardColor ?>">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-8">
-                                                                        <div class="d-flex mt-4">
-                                                                            <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
-                                                                            <h5><?= $assignment['title']; ?></h5>
-                                                                        </div>
-                                                                        <?php if ($isOverdue) : ?>
-                                                                            <p class="text-danger">ส่งเมื่อ: <?= $endDateTime ?> (เกินเวลา)</p>
-                                                                        <?php else : ?>
-                                                                            <p>เริ่ม: <?= $startDateTime ?></p>
-                                                                            <p>สิ้นสุด: <?= $endDateTime ?></p>
-                                                                        <?php endif; ?>
+                                                    if ($assignment['status'] == 'open') {
+                                                ?>
+                                                <div class="col-lg-12">
+                                                    <div class="card border rounded-3 shadow-sm  <?= $cardColor ?>">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <div class="d-flex mt-4">
+                                                                        <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                                                                        <h5><?= $assignment['title']; ?></h5>
                                                                     </div>
-                                                                    <div class="col-md-4">
-                                                                    <div class="d-flex justify-content-end mt-3">
-                                                                        <?php if ($isOverdue) : ?>
-                                                                            <p class="text-danger mt-2">เกินเวลาส่งงาน</p>
-                                                                            <button type="button" class="btn btn-outline-secondary" disabled>ส่งงาน</button>
-                                                                           
-                                                                        <?php else : ?>
-                                                                            <a href="status_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-primary">ส่งงาน</a>
-                                                                        <?php endif; ?>
-                                                                    </div>
+                                                                    <?php if ($isOverdue) : ?>
+                                                                        <p class="text-danger">สิ้นสุด: <?= $endDateTime ?> (เกินเวลา)</p>
+                                                                    <?php else : ?>
+                                                                        <p>เริ่ม: <?= $startDateTime ?></p>
+                                                                        <p>สิ้นสุด: <?= $endDateTime ?></p>
+                                                                    <?php endif; ?>
                                                                 </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="d-flex justify-content-end mt-3">
+                                                                    <?php if ($isOverdue) : ?>
+                                                                        <a href="status_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-danger ">ส่งงาน</a>
+                                                                    <?php else : ?>
+                                                                        <a href="status_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary ">ส่งงาน</a>
+                                                                    <?php endif; ?>
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <?php } 
+                                                </div>
+                                                <?php 
+                                                    } 
+                                                }
+                                           
                                                 
                                                 elseif ($topic['url_id'] != null) {
                                                     $stmt_url = $db->prepare("SELECT * FROM urls WHERE url_id = :url_id");

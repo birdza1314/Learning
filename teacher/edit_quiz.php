@@ -61,13 +61,20 @@
                         </div>
                         <div class="form-group">
                             <label for="timeLimit">กำหนดเวลาทำแบบทดสอบ (นาที)</label>
-                            <input type="number" class="form-control" id="timeLimit" name="timeLimit" min="1" max="120" value="<?php echo $quiz['time_limit']; ?>" required>
+                            <input type="number" class="form-control" id="timeLimit" name="timeLimit" value="<?php echo $quiz['time_limit']; ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label>จำนวนแบททดสอบ</label>
                             <input type="number" name="QuestDipLimit" class="form-control" value="<?php echo $quiz['question_limit']; ?>" required>
                         </div>
+                        <div class="form-group">
+                        <label>สถานะ</label>
+                        <select name="status" class="form-control" required>
+                            <option value="เปิดใช้งาน" <?php if ($quiz['status'] == 'เปิดใช้งาน') echo 'selected'; ?>>เปิดใช้งาน</option>
+                            <option value="ปิดใช้งาน" <?php if ($quiz['status'] == 'ปิดใช้งาน') echo 'selected'; ?>>ปิดใช้งาน</option>
+                        </select>
+                    </div>
                         <button type="submit" style="float: right;" class="btn btn-outline-primary">อัพเดทแบบทดสอบ</button>
                     </form>
                 </div>

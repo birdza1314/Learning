@@ -45,7 +45,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="calendar_event.php">
                 <i class="bi bi-calendar"></i>
-                <span>ปฏิทิน</span>
+                <span>ปฏิทินกิจกรรม</span>
             </a>
         </li>
         <li class="nav-item">

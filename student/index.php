@@ -41,81 +41,72 @@ try {
     </div><!-- End Page Title -->
 
 
-    <div class="card overflow-auto">
+    <div class="card overflow-auto "style="text-align: center;">
+<div class="card-title" >
+    <h3 style="font-family: 'Arial', sans-serif; color: #333; margin: 0;">กลุ่มสาระการเรียนรู้</h3>
+</div>
+
         <div class="card-body">
-           <div class="row mt-5">
-                <div class="col-sm-6 d-flex justify-content-end">
-                    <div class="card col-10">
-                        <div class="card-header">
-                        <h3>กลุ่มสาระการเรียนรู้ภาษาไทย</h3>
-                            <div class="card-body">
-                                <!-- ข้อมูลที่ต้องการแสดง -->
-                            </div>
-                        </div>
+          <div class="row mt-5">
+        <div class="col-sm-6 d-flex justify-content-end">
+            <div class="card col-10">
+                <div class="card-header">
+                
+                    <a href="group_details.php?group_id=1">  <h3>ภาษาไทย</h3></a> <!-- เพิ่มลิงก์นี้ -->
+                    <div class="card-body">
+                        <!-- ข้อมูลที่ต้องการแสดง -->
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-sm-6">
-                    <div class="card col-10">
-                        <div class="card-header">
-                            <h3>กลุ่มสาระการเรียนรู้คณิตศาสตร์</h3>
-                             <div class="card-body">
-                               
-
-                             </div>
-                        </div>
-                    </div>
-                </div>  
-           </div>
-           <div class="row">
-                <div class="col-sm-6 d-flex justify-content-end">
-                    <div class="card col-10">
-                        <div class="card-header">
-                        <h3>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี</h3>
-                            <div class="card-body">
-                                <!-- ข้อมูลที่ต้องการแสดง -->
-                            </div>
-                        </div>
-                    </div>
+    <div class="col-sm-6">
+        <div class="card col-10">
+            <div class="card-header">
+              
+                <a href="group_details.php?group_id=2">  <h3>คณิตศาสตร์</h3></a> <!-- เพิ่มลิงก์นี้ -->
+                <div class="card-body">
+                    <!-- ข้อมูลที่ต้องการแสดง -->
                 </div>
+            </div>
+        </div>
+    </div>  
+</div>
+<div class="row">
+    <div class="col-sm-6 d-flex justify-content-end">
+        <div class="card col-10">
+            <div class="card-header">          
+                <a href="group_details.php?group_id=3"><h3>วิทยาศาสตร์และเทคโนโลยี</h3></a> <!-- เพิ่มลิงก์นี้ -->
+            </div>
+        </div>
+    </div>
 
-                <div class="col-sm-6">
-                    <div class="card col-10">
-                        <div class="card-header">
-                            <h3>กลุ่มสาระการเรียนรู้สังคมศึกษาฯ</h3>
-                             <div class="card-body">
-                                 <!-- ข้อมูลที่ต้องการแสดง -->
+    <div class="col-sm-6">
+        <div class="card col-10">
+            <div class="card-header">  
+                <a href="group_details.php?group_id=4"> <h3>สังคมศึกษาฯ</h3></a> <!-- เพิ่มลิงก์นี้ -->
+            </div>
+        </div>
+    </div>  
+</div>
+<div class="row">
+    <div class="col-sm-6 d-flex justify-content-end">
+        <div class="card col-10">
+            <div class="card-header">  
+                <a href="group_details.php?group_id=5"><h3>สุขศึกษาฯ</h3></a> 
+            </div>
+        </div>
+    </div>
 
-                             </div>
-                        </div>
-                    </div>
-                </div>  
-           </div>
-           <div class="row">
-                <div class="col-sm-6 d-flex justify-content-end">
-                    <div class="card col-10">
-                        <div class="card-header">
-                        <h3>กลุ่มสาระการเรียนรู้สุขศึกษาฯ</h3>
-                            <div class="card-body">
-                                <!-- ข้อมูลที่ต้องการแสดง -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-sm-6">
+        <div class="card col-10">
+            <div class="card-header">            
+                <a href="group_details.php?group_id=6"><h3>เรียนรู้ศิลปะ</h3></a> <!-- เพิ่มลิงก์นี้ -->
+            </div>
+        </div>
+    </div> 
+</div>
 
-                <div class="col-sm-6">
-                    <div class="card col-10">
-                        <div class="card-header">
-                            <h3>กลุ่มสาระการเรียนรู้ศิลปะ</h3>
-                             <div class="card-body">
-                               
-
-                             </div>
-                        </div>
-                    </div>
-                </div> 
-                 
-           </div>
            <div style="text-align: center;">
                 <!-- เพิ่มปุ่มรายวิชาทั้งหมดที่นี่ -->
                 <a href="lib_course.php" class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></a>

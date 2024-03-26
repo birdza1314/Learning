@@ -54,25 +54,26 @@ try {
         <div class="card-body">
             <div class="card-title">
                 <h1><?php echo htmlspecialchars($quiz['quiz_title']); ?></h1>
+                <p  style="text-align: end;"><span id="timeRemaining"><i class="bi bi-hourglass-split"></i></span></p>
             </div>
             <p><strong>รายละเอียด :</strong> <?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
-            <p><strong>จํากัดเวลา :</strong> <?php echo htmlspecialchars($quiz['time_limit']); ?></p>
-            <p><strong>แบบทดสอบทั้งหมด :</strong> <?php echo htmlspecialchars($quiz['question_limit']); ?></p>
-            <p><strong>เวลาคงเหลือ :</strong> <span id="timeRemaining"></span></p>
+            <p><strong>จํากัดเวลา :</strong> <?php echo htmlspecialchars($quiz['time_limit']); ?> นาที</p>
+            <p><strong>แบบทดสอบทั้งหมด :</strong> <?php echo htmlspecialchars($quiz['question_limit']); ?> ข้อ</p>
+            
 
             <form id="quizForm" action="submit_quiz.php" method="POST">
             <input type="hidden" name="quiz_id" value="<?php echo htmlspecialchars($quiz_id); ?>">
             <?php $i = 1; foreach ($questions as $question): ?>
-                <div class="question">
-                    <h4><?php echo $i++; ?>.) <?php echo htmlspecialchars($question['question_text']); ?></h4>
-                    <ul class="choices">
-                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch1']); ?>"> A. <?php echo htmlspecialchars($question['choice_ch1']); ?></li>
-                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch2']); ?>"> B. <?php echo htmlspecialchars($question['choice_ch2']); ?></li>
-                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch3']); ?>"> C. <?php echo htmlspecialchars($question['choice_ch3']); ?></li>
-                        <li><input type="radio" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch4']); ?>"> D. <?php echo htmlspecialchars($question['choice_ch4']); ?></li>
-                    </ul>
-                </div>
-            <?php endforeach; ?>
+            <div class="question">
+                <h4><?php echo $i++; ?>.) <?php echo htmlspecialchars($question['question_text']); ?></h4>
+                <ul class="choices">
+                    <li><input type="radio" id="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch1" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch1']); ?>"><label for="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch1"> 1. <?php echo htmlspecialchars($question['choice_ch1']); ?></label></li>
+                    <li><input type="radio" id="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch2" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch2']); ?>"><label for="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch2"> 2. <?php echo htmlspecialchars($question['choice_ch2']); ?></label></li>
+                    <li><input type="radio" id="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch3" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch3']); ?>"><label for="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch3"> 3. <?php echo htmlspecialchars($question['choice_ch3']); ?></label></li>
+                    <li><input type="radio" id="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch4" name="question_<?php echo htmlspecialchars($question['question_id']); ?>" value="<?php echo htmlspecialchars($question['choice_ch4']); ?>"><label for="question_<?php echo htmlspecialchars($question['question_id']); ?>_ch4"> 4. <?php echo htmlspecialchars($question['choice_ch4']); ?></label></li>
+                </ul>
+            </div>
+        <?php endforeach; ?>
 
             <button type="submit" class="btn btn-primary">สงแบบทดสอบ</button>
         </form>
@@ -84,39 +85,43 @@ try {
 <?php include('footer.php');?>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <?php include('scripts.php');?>
+
 <script>
-window.onload = function() {
-  var quizId = <?php echo htmlspecialchars($quiz_id); ?>;
-  var s_id = <?php echo htmlspecialchars($student['s_id']); ?>;
+    
+    window.onload = function() {
+        var quizId = <?php echo htmlspecialchars($quiz_id); ?>;
+        var s_id = <?php echo htmlspecialchars($student['s_id']); ?>;
 
-  var lastTimeKey = 'timeRemaining_' + quizId + '_' + s_id;
-  var lastTime = localStorage.getItem(lastTimeKey);
+        var lastTimeKey = 'timeRemaining_' + quizId + '_' + s_id;
+        var lastTime = localStorage.getItem(lastTimeKey);
 
-  if (lastTime) {
-    timeRemaining = parseInt(lastTime);
-  } else {
-    timeRemaining = <?php echo htmlspecialchars($timeLimit); ?>;
-  }
+        if (lastTime) {
+            timeRemaining = parseInt(lastTime);
+        } else {
+            timeRemaining = <?php echo htmlspecialchars($timeLimit); ?>;
+        }
+        
+        var timer = setInterval(function() {
+            var minutes = Math.floor(timeRemaining / 60);
+            var seconds = timeRemaining % 60;
+            // เพิ่มเลข 0 นำหน้านาทีและวินาทีเมื่อมีค่าน้อยกว่า 10
+            var displayMinutes = (minutes < 10) ? "0" + minutes : minutes;
+            var displaySeconds = (seconds < 10) ? "0" + seconds : seconds;
+            // แสดงเวลาที่เหลือในรูปแบบนาทีและวินาที
+            document.getElementById('timeRemaining').innerHTML = displayMinutes + "m " + displaySeconds + "s ";
+            timeRemaining--;
 
-  var timer = setInterval(function() {
-    var minutes = Math.floor(timeRemaining / 60);
-    var seconds = timeRemaining % 60;
-    document.getElementById('timeRemaining').innerHTML = minutes + "m " + seconds + "s ";
-    timeRemaining--;
-    localStorage.setItem(lastTimeKey, timeRemaining);
-
-    if (timeRemaining < 0) {
-      clearInterval(timer);
-      document.getElementById('timeRemaining').innerHTML = "Time's up!";
-
-      alert('Time is up! Automatically submitting quiz...');
-      window.location.href = "submit_quiz.php";
-        document.getElementById('quizForm').submit();
-    }
-  }, 1000);
-};
-
+            if (timeRemaining < 0) {
+                clearInterval(timer);
+                document.getElementById('timeRemaining').innerHTML = "Time's up!";
+                alert('Time is up! Automatically submitting quiz...');
+                window.location.href = "submit_quiz.php";
+                document.getElementById('quizForm').submit();
+            }
+        }, 1000);
+    };
 </script>
+
 
 </body>
 </html>

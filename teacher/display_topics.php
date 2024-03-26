@@ -91,7 +91,7 @@
                                             ?>
                                                 <div class="col-lg-12">
                                                 <div class="card border rounded-3 shadow-sm">
-                                                    <div class="card-body hover-effect text-hover-white">
+                                                    <div class="card-body ">
                                                     <div class="row">
                                                         <div class="col-md-8">
                                                         <div class="d-flex  mt-4">

@@ -135,9 +135,6 @@ try {
                                         <button type="submit" class="btn btn-outline-primary"><i class="bi bi-copy"></i></button>
                                     </form>
                                 </td>
-
-                               
-
                                     </tr>
                               <?php
                             }

@@ -63,6 +63,7 @@ $time_remaining = date_diff($current_time, $deadline);
 // ตรวจสอบหากเวลาที่เหลือน้อยกว่า 0 แสดงว่าเลยกำหนดการส่งแล้ว
 if ($time_remaining->invert) {
     $time_remaining_text = "เลยกำหนดการส่ง";
+    $status_color = "table-danger"; // สีเขียวสำหรับส่งแล้ว
 } else {
     $time_remaining_text = $time_remaining->format('%a วัน %H ชั่วโมง %I นาที %S วินาที');
 }
@@ -163,7 +164,7 @@ if ($time_remaining->invert) {
                                 </tr>
                                 <tr>
                                     <th>เวลาที่เหลืออยู่</th>
-                                    <td><?php echo $time_remaining_text; ?></td>
+                                    <td class="<?php echo $status_color; ?>"><?php echo $time_remaining_text; ?></td>
                                 </tr>
                                 <tr>
                                 <th>ไฟล์ที่ส่ง</th>
@@ -184,19 +185,19 @@ if ($time_remaining->invert) {
 
                             </tr>
                             <tr>
-    <th>ความคิดเห็น</th>
-    <td>
-        <?php 
-        if ($submission !== false && isset($submission['comment'])) {
-            // หากมีความคิดเห็น
-            echo $submission['comment'];
-        } else {
-            // หากยังไม่มีความคิดเห็น
-            echo "-";
-        }
-        ?>
-    </td>
-</tr>
+                            <th>ความคิดเห็น</th>
+                            <td>
+                                <?php 
+                                if ($submission !== false && isset($submission['comment'])) {
+                                    // หากมีความคิดเห็น
+                                    echo $submission['comment'];
+                                } else {
+                                    // หากยังไม่มีความคิดเห็น
+                                    echo "-";
+                                }
+                                ?>
+                            </td>
+                        </tr>
 
                             </tbody>
                         </table>

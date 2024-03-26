@@ -77,7 +77,7 @@ try {
         <div class="container mt-5">
             <h2>Course Details</h2>
             <div class="card mt-3">
-                <div class="card-body">
+                <div class="card-body my-4">
                     <?php if (!empty($course['c_img'])): ?>
                         <div class="text-center">
                             <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="max-width: 50%; height: auto;">
@@ -100,24 +100,30 @@ try {
                                 </h2>
                                 <div id="collapse<?= $lesson['lesson_id']; ?>" class="accordion-collapse collapse show">
                                     <div class="accordion-body">
-                                    <button id="markAsDoneButton<?= $lesson['lesson_id']; ?>" onclick="markAsDone(<?= $lesson['lesson_id']; ?>, <?= $course_id; ?>)" class="btn btn-outline-primary" style="float: inline-end;">
+                                    <div class="row my-4">
+                                        <div class="col-sm-9 ">
+                                        </div>
+                                        <div class="col-sm-3 ">
+                                        <button id="markAsDoneButton<?= $lesson['lesson_id']; ?>" onclick="markAsDone(<?= $lesson['lesson_id']; ?>, <?= $course_id; ?>)" class="btn btn-outline-primary" style="float: inline-end;">  
                                             <?php
-                                            // Check if the lesson_id, student_id, and course_id exist in the Marks_as_done table
-                                            $stmt = $db->prepare("SELECT COUNT(*) as count FROM Marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
-                                            $stmt->bindParam(':lesson_id', $lesson['lesson_id'], PDO::PARAM_INT);
-                                            $stmt->bindParam(':student_id', $user_id, PDO::PARAM_INT); // เปลี่ยน $student_id เป็น $user_id
-                                            $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
-                                            $stmt->execute();
-                                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                // Check if the lesson_id, student_id, and course_id exist in the Marks_as_done table
+                                                $stmt = $db->prepare("SELECT COUNT(*) as count FROM Marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
+                                                $stmt->bindParam(':lesson_id', $lesson['lesson_id'], PDO::PARAM_INT);
+                                                $stmt->bindParam(':student_id', $user_id, PDO::PARAM_INT); // เปลี่ยน $student_id เป็น $user_id
+                                                $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
+                                                $stmt->execute();
+                                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                            // If the lesson is marked as done, display "Done", otherwise display "Mark as done"
-                                            if ($row['count'] > 0) {
-                                                echo 'Done';
-                                            } else {
-                                                echo 'Mark as done';
-                                            }
-                                            ?>
+                                                // If the lesson is marked as done, display "Done", otherwise display "Mark as done"
+                                                if ($row['count'] > 0) {
+                                                    echo 'Done';
+                                                } else {
+                                                    echo 'Mark as done';
+                                                }
+                                                ?>
                                         </button>
+                                        </div>
+                                        </div>
                                         <!-- เริ่มต้นการวนลูปการแสดงผลข้อมูลหัวข้อ -->
                                         <?php include('display_topics.php'); ?>
                                         <!-- สิ้นสุดการวนลูปการแสดงผลข้อมูลหัวข้อ -->
