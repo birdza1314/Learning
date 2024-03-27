@@ -117,7 +117,7 @@ include("header.php");
     
     if (confirmation) {
       // กรณีผู้ใช้ยืนยันการยกเลิก
-      window.location.href = "index.php";
+      window.location.href = "teacher.php";
     }
   }
   // Validation function

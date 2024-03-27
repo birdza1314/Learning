@@ -20,7 +20,7 @@ try {
     }
 
     // ส่งกลับไปยัง homepage.php
-    header('Location: ../index.php');
+    header('Location: ../teacher.php');
     exit;
 
 } catch (PDOException $e) {

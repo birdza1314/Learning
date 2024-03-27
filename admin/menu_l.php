@@ -55,7 +55,7 @@ try {
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-            <a href="#" class="nav-link <?php if($menu=="Dashboard"){echo "active";} ?> ">
+            <a href="index.php" class="nav-link <?php if($menu=="Dashboard"){echo "active";} ?> ">
               <i class="nav-icon fas fa-address-card"></i>
               <p>Dashboard</p>
             </a>
@@ -72,7 +72,7 @@ try {
           </li>
       
           <li class="nav-item" >
-            <a href="index.php" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
+            <a href="teacher.php" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
               <i class="nav-icon fas fa-address-card"></i>
               <p>ข้อมูลบุคลากร</p>
             </a>

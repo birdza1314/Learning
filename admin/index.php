@@ -1,301 +1,245 @@
 <?php
+// เชื่อมต่อกับฐานข้อมูล
 include('../connections/connection.php');
-session_start();
-if ($_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit();
-}
 
+// คำสั่ง SQL เพื่อดึงจำนวนนักเรียนทั้งหมด
+$stmt = $db->prepare("SELECT COUNT(*) AS total_students FROM students");
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_students = $result['total_students'];
+// คำสั่ง SQL เพื่อดึงจำนวนนักเรียนทั้งหมด
+$stmt = $db->prepare("SELECT COUNT(*) AS total_teachers FROM teachers");
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_teachers = $result['total_teachers'];
+// คำสั่ง SQL เพื่อดึงจำนวนวิชาที่มี is_open = 1
+$stmt = $db->prepare("SELECT COUNT(*) AS total_courses FROM courses WHERE is_open = 1");
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_courses = $result['total_courses'];
+$stmt = $db->prepare("SELECT COUNT(*) AS total_courses FROM courses WHERE is_open = 0");
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_courses_close = $result['total_courses'];
+
+// คำสั่ง SQL เพื่อดึงจำนวนไฟล์ทั้งหมด
+$stmt = $db->prepare("SELECT (SELECT COUNT(*) FROM files) +
+                             (SELECT COUNT(*) FROM student_images) +
+                             (SELECT COUNT(*) FROM teachers_images) +
+                             (SELECT COUNT(*) FROM images) +
+                             (SELECT COUNT(*) FROM submitted_assignments) AS total_files");
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_files = $result['total_files'];
 ?>
-
 <?php
-$menu = "index";
+$menu = "Dashboard";
 include("header.php");
 ?>
+
+<body id="page-top">
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
-        <h1><i class="nav-icon fas fa-address-card"></i> จัดการข้อมูลสมาชิก</h1>
+        <h1><i class="nav-icon fas fa-address-Dashboard"></i> Dashboard</h1>
     </div>
 </section>
+                <!-- Begin Page Content -->
+                <div class="container mt-4">
 
-<!-- Main content -->
-<section class="content">
-
-    <div class="card-header card-navy card-outline d-flex">
-        <div class="ml-auto">
-            <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i> เพิ่มข้อมูลบุคลากร </button>
-            <button type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fa fa-user-plus"></i> เพิ่มข้อมูลบุคลากรจากไฟล์</button>
-            <!--Modal import Excel-->
-            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="importModalLabel">Import Data</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="../import_file/teacher_import.php" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="import_file" class="form-label">เลือกไฟล์บุคลากร:</label>
-                                    <h6 style="color: red;">
-                                        เฉพาะไฟล์นามสกุล 'xls', 'csv', 'xlsx'
-                                        *
-                                    </h6>
-                                    <input type="file" name="import_file" class="form-control" id="import_file">
+                    <!-- Content Row -->
+                    <div class="row">
+                    <!--total students Card  -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            จำนวนนักเรียน</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_students; ?> คน</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                                    </div>
                                 </div>
-                                <button type="submit" name="save_excel_data" class="btn btn-primary">Import</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
+<!-- Total Teachers Card  -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        ครูผู้สอนทั้งหมด</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_teachers; ?> คน</div>
                 </div>
-            </div>
-            <!--Modal import Excel-->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-        </div>
-    </div>
-    <div class="card-body p-1">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-12">
-                <!-- ตารางข้อมูล -->
-                <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                    <thead>
-                        <tr class="bg-info">
-                            <th scope="col">ลำดับที่</th>
-                            <th scope="col">รูปภาพ</th>
-                            <th scope="col">ชื่อผู้ใช้</th>
-                            <th scope="col">ชื่อ</th>
-                            <th scope="col">นามสกุล</th>
-                            <th scope="col">อีเมล์</th>     
-                            <th scope="col">กลุ่มสาระการเรียนรู้</th>
-                            <th scope="col">ตัวเลือก</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $stmt = $db->query("SELECT * FROM teachers");
-                        $stmt->execute();
-                        $teachers = $stmt->fetchAll();
-                        if (!$teachers) {
-                            echo "<tr><td colspan='8' class='text-center'>No teachers found</td></tr>";
-                        } else {
-                            foreach ($teachers as $row) {
-                                // ดึงข้อมูลกลุ่มที่เรียนจากตาราง learning_subject_group
-                                $groupStmt = $db->prepare("SELECT group_name FROM learning_subject_group WHERE group_id = :group_id");
-                                $groupStmt->bindParam(':group_id', $row['group_id']);
-                                $groupStmt->execute();
-                                $groupResult = $groupStmt->fetch(PDO::FETCH_ASSOC);
-                                ?>
-                                <tr>
-                                    <td scope="row"><?= $row['t_id']; ?></td>
-                                    <td align="center">
-                                       <?php
-                                        // ตรวจสอบว่ามีข้อมูลรูปภาพหรือไม่
-                                        $stmtImage = $db->prepare("SELECT * FROM teachers_images WHERE teacher_id = ?");
-                                        $stmtImage->execute([$row['t_id']]);
-
-                                        if ($stmtImage->rowCount() > 0) {
-                                            $imageRow = $stmtImage->fetch(PDO::FETCH_ASSOC);
-                                            echo '<img src="teacher_process/img/' . $imageRow['filename'] . '" alt="Teacher Image" style="max-width: 100px; max-height: 100px;">';
-                                        } else {
-                                            echo '<img src="teacher_process/img/Defaul.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?= $row['username']; ?></td>
-                                    <td><?= $row['first_name']; ?></td>
-                                    <td><?= $row['last_name']; ?></td>
-                                    <td><?= $row['email']; ?></td>
-                                    
-                                   
-                                    <td><?= isset($groupResult['group_name']) ? $groupResult['group_name'] : 'N/A'; ?></td>
-                                    <td align="center">
-                                        <!-- ตัวเลือกอื่น ๆ ที่คุณต้องการ -->
-                                        <a class="btn btn-info btn-xs" href="#" data-bs-toggle="modal" data-bs-target="#profileModal" data-id="<?= $row['t_id']; ?>"><i class="fas fa-eye"></i></a>
-                                        <a href="teacher_edit.php?t_id=<?= $row['t_id']; ?>" class="btn btn-warning btn-xs"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="teacher_process/teacher_delete.php?t_id=<?= $row['t_id']; ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?');"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                        <?php
-                            }
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-    </div>
-
-    <!-- Modal for User Profile -->
-    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-info text-white">
-                <h5 class="modal-title" id="profileModalLabel">โปรไฟล์ผู้ใช้</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <!-- ใช้ Bootstrap Grid System เพื่อจัดรูปแบบข้อมูล -->
-                    <div class="container">
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">ID:</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="t_id" value="<?= $row['t_id']; ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Username:</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="username" value="<?= $row['username']; ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">First Name:</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="first_name" value="<?= $row['first_name']; ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Last Name:</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="last_name" value="<?= $row['last_name']; ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Email:</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" name="email" value="<?= $row['email']; ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Group Name:</label>
-                            <div class="col-md-9">
-                                <!-- ต้องทำการดึงข้อมูลกลุ่มที่เรียนจากตาราง learning_subject_group และแสดงใน input -->
-                                <?php
-                                $groupStmt = $db->prepare("SELECT group_name FROM learning_subject_group WHERE group_id = :group_id");
-                                $groupStmt->bindParam(':group_id', $row['group_id']);
-                                $groupStmt->execute();
-                                $groupResult = $groupStmt->fetch(PDO::FETCH_ASSOC);
-                                ?>
-                                <input type="text" class="form-control" name="group_name" value="<?= isset($groupResult['group_name']) ? $groupResult['group_name'] : 'N/A'; ?>" readonly>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <!-- เพิ่มปุ่มหรือ Element ต่างๆ ที่ต้องการได้ที่นี่ -->
+                <div class="col-auto">
+                    <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-    <!-- Modal for Add Member -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลสมาชิก</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                    วิชาทังหมด (ที่เปิด)</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_courses; ?> วิชา</div>
                 </div>
-                <div class="modal-body">
-                    <form action="teacher_process/teacher_insert.php" method="post">
-                        <div class="form-group">
-                            <label for="add_username">ชื่อผู้ใช้:</label>
-                            <input type="text" class="form-control" id="add_username" name="username" autocomplete="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">รหัสผ่าน:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm_password">ยืนยันรหัสผ่าน:</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="first_name">ชื่อ:</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="last_name">นามสกุล:</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">อีเมล์:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">บันทึก</button>
-                    </form>
+                <div class="col-auto">
+                    <i class="fas fa-book-open fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-danger shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        วิชาทังหมด (ที่ปิด)</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_courses_close; ?>วิชา</div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-book-open fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        Total Files</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_files; ?></div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-file fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-</section>
-<!-- /.content -->
+                    <!-- Content Row -->
 
-<?php include('footer.php'); ?>
+                    <div class="row">
 
-<script>
-    function updateProfileModal(teacherId) {
-        $.ajax({
-            type: 'POST',
-            url: 'get_teacher_data.php',
-            data: { teacherId: teacherId },
-            dataType: 'json',
-            success: function (data) {
-                $('#profileModal [name="t_id"]').val(data.t_id);
-                $('#profileModal [name="username"]').val(data.username);
-                $('#profileModal [name="first_name"]').val(data.first_name);
-                $('#profileModal [name="last_name"]').val(data.last_name);
-                $('#profileModal [name="email"]').val(data.email);
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'get_group_data.php',
-                    data: { groupId: data.group_id },
-                    dataType: 'json',
-                    success: function (groupData) {
-                        $('#profileModal [name="group_name"]').val(groupData.group_name);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Direct
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Social
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Referral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
 
-    $('#profileModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var teacherId = button.data('id');
-
-        if (teacherId) {
-            updateProfileModal(teacherId);
-        } else {
-            console.error('teacherId is not defined.');
-        }
-    });
-</script>
+            </div>
+            <!-- End of Main Content -->
 
 
+        </div>
+        <!-- End of Content Wrapper -->
 
-<script>
-   $(document).ready(function() {
-       $('#example1').DataTable();
-   });
-</script>
+    </div>
+    <!-- End of Page Wrapper -->
+    <?php include('footer.php'); ?>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

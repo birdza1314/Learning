@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // แสดงข้อความเมื่อบันทึกสำเร็จ
         echo "<script>
                 alert('บันทึกสำเร็จ! ข้อมูลของคุณได้รับการบันทึกเรียบร้อยแล้ว');
-                window.location = '../index.php';
+                window.location = '../teacher.php';
               </script>";
     } catch (PDOException $e) {
         // กรณีเกิดข้อผิดพลาด
