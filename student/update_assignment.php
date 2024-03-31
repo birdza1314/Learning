@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is logged in and has a role of 'student'
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 $user_id = $_SESSION['user_id'];

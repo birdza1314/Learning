@@ -4,7 +4,7 @@ include('../connections/connection.php');
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'student' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 
@@ -42,72 +42,74 @@ try {
 
 
     <div class="card overflow-auto "style="text-align: center;">
-<div class="card-title" >
-    <h3 style="font-family: 'Arial', sans-serif; color: #333; margin: 0;">กลุ่มสาระการเรียนรู้</h3>
-</div>
+        <div class="card-title mt-4" >
+            <h3 style="font-family: 'Arial', sans-serif; color: #333; margin: 0;">กลุ่มสาระการเรียนรู้</h3>
+        </div>
 
         <div class="card-body">
-          <div class="row mt-5">
-        <div class="col-sm-6 d-flex justify-content-end">
-            <div class="card col-10">
-                <div class="card-header">
-                
-                    <a href="group_details.php?group_id=1">  <h3>ภาษาไทย</h3></a> <!-- เพิ่มลิงก์นี้ -->
-                    <div class="card-body">
-                        <!-- ข้อมูลที่ต้องการแสดง -->
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    <div class="col-sm-6">
-        <div class="card col-10">
-            <div class="card-header">
-              
-                <a href="group_details.php?group_id=2">  <h3>คณิตศาสตร์</h3></a> <!-- เพิ่มลิงก์นี้ -->
+
+        <div class="row mt-5">
+        <div class="col-sm-6">
+            <a href="group_details_student.php?group_id=1">
                 <div class="card-body">
-                    <!-- ข้อมูลที่ต้องการแสดง -->
+                    <!-- เพิ่มรูปภาพ -->
+                    <img style="margin-left: 150px; " src="../teacher/uploads/group/1.png" alt="ภาษาไทย" width="70%" class="hover-img">
                 </div>
-            </div>
+            </a>
         </div>
-    </div>  
-</div>
-<div class="row">
-    <div class="col-sm-6 d-flex justify-content-end">
-        <div class="card col-10">
-            <div class="card-header">          
-                <a href="group_details.php?group_id=3"><h3>วิทยาศาสตร์และเทคโนโลยี</h3></a> <!-- เพิ่มลิงก์นี้ -->
-            </div>
-        </div>
+
+        <div class="col-sm-6">
+            <a href="group_details_student.php?group_id=2">
+                <div class="card-body">
+                    <!-- เพิ่มรูปภาพ -->
+                    <img style=" margin-right: 150px;" src="../teacher/uploads/group/2.png" alt="คณิตศาสตร์" width="70%" class="hover-img">
+                </div>
+            </a>
+        </div>  
     </div>
 
-    <div class="col-sm-6">
-        <div class="card col-10">
-            <div class="card-header">  
-                <a href="group_details.php?group_id=4"> <h3>สังคมศึกษาฯ</h3></a> <!-- เพิ่มลิงก์นี้ -->
-            </div>
+    <div class="row">
+        <div class="col-sm-6 d-flex justify-content-center align-items-center">    
+            <a href="group_details_student.php?group_id=3">
+                <div class="card-body">
+                    <!-- เพิ่มรูปภาพ -->
+                    <img  style="margin-left: 150px; " src="../teacher/uploads/group/3.png" alt="วิทยาศาสตร์และเทคโนโลยี" width="70%" class="hover-img">
+                </div>
+            </a>
         </div>
-    </div>  
-</div>
-<div class="row">
-    <div class="col-sm-6 d-flex justify-content-end">
-        <div class="card col-10">
-            <div class="card-header">  
-                <a href="group_details.php?group_id=5"><h3>สุขศึกษาฯ</h3></a> 
-            </div>
-        </div>
+
+        <div class="col-sm-6 d-flex justify-content-center align-items-center">
+            <a href="group_details_student.php?group_id=4">
+                <div class="card-body">
+                    <!-- เพิ่มรูปภาพ -->
+                    <img style=" margin-right: 150px;" src="../teacher/uploads/group/4.png" alt="สังคมศึกษาฯ" width="70%" class="hover-img">
+                </div>
+            </a>
+        </div>  
     </div>
 
-    <div class="col-sm-6">
-        <div class="card col-10">
-            <div class="card-header">            
-                <a href="group_details.php?group_id=6"><h3>เรียนรู้ศิลปะ</h3></a> <!-- เพิ่มลิงก์นี้ -->
-            </div>
+    <div class="row">
+        <div class="col-sm-6 d-flex justify-content-center align-items-center"> 
+            <a href="group_details_student.php?group_id=5">
+                <div class="card-body">
+                    <!-- เพิ่มรูปภาพ -->
+                    <img style="margin-left: 150px;" src="../teacher/uploads/group/5.png" alt="สุขศึกษาฯ" width="70%" class="hover-img">
+                </div>
+            </a> 
         </div>
-    </div> 
-</div>
 
-           <div style="text-align: center;">
+        <div class="col-sm-6 d-flex justify-content-center align-items-center">         
+            <a href="group_details_student.php?group_id=6">
+                <div class="card-body">
+                    <!-- เพิ่มรูปภาพ -->
+                    <img style=" margin-right: 150px;" src="../teacher/uploads/group/6.png" alt="เรียนรู้ศิลปะ" width="70%" class="hover-img">
+                </div>
+            </a>
+        </div> 
+    </div>
+
+           <div style="text-align: center;" class="py-4">
                 <!-- เพิ่มปุ่มรายวิชาทั้งหมดที่นี่ -->
                 <a href="lib_course.php" class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></a>
             </div>

@@ -4,7 +4,7 @@ include('../connections/connection.php');
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: login.php'); // ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหากไม่ได้ล็อกอิน
+    header('Location: ../login.php'); // ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหากไม่ได้ล็อกอิน
     exit();
 }
 

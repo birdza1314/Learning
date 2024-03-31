@@ -8,7 +8,7 @@ include('../connections/connection.php');
 // ตรวจสอบการล็อกอิน
 if (!isset($_SESSION['user_id'])) {
     // ถ้าไม่ได้ล็อกอิน ให้เปลี่ยนเส้นทางไปยังหน้าล็อกอิน
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 

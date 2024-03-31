@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // If no matching data found in any table
-        echo '<script>alert("Invalid username or password");</script>';
+        echo '<script>alert("รหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบ ID และ รหัสผ่านให้ถูกต้อง");</script>';
         header("Refresh: 0; url=login.php");
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

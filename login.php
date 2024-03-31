@@ -14,7 +14,16 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #2ca1e6;
+            background-image: url('uploads/img/R.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9); /* เพิ่มความโปร่งแสงให้กับพื้นหลัง */
+            border-radius: 10px; /* โค้งมุมกรอบของการ์ด */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* เงา */
         }
 
         .form-group {
@@ -36,68 +45,49 @@
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #0056b3; /* เปลี่ยนสีปุ่มเข้าสู่ระบบ */
             color: #fff;
             cursor: pointer;
         }
         .form-group input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #004080; /* เปลี่ยนสีเมื่อโฮเวอร์ */
         }
     </style>
 </head>
 <body>
-<!-- Section: Design Block -->
-<section class="">
-  <!-- Jumbotron -->
-  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
-    <div class="container">
-      <div class="row gx-lg-5 align-items-center">
-        <div class="col-lg-6 mb-5 mb-lg-0">
-        <img src="assets/images/logo1.jpg" alt="Image" class="img-fluid">
-          <h1 class="my-5 display-3 fw-bold ls-tight">
-          E-learning system :  <br />
-            <span class="text-primary"> case study of Suanprayawittaya school </span>
-          </h1>
-          <p style="color: hsl(217, 10%, 50.8%)">
-          ระบบบริหารการเรียนการสอนออนไลน์
-          กรณีศึกษาโรงเรียนสวนพระยาวิทยา
-          </p>
-        </div>
 
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="card">
-          <div class="card-header">
-          <h1 > เข้าสู่ระบบ </h1>
-            <div class="card-body py-5 px-md-5">
-            <form action="login_db.php" method="POST" class="register-form" id="login-form">
-                <div class="form-group">
-                    <label for="username"><i class="zmdi zmdi-account material-icons-name"></i> ชื่อผู้ใช้</label>
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>เข้าสู่ระบบ</h1>
                 </div>
-                <div class="form-group">
-                    <label for="password"><i class="zmdi zmdi-lock"></i> รหัสผ่าน</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                <div class="card-body py-5 px-md-5">
+                    <form action="login_db.php" method="POST" class="register-form" id="login-form">
+                        <div class="form-group">
+                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i> ชื่อผู้ใช้</label>
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="zmdi zmdi-lock"></i> รหัสผ่าน</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="form-check-input">
+                            <label for="remember-me" class="form-check-label">Remember me</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="btn btn-primary" value="เข้าสู่ระบบ">
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="checkbox" name="remember-me" id="remember-me" class="form-check-input">
-                    <label for="remember-me" class="form-check-label">Remember me</label>
-                </div>
-                <div class="form-group">
-                    <input type="submit" name="submit" id="submit" class="btn btn-primary" value="เข้าสู่ระบบ">
-                </div>
-            </form>
             </div>
-          </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- Jumbotron -->
-</section>
-<!-- Section: Design Block -->
+</div>
 
-    <!-- Bootstrap 5 JS (for optional use, for example, if you need dropdowns or other JS features) -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
+<!-- Bootstrap 5 JS (for optional use, for example, if you need dropdowns or other JS features) -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
 </body>
 </html>

@@ -358,6 +358,14 @@
 
 
 }
+    /* Media queries เพื่อทำให้หน้าเว็บ responsive */
+    @media (max-width: 767px) {
+      /* ปรับขนาดของภาพให้เต็มกว้างในขนาดหน้าจอเล็ก */
+      .card-body img {
+        width: 100%;
+      }
+    }
+    
 </style>
 </head>
 <!-- ======= Head ======= -->

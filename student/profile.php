@@ -3,7 +3,7 @@ include('../connections/connection.php');
 
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 

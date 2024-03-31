@@ -70,13 +70,13 @@ try {
             <div class="row mb-3">
               <label for="course_name" class="col-sm-2 col-form-label">ชื่อ วิชา</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="course_name" name="course_name">
+                <input type="text" class="form-control" id="course_name" name="course_name" required>
               </div>
             </div> 
             <div class="row mb-3">
               <label for="course_Code" class="col-sm-2 col-form-label">รหัส วิชา</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="course_Code" name="course_Code">
+                <input type="text" class="form-control" id="course_Code" name="course_Code" required>
               </div>
             </div>  
             <div class="row mb-3">
@@ -102,7 +102,7 @@ try {
                   </div>
                 </div> 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">บันทึก</button>
               <a href="../teacher/course.php" class="btn btn-secondary" onclick="cancelEdit()">ยกเลิก</a>
             </div>
           </form><!-- End Horizontal Form -->

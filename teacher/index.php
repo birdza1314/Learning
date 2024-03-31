@@ -24,34 +24,35 @@
       echo "เกิดข้อผิดพลาด: " . $e->getMessage();
   }
   try {
-   // คำสั่ง SQL เพื่อดึงจำนวนรายวิชาทั้งหมดที่เป็นของ teacher_id ที่ระบุ
-  $stmt = $db->prepare("SELECT COUNT(*) as total_courses FROM courses WHERE teacher_id = :teacher_id");
-  $stmt->bindParam(':teacher_id', $teacher_id); // ตัวแปร $teacher_id คือ teacher_id ที่ต้องการดึงข้อมูล
-  $stmt->execute();
-  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  $total_courses = $result['total_courses'];
+   // กำหนดค่า $teacher_id โดยใช้ข้อมูลจากผู้ใช้ที่ล็อกอิน
+$teacher_id = $teacher['t_id'];
 
-  // คำสั่ง SQL เพื่อดึงจำนวนแบบทดสอบทั้งหมดที่เป็นของ teacher_id ที่อ้างอิงคีย์รองจากตาราง courses
-  $stmt = $db->prepare("SELECT COUNT(q.quiz_id) AS total_quizzes 
-                        FROM quizzes q
-                        INNER JOIN courses c ON q.c_id = c.c_id
-                        WHERE c.teacher_id = :teacher_id");
-  $stmt->bindParam(':teacher_id', $teacher_id); // ตัวแปร $teacher_id คือ teacher_id ที่ต้องการดึงข้อมูล
-  $stmt->execute();
-  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  $total_quizzes = $result['total_quizzes'];
+// คำสั่ง SQL เพื่อดึงจำนวนรายวิชาทั้งหมดที่เป็นของ teacher_id ที่ระบุ
+$stmt = $db->prepare("SELECT COUNT(*) as total_courses FROM courses WHERE teacher_id = :teacher_id");
+$stmt->bindParam(':teacher_id', $teacher_id); // ใช้ตัวแปร $teacher_id ที่กำหนดขึ้นก่อนหน้านี้
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_courses = $result['total_courses'];
 
+// คำสั่ง SQL เพื่อดึงจำนวนแบบทดสอบทั้งหมดที่เป็นของ teacher_id ที่ระบุ
+$stmt = $db->prepare("SELECT COUNT(q.quiz_id) AS total_quizzes 
+                    FROM quizzes q
+                    INNER JOIN courses c ON q.c_id = c.c_id
+                    WHERE c.teacher_id = :teacher_id");
+$stmt->bindParam(':teacher_id', $teacher_id); // ใช้ตัวแปร $teacher_id ที่กำหนดขึ้นก่อนหน้านี้
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_quizzes = $result['total_quizzes'];
 
- // คำสั่ง SQL เพื่อดึงจำนวนแบบฝึกหัดทั้งหมดที่เป็นของ teacher_id ที่อ้างอิงคีย์รองจากตาราง courses
+// คำสั่ง SQL เพื่อดึงจำนวนแบบฝึกหัดทั้งหมดที่เป็นของ teacher_id ที่ระบุ
 $stmt = $db->prepare("SELECT COUNT(a.assignment_id) AS total_exercises 
-FROM assignments a
-INNER JOIN courses c ON a.course_id = c.c_id
-WHERE c.teacher_id = :teacher_id");
-$stmt->bindParam(':teacher_id', $teacher_id); // ตัวแปร $teacher_id คือ teacher_id ที่ต้องการดึงข้อมูล
+                    FROM assignments a
+                    INNER JOIN courses c ON a.course_id = c.c_id
+                    WHERE c.teacher_id = :teacher_id");
+$stmt->bindParam(':teacher_id', $teacher_id); // ใช้ตัวแปร $teacher_id ที่กำหนดขึ้นก่อนหน้านี้
 $stmt->execute();
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 $total_exercises = $result['total_exercises'];
-
 
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();

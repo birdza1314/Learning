@@ -21,6 +21,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css" rel="stylesheet">
     <!-- Add Bootstrap Icons CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css" rel="stylesheet"> <!-- เพิ่ม CSS ของ FullCalendar -->
   <!-- Vendor CSS Files -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -39,6 +42,11 @@
 
 
 <style>
+  .hover-img:hover {
+    transform: scale(1.1); /* เพิ่มขนาดรูปภาพเมื่อ hover */
+    transition: transform 0.3s ease; /* เพิ่ม transition เพื่อให้เกิดการเปลี่ยนแปลงอย่างนุ่มนวล */
+    cursor: pointer; /* เปลี่ยน cursor เป็น pointer เมื่อ hover */
+}
   .description-column {
     max-height: 5px; /* ปรับค่าตามที่ต้องการ */
     max-width: 5px;
@@ -411,6 +419,101 @@
     font-weight: bold; /* กำหนดให้ตัวเลขหนา */
     font-size: 20px; /* กำหนดขนาดตัวเลข */
     color: #3e4f6f;
+}
+/* Styles for the calendar */
+/* Calendar background and border color */
+#calendar {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Styles for buttons and header */
+.fc-header-toolbar,
+.fc-header-title {
+  text-align: center;
+}
+
+/* Popover styles */
+.popover-header {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+  border-bottom: none;
+}
+
+.popover-body {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Styles for calendar dates */
+.fc-daygrid-day {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+/* Styles for today's date */
+.fc-day-today:not(.fc-day-other-month) {
+  background-color: #a2c3fc;
+}
+
+/* Styles for dates not in the current month */
+.fc-day-other-month {
+  color: #adb5bd;
+}
+
+/* Cell size adjustments */
+.fc-scrollgrid-table,
+.fc-scrollgrid-liquid-hack table,
+.fc-scrollgrid-sync-table {
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Additional styles for "Today" button */
+.fc-today-button {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px;
+}
+
+
+/* Additional styles for calendar header */
+.fc-header-toolbar {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Additional styles for month names */
+.fc-header-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Adjust height of day cells */
+.fc-daygrid-day {
+  height: 100px;
+}
+
+/* Styles for calendar dates */
+.fc-daygrid-day {
+  background-color: #fff; /* เปลี่ยนสีพื้นหลังเป็นสีขาว */
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+/* Styles for today's date */
+.fc-day-today:not(.fc-day-other-month) {
+  background-color: #000; /* เปลี่ยนสีพื้นหลังของวันที่เป็นวันนี้เป็นสีดำ */
+}
+/* CSS for notification dropdown scrollbar */
+.notification {
+  max-height: 300px; /* กำหนดความสูงสูงสุดของ dropdown */
+  overflow-y: auto; /* เพิ่มแถบเลื่อนเมื่อมีเนื้อหาเกินขนาดที่กำหนด */
 }
 
     </style>

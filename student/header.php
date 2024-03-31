@@ -10,6 +10,57 @@
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
+<!-- Dropdown Notification -->
+<div class="dropdown d-none d-md-block">
+  <button class="btn dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-bell-fill"></i><span class="badge bg-danger" id="notificationCount">0</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end notification" aria-labelledby="notificationDropdown" id="notificationList">
+    <!-- รายการแจ้งเตือนจะถูกแสดงที่นี่ -->
+  </ul>
+</div>
+<!-- JavaScript Code for Notification -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // เลือก dropdown element
+  var notificationDropdown = document.getElementById('notificationDropdown');
+  var notificationList = document.getElementById('notificationList');
+  var notificationCount = document.getElementById('notificationCount');
+
+  // Function สำหรับดึงข้อมูลกิจกรรมและแสดงผลใน dropdown notification
+  function fetchAndDisplayNotifications() {
+    // ส่งคำร้องขอ GET ไปยังไฟล์ get_assignments.php เพื่อดึงข้อมูลกิจกรรม
+    fetch('get_event.php')
+      .then(response => response.json())
+      .then(data => {
+        // ตรวจสอบว่ามีข้อมูลหรือไม่
+        if (data.length > 0) {
+          // กำหนด HTML ใหม่สำหรับ dropdown notification
+          var html = '';
+          data.forEach(event => {
+            // เพิ่มลิงก์ไปยังหน้าวิชาที่เกี่ยวข้อง
+            html += `<li><a class="dropdown-item" href="course_details.php?course_id=${event.course_id}"><i class="bi bi-exclamation-diamond text-warning"></i> ${event.title} - สิ้นสุด ${event.close_time.split(' ')[0].split('-').reverse().join('-')} ${event.close_time.split(' ')[1]}</a></li>`;
+
+            // เพิ่มเส้นขีดในระหว่างรายการข้อมูล
+            html += `<li><hr class="dropdown-divider"></li>`;
+          });
+          // นำ HTML ใหม่มาแทนที่ใน dropdown notification
+          notificationList.innerHTML = html;
+          // กำหนดจำนวนของแจ้งเตือนใหม่
+          notificationCount.innerText = data.length;
+        } else {
+          // ถ้าไม่มีข้อมูล ให้แสดงข้อความ "ไม่มีกิจกรรม"
+          notificationList.innerHTML = '<li><span class="dropdown-item">ไม่มีกิจกรรม</span></li>';
+        }
+      });
+  }
+
+  // เรียกใช้งานฟังก์ชัน fetchAndDisplayNotifications เมื่อเปิดหน้าเว็บ
+  fetchAndDisplayNotifications();
+});
+
+</script>
+
 
 
     <li class="nav-item dropdown pe-3">

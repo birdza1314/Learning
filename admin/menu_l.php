@@ -54,45 +54,46 @@ try {
         <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item">
-            <a href="index.php" class="nav-link <?php if($menu=="Dashboard"){echo "active";} ?> ">
-              <i class="nav-icon fas fa-address-card"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
+       <!-- เมนู Dashboard -->
+<li class="nav-item">
+    <a href="index.php" class="nav-link <?php if($menu=="Dashboard"){echo "active";} ?> ">
+        <i class="nav-icon fas fa-chart-line"></i> <!-- เปลี่ยนไอคอนเป็น fa-chart-line -->
+        <p>Dashboard</p>
+    </a>
+</li>
 
-          <li class="nav-header">Page</li>
+<!-- เมนู ข้อมูลนักเรียน -->
+<li class="nav-item">
+    <a href="student_data.php" class="nav-link <?php if($menu=="student"){echo "active";} ?> ">
+        <i class="nav-icon fas fa-user-graduate"></i> <!-- เปลี่ยนไอคอนเป็น fa-user-graduate -->
+        <p>ข้อมูลนักเรียน</p>
+    </a>
+</li>
 
+<!-- เมนู ข้อมูลบุคลากร -->
+<li class="nav-item" >
+    <a href="teacher.php" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
+        <i class="nav-icon fas fa-chalkboard-teacher"></i> <!-- เปลี่ยนไอคอนเป็น fa-chalkboard-teacher -->
+        <p>ข้อมูลบุคลากร</p>
+    </a>
+</li>
 
-          <li class="nav-item">
-            <a href="student_data.php" class="nav-link <?php if($menu=="student"){echo "active";} ?> ">
-              <i class="nav-icon fas fa-address-card"></i>
-              <p>ข้อมูลนักเรียน</p>
-            </a>
-          </li>
-      
-          <li class="nav-item" >
-            <a href="teacher.php" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
-              <i class="nav-icon fas fa-address-card"></i>
-              <p>ข้อมูลบุคลากร</p>
-            </a>
-          </li>
-          <li class="nav-item" >
-            <a href="#" class="nav-link <?php if($menu=="course"){echo "active";} ?> ">
-              <i class="nav-icon fas fa-address-card"></i>
-              <p>วิชาทั้งหมด</p>
-            </a>
-          </li>
+<!-- เมนู วิชาทั้งหมด -->
+<li class="nav-item" >
+    <a href="Lib_course.php" class="nav-link <?php if($menu=="course"){echo "active";} ?> ">
+        <i class="nav-icon fas fa-book"></i> <!-- เปลี่ยนไอคอนเป็น fa-book -->
+        <p>วิชาทั้งหมด</p>
+    </a>
+</li>
 
-      <div class="user-panel mt-2 pb-3 mb-2 d-flex">
-  
-      </div>
-          <li class="nav-item">
-            <a href="../logout.php" class="nav-link text-danger">
-              <i class="nav-icon fas fa-power-off"></i>
-              <p>ออกจากระบบ</p>
-            </a>
-          </li>
+<!-- เมนู ออกจากระบบ -->
+<li class="nav-item">
+    <a href="../logout.php" class="nav-link text-danger">
+        <i class="nav-icon fas fa-sign-out-alt"></i> <!-- เปลี่ยนไอคอนเป็น fa-sign-out-alt -->
+        <p>ออกจากระบบ</p>
+    </a>
+</li>
+
         </ul>
       </nav>
 

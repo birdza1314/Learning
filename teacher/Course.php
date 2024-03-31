@@ -51,17 +51,26 @@ try {
            
               <div class="card overflow-auto">
                 <div class="card-body">
-                  <div class="card-header d-flex">
-                  <h4 class="mt-2">รายวิชาของฉัน</h4>
-                  </div>    
-                  <div class="form-group">
-                      <label for="display-format">Display Format:</label>
-                      <select class="form-control" id="display-format">
-                          <option value="table">Table</option>
-                          <option value="card">Card</option>
-                      </select>
-                  </div>
-                  <a href="add_course.php"  class="btn btn-outline-primary mt-2 me-2" style=" float: right;">Add Course</a>
+                <div class="card-header">
+    <div class="row justify-content-between align-items-center">
+        <div class="col">
+            <h4 class="mt-2">รายวิชาของฉัน</h4>
+        </div>
+        <div class="col-auto">
+            <div class="form-group mb-0">
+                <label class="mb-0" for="display-format">รูปแบบการแสดงผล:</label>
+                <select class="form-control" id="display-format">
+                    <option value="table">Table</option>
+                    <option value="card">Card</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+         
+ 
+                  <a href="add_course.php"  class="btn btn-outline-primary mt-2 me-2" style=" float: right;">เพิ่มวิชาใหม่</a>
                   <div class="mt-6">           
                   <table class="table table-borderless datatable table-format mt-5">
                     <thead>
@@ -87,7 +96,14 @@ try {
                             foreach ($courses as $row) {
                         ?>
                                 <tr>
-                                    <td><img src="<?= $row['c_img']; ?>" alt="Course Image" class="rounded-circle" style="width: 60px; height: 60px;"></td>
+                                <td>
+    <?php if(isset($row['c_img']) && !empty($row['c_img'])): ?>
+        <img src="<?= $row['c_img']; ?>" alt="Course Image" class="rounded-circle" style="width: 60px; height: 60px;">
+    <?php else: ?>
+        <img src="../admin/teacher_process/img/course.jpg" alt="Placeholder Image" class="rounded-circle" style="width: 60px; height: 60px;">
+    <?php endif; ?>
+</td>
+
                                     <td><?= $row['course_name']; ?></a></td>
                                     <td><?= $row['course_code']; ?></td>
                                     <td class="description-column"><?= $row['description']; ?></td>
@@ -127,6 +143,7 @@ try {
                                         ?>
                                     </td>
                                     <td class="td-button" align="center">
+                                    <a href="add_lessons.php?course_id=<?= $row['c_id']; ?>" class="btn btn-success btn-xs me-2"><i class="bi bi-file-plus"></i> แก้ไขบทเรียน</a>
                                     <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning btn-xs me-2"><i class="bi bi-pencil-fill"></i></a>
                                     <!-- เพิ่มฟอร์มสำหรับคัดลอกและบันทึก -->
                                     <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
@@ -150,28 +167,34 @@ try {
                 echo '<div class="row">';
             }
     ?>
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="<?= $row['c_img']; ?>" class="card-img-top" alt="Course Image">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $row['course_name']; ?></h5>
-                        <p class="card-text"><?= $row['course_code']; ?></p>
-                        <p class="card-text" style="max-height: 70px; overflow-y: auto;"><?= $row['description']; ?></p>
-                        <p style="color: <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>; border: 1px solid <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>; padding: 5px; border-radius: 5px;">
-                            สถานะ: <?php echo ($row['is_open'] == 1) ? 'เปิด' : 'ปิด'; ?>
-                        </p>
-                        <div class="td-button" style="float: inline-end;">         
-                        <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning me-1"><i class="bi bi-pencil-fill"></i></a>
-                    <!-- เพิ่มฟอร์มสำหรับคัดลอกและบันทึก -->
-                        <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
-                            <input type="hidden" name="existing_course" value="<?= $row['c_id']; ?>">
-                            <input type="hidden" name="new_course_name" value="Copy of <?= $row['course_name']; ?>">
-                            <button type="submit" class="btn btn-outline-primary "><i class="bi bi-copy"></i></button>
-                        </form>
-                        </div>  
-                    </div>
-                </div>
-            </div>
+   <div class="col-lg-4 mb-4">
+    <div class="card shadow border">
+        <?php if(isset($row['c_img']) && !empty($row['c_img'])): ?>
+            <img src="<?= $row['c_img']; ?>" class="card-img-top" alt="Course Image">
+    <?php else: ?>
+        <img src="../admin/teacher_process/img/course.jpg" class="card-img-top" alt="Course Image">
+    <?php endif; ?>
+        <div class="card-body">
+            <h5 class="card-title"><?= $row['course_name']; ?></h5>
+            <p class="card-text"><?= $row['course_code']; ?></p>
+            <p class="card-text" style="max-height: 70px; overflow-y: auto;"><?= $row['description']; ?></p>
+            <p style="color: <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>; border: 1px solid <?php echo ($row['is_open'] == 1) ? 'green' : 'red'; ?>; padding: 5px; border-radius: 5px;">
+                สถานะ: <?php echo ($row['is_open'] == 1) ? 'เปิด' : 'ปิด'; ?>
+            </p>
+            <div class="td-button" style="float: inline-end;">  
+                <a href="add_lessons.php?course_id=<?= $row['c_id']; ?>" class="btn btn-success btn-xs me-2"><i class="bi bi-file-plus"></i> แก้ไขบทเรียน</a>       
+                <a href="form_update_course.php?course_id=<?= $row['c_id']; ?>" class="btn btn-outline-warning me-1"><i class="bi bi-pencil-fill"></i></a>
+                <!-- เพิ่มฟอร์มสำหรับคัดลอกและบันทึก -->
+                <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
+                    <input type="hidden" name="existing_course" value="<?= $row['c_id']; ?>">
+                    <input type="hidden" name="new_course_name" value="Copy of <?= $row['course_name']; ?>">
+                    <button type="submit" class="btn btn-outline-primary "><i class="bi bi-copy"></i></button>
+                </form>
+            </div>  
+        </div>
+    </div>
+</div>
+
     <?php
             $i++;
             if ($i % 3 == 0) {

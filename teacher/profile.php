@@ -115,11 +115,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">เกี่ยวกับ</h5>
-                  <p class="small fst-italic">
-                    #
-                  </p>
-
                   <h5 class="card-title">รายละเอียดโปรไฟล์</h5>
 
                   <div class="row">

@@ -7,7 +7,7 @@ session_start();
 // ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'studen' หรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'studen' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 
