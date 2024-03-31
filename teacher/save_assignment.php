@@ -29,11 +29,11 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['name'] != "") {
     // ย้ายไฟล์ไปยังโฟลเดอร์ปลายทาง
     if (move_uploaded_file($temp_name, $file_path)) {
         // ถ้ามีการอัปโหลดไฟล์เรียบร้อยแล้ว
-        echo "<script>alert('ไฟล์ถูกอัปโหลดเรียบร้อยแล้ว');</script>";
-        echo "<script>window.history.back();</script>";
+       
     } else {
         // ถ้ามีปัญหาในการอัปโหลดไฟล์
         echo "<script>alert('มีปัญหาในการอัปโหลดไฟล์');</script>";
+        echo "<script>window.history.back();</script>";
     }
 } else {
     // หากไม่มีการอัปโหลดไฟล์ กำหนดค่าเป็นค่าว่าง

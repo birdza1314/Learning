@@ -62,69 +62,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div><!-- End Search Bar -->
                         </div>
                     </div>
-                    <div class="row mt-3 list-format" style="display: none;">
-                    <?php if ($courses): ?>
-                        <?php foreach ($courses as $course): ?>
-                            <div class="col-md-12 ">
-                                <div class="card">
-                                    <div class="card-body d-flex">
-                                        <div class="col-md-4 py-4 pe-3">
-                                            <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
-                                            <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
-                                            <?php
-                                            // เรียกข้อมูลผู้สอนจากตาราง teachers โดยใช้ teacher_id จากตาราง courses เป็นเงื่อนไข
-                                            $teacher_id = $course['teacher_id'];
-                                            $teacher_stmt = $db->prepare("SELECT * FROM teachers WHERE t_id = :teacher_id");
-                                            $teacher_stmt->bindParam(':teacher_id', $teacher_id);
-                                            $teacher_stmt->execute();
-                                            $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
-                                            ?>
-                                            <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
-                                            <?php 
-                                                // ดึงบทเรียนทั้งหมดในรายวิชานี้
-                                                $stmt = $db->prepare("SELECT COUNT(*) as total_lessons FROM lessons WHERE course_id = :course_id");
-                                                $stmt->bindParam(':course_id', $course['c_id']);
-                                                $stmt->execute();
-                                                $total_lessons = $stmt->fetch(PDO::FETCH_ASSOC)['total_lessons'];
-
-                                                // ดึงบทเรียนที่เสร็จสิ้นแล้วในรายวิชานี้
-                                                $stmt = $db->prepare("SELECT COUNT(*) as completed_lessons FROM marks_as_done WHERE course_id = :course_id AND student_id = :student_id");
-                                                $stmt->bindParam(':course_id', $course['c_id']);
-                                                $stmt->bindParam(':student_id', $user_id);
-                                                $stmt->execute();
-                                                $completed_lessons = $stmt->fetch(PDO::FETCH_ASSOC)['completed_lessons'];
-
-                                                // คำนวณเปอร์เซ็นต์ของบทเรียนที่เสร็จสิ้น
-                                                if ($total_lessons > 0) {
-                                                    $completion_percentage = ($completed_lessons / $total_lessons) * 100;
-                                                    // ตัดทศนิยมออกถ้ามีเศษ
-                                                    $completion_percentage = round($completion_percentage);
-                                                } else {
-                                                    $completion_percentage = 0;
-                                                    // ถ้าไม่มีข้อมูลในฐานข้อมูลให้กำหนดเป็นสีดำ
-                                                    echo '<p class="card-text" style="color: black;">' . $completion_percentage . '% complete</p>';
-                                                    exit(); // จบการทำงานที่นี่เพื่อป้องกันการแสดงผลเพิ่มเติม
-                                                }
-
-                                                // แสดงเปอร์เซ็นต์การเสร็จสิ้น
-                                                echo '<p class="card-text">' . $completion_percentage . '% complete</p>';
-                                                ?>
-
-                                            <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="col">
-                            <p>ไม่มีรายวิชา</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
+  
 
                     <!-- ส่วนที่แสดงเป็น List -->
                     <div class="row mt-3 card-format">
@@ -182,6 +120,71 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         <?php endif; ?>
                     </div>
+                    <div class="row mt-3 list-format" style="display: none;">
+    
+    <?php if ($courses): ?>
+        <?php foreach ($courses as $course): ?>
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
+                            </div>
+                            <div class="col-md-8">
+                                <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                                <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
+                                <?php
+                                // เรียกข้อมูลผู้สอนจากตาราง teachers โดยใช้ teacher_id จากตาราง courses เป็นเงื่อนไข
+                                $teacher_id = $course['teacher_id'];
+                                $teacher_stmt = $db->prepare("SELECT * FROM teachers WHERE t_id = :teacher_id");
+                                $teacher_stmt->bindParam(':teacher_id', $teacher_id);
+                                $teacher_stmt->execute();
+                                $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
+                                ?>
+                                <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
+                                <?php 
+                                    // ดึงบทเรียนทั้งหมดในรายวิชานี้
+                                    $stmt = $db->prepare("SELECT COUNT(*) as total_lessons FROM lessons WHERE course_id = :course_id");
+                                    $stmt->bindParam(':course_id', $course['c_id']);
+                                    $stmt->execute();
+                                    $total_lessons = $stmt->fetch(PDO::FETCH_ASSOC)['total_lessons'];
+
+                                    // ดึงบทเรียนที่เสร็จสิ้นแล้วในรายวิชานี้
+                                    $stmt = $db->prepare("SELECT COUNT(*) as completed_lessons FROM marks_as_done WHERE course_id = :course_id AND student_id = :student_id");
+                                    $stmt->bindParam(':course_id', $course['c_id']);
+                                    $stmt->bindParam(':student_id', $user_id);
+                                    $stmt->execute();
+                                    $completed_lessons = $stmt->fetch(PDO::FETCH_ASSOC)['completed_lessons'];
+
+                                    // คำนวณเปอร์เซ็นต์ของบทเรียนที่เสร็จสิ้น
+                                    if ($total_lessons > 0) {
+                                        $completion_percentage = ($completed_lessons / $total_lessons) * 100;
+                                        // ตัดทศนิยมออกถ้ามีเศษ
+                                        $completion_percentage = round($completion_percentage);
+                                    } else {
+                                        $completion_percentage = 0;
+                                    }
+                                ?>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: <?php echo $completion_percentage; ?>%" aria-valuenow="<?php echo $completion_percentage; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $completion_percentage; ?>% complete</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary mt-3" style="float: right;">รายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="col">
+            <p>ไม่มีรายวิชา</p>
+        </div>
+    <?php endif; ?>
+</div>
+
+
+                </div>
                 </div>
             </div>
         </div>
@@ -195,13 +198,12 @@ $(document).ready(function() {
         var format = $(this).val();
         if (format === 'list') {
             $('.card-format').hide();
-            $('.list-format').show();
+            $('.list-format').show(); // ต้องแสดง .list-format เมื่อเปลี่ยนเป็น list
         } else if (format === 'card') {
             $('.list-format').hide();
             $('.card-format').show();
         }
     });
-
     $("#search").keyup(function() {
         let searchText = $(this).val();
         if (searchText != "") {

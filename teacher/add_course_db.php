@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file]);
             $db = null;
             echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-            echo "<script>window.history.back();</script>";
+            echo "<script>window.history.back(-2);</script>";
         }
     } else {
         echo "Missing required fields.";

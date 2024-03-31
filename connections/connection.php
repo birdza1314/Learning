@@ -3,7 +3,7 @@
 $db_host = "localhost"; 
 $db_user = "root";     
 $db_password = "";
-$db_name = "learning";
+$db_name = "sp_learning";
 
 try {   //ทำการเชื่อมต่อ database
     $db = new PDO("mysql:host={$db_host};dbname={$db_name};charset=utf8", $db_user, $db_password);

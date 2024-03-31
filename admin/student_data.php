@@ -70,7 +70,7 @@ include("header.php");
                 <th scope="col">ชื่อผู้ใช้</th>
                 <th scope="col">ชื่อ</th>
                 <th scope="col">นามสกุล</th>
-                <th scope="col">เพศ</th>
+               
                 <th scope="col">ชั้น</th>
                 <th scope="col">ตัวเลือก</th>
               </tr>
@@ -90,7 +90,7 @@ include("header.php");
                     <td><?= $row['username']; ?></td>
                     <td><?= $row['first_name']; ?></td>
                     <td><?= $row['last_name']; ?></td>
-                    <td><?= $row['gender']; ?></td>
+                   
                     <td><?= $row['class']; ?></td>
                     <td align="center">
                       

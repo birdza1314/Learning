@@ -85,7 +85,7 @@ if (isset($_GET['group_id'])) {
                           $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
                           ?>
                           <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
-                          <a href="../login.php" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+                          <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
                       </div>
                   </div>
               </div>

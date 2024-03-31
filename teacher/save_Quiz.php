@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Execute the SQL statement
             if ($stmt_add_topic->execute()) {
                 // Redirect back to the page with success message
-                echo "<script>alert('Quiz added successfully');</script>";
+                echo "<script>alert('บันทึกแบบทดสอบสำเร็จ');</script>";
                 echo "<script>window.history.back();</script>";
             } else {
                 // Display error message if add_topic insert fails
