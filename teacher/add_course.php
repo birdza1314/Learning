@@ -67,19 +67,19 @@ try {
                   </div>
                 </div>
             <div class="row mb-3">
-              <label for="course_name" class="col-sm-2 col-form-label">ชื่อ วิชา</label>
+              <label for="course_name" class="col-sm-2 col-form-label">ชื่อ วิชา<span style="color: red;">*</span></label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="course_name" name="course_name" required>
               </div>
             </div> 
             <div class="row mb-3">
-              <label for="course_Code" class="col-sm-2 col-form-label">รหัส วิชา</label>
+              <label for="course_Code" class="col-sm-2 col-form-label">รหัส วิชา<span style="color: red;">*</span></label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="course_Code" name="course_Code" required>
               </div>
             </div>  
             <div class="row mb-3">
-                <label for="group_id" class="col-sm-2 col-form-label">กลุ่ม</label>
+                <label for="group_id" class="col-sm-2 col-form-label">กลุ่ม<span style="color: red;">*</span></label>
                 <div class="col-sm-10">
                     <!-- ใช้ select element เพื่อให้เลือกกลุ่ม -->
                     <select class="form-select" id="group_id" name="group_id">

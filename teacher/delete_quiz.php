@@ -15,7 +15,7 @@ if(isset($_POST['quiz_id'])) {
         // Check if any rows were affected
         if($stmt->rowCount() > 0) {
             // If successful, return success message
-            echo "Quiz deleted successfully!";
+            echo "ลบข้อมูลสำเร็จ!";
         } else {
             // If no rows were affected, return error message
             echo "No quiz found with the given ID!";

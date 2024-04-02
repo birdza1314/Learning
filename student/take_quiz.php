@@ -118,7 +118,7 @@ try {
             if (timeRemaining < 0) {
                 clearInterval(timer);
                 document.getElementById('timeRemaining').innerHTML = "Time's up!";
-                alert('Time is up! Automatically submitting quiz...');
+                alert('Time is up! หมดเวลาทำแบบทดสอบ จะทำการบันทึกข้อสอบอัตโนมัติ !!!...');
                 window.location.href = "submit_quiz.php";
                 document.getElementById('quizForm').submit();
             }

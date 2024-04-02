@@ -11,7 +11,7 @@
   <ul class="d-flex align-items-center">
 <!-- Dropdown Notification -->
 <div class="dropdown d-none d-md-block">
-  <button class="btn dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+  <button class="btn " type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="bi bi-bell-fill"></i><span class="badge bg-danger" id="notificationCount">0</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end notification" aria-labelledby="notificationDropdown" id="notificationList">
@@ -47,9 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
           notificationList.innerHTML = html;
           // กำหนดจำนวนของแจ้งเตือนใหม่
           notificationCount.innerText = data.length;
+          // ปรับแสดงการแสดงผลของ notificationCount
+          notificationCount.style.display = 'inline';
         } else {
           // ถ้าไม่มีข้อมูล ให้แสดงข้อความ "ไม่มีกิจกรรม"
           notificationList.innerHTML = '<li><span class="dropdown-item">ไม่มีกิจกรรม</span></li>';
+          // ปรับแสดงการแสดงผลของ notificationCount
+          notificationCount.style.display = 'none';
         }
       });
   }

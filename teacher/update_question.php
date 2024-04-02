@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 
     // ทำการ execute คำสั่ง SQL
     if ($stmt->execute()) {
-        echo "<script>alert('Question updated successfully');</script>";
+        echo "<script>alert('แก้ไขข้อมูลสำเร็จ');</script>";
         echo "<script>window.history.back(-2);</script>";
     } else {
         echo "Failed to update question: " . $stmt->errorInfo()[2];
@@ -71,6 +71,9 @@ if (!$question) {
   <?php include('sidebar.php'); ?>
 
   <main id="main" class="main">
+  <div class="card overflow-auto">
+                <div class="card-body">
+                <div class="card-header">
     <h2>แก้ไขแบบทดสอบ</h2>
     <form method="post">
     <div class="form-group">
@@ -107,9 +110,14 @@ if (!$question) {
         <label for="description">รายละเอียด</label>
         <textarea class="form-control" id="description" name="description"><?php echo $question['description']; ?></textarea>
     </div>
-    <input type="submit" name="submit" value="Update">
-</form>
+    <div class="d-flex justify-content-center">
+    <input class="btn btn-outline-primary" type="submit" name="submit" value="บันทึก">
+</div>
 
+</form>
+                </div>
+                </div>
+  </div>
 </main>
   <!-- ======= Footer ======= -->
   <?php include('footer.php');?>

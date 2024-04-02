@@ -10,7 +10,27 @@
         // Prepare SQL statement to select quiz data based on quiz_id
         $stmt = $db->prepare("SELECT * FROM quizzes WHERE quiz_id = :quiz_id");
         $stmt->bindParam(':quiz_id', $quiz_id);
-        
+        try {
+    // Query to retrieve question count from the questions table
+    $stmt_question_count = $db->prepare("SELECT COUNT(*) AS question_count FROM questions WHERE quiz_id = :quiz_id");
+    $stmt_question_count->bindParam(':quiz_id', $quiz_id);
+    $stmt_question_count->execute();
+    $question_count_result = $stmt_question_count->fetch(PDO::FETCH_ASSOC);
+    $question_count = $question_count_result['question_count'];
+
+    // Query to retrieve question_limit from the quizzes table
+    $stmt_question_limit = $db->prepare("SELECT question_limit FROM quizzes WHERE quiz_id = :quiz_id");
+    $stmt_question_limit->bindParam(':quiz_id', $quiz_id);
+    $stmt_question_limit->execute();
+    $question_limit_result = $stmt_question_limit->fetch(PDO::FETCH_ASSOC);
+    $question_limit = $question_limit_result['question_limit'];
+
+    // Check if the question count is equal to or less than the question limit
+    $show_button = ($question_count < $question_limit);
+} catch (PDOException $e) {
+    // Handle database errors
+    echo "Database Error: " . $e->getMessage();
+}
         try {
             // Execute the SQL statement
             $stmt->execute();
@@ -68,13 +88,18 @@
                             <label>จำนวนแบททดสอบ</label>
                             <input type="number" name="QuestDipLimit" class="form-control" value="<?php echo $quiz['question_limit']; ?>" required>
                         </div>
+                  
                         <div class="form-group">
-                        <label>สถานะ</label>
-                        <select name="status" class="form-control" required>
-                            <option value="เปิดใช้งาน" <?php if ($quiz['status'] == 'เปิดใช้งาน') echo 'selected'; ?>>เปิดใช้งาน</option>
-                            <option value="ปิดใช้งาน" <?php if ($quiz['status'] == 'ปิดใช้งาน') echo 'selected'; ?>>ปิดใช้งาน</option>
-                        </select>
-                    </div>
+    <label>สถานะ</label>
+    <select name="status" class="form-control" required <?php if ($question_count !== $question_limit) echo 'disabled'; ?>>
+        <option value="เปิดใช้งาน" <?php if ($quiz['status'] == 'เปิดใช้งาน' && $question_count === $question_limit) echo 'selected'; ?>>เปิดใช้งาน</option>
+        <option value="ปิดใช้งาน" <?php if ($quiz['status'] == 'ปิดใช้งาน' || $question_count !== $question_limit) echo 'selected'; ?>>ปิดใช้งาน</option>
+    </select>
+</div>
+
+
+
+
                         <button type="submit" style="float: right;" class="btn btn-outline-primary">อัพเดทแบบทดสอบ</button>
                     </form>
                 </div>
@@ -91,8 +116,14 @@
                         <?php echo ($selQuest ? $selQuest->rowCount() : 0); ?>
                     </span>
                     <div class="btn-actions-pane-right">
-                        <button class="btn btn-sm btn-outline-primary" style="float: right;" data-toggle="modal" data-target="#modalForAddQuestion"><i class="bi bi-plus-circle-fill"></i><span> Add Question</span> </button>
-                    </div>
+                    <?php if ($question_count < $question_limit): ?>
+                        <button class="btn btn-sm btn-outline-primary" style="float: right;" data-toggle="modal" data-target="#modalForAddQuestion">
+                            <i class="bi bi-plus-circle-fill"></i>
+                            <span>เพิ่มคำถาม</span>
+                        </button>
+                    <?php endif; ?>
+                </div>
+
                 </div>
                 <div class="card-body">
                     <div class="scroll-area-sm">

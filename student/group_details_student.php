@@ -72,7 +72,15 @@ if (isset($_GET['group_id'])) {
                 <?php if ($course['is_open'] == 1): ?>
               <div class="col-md-4 mb-4">
                   <div class="card border-primary border-3 shadow" style="width: 18rem;">
-                      <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="Course Image">
+                  <?php if (!empty($course['c_img'])): ?>
+                <div class="text-center">
+                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="height: 150px; object-fit: cover;">
+                </div>
+            <?php else: ?>
+                <div class="text-center">
+                    <img src="../admin/teacher_process/img/course.jpg" class="card-img-top" alt="รูปภาพ" style="height: 150px; object-fit: cover;">
+                </div>
+            <?php endif; ?>
                       <div class="card-body">
                           <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
                           <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>

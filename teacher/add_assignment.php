@@ -57,15 +57,15 @@ $course_id = $_GET['course_id'];
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-lg-4 col-md-6">
-                                <label for="open_time" class="form-label">เปิด Assignment เมื่อ:</label>
+                                <label for="open_time" class="form-label">เปิด Assignment เมื่อ:<span class="text-danger">*</label>
                                 <input type="datetime-local" class="form-control" name="open_time" id="open_time" required>
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6">
-                                <label for="deadline" class="form-label">กำหนดส่ง Assignment (Due date):</label>
+                                <label for="deadline" class="form-label">กำหนดส่ง Assignment (Due date):<span class="text-danger">*</label>
                                 <input type="datetime-local" class="form-control" name="deadline" id="deadline" required>
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6">
-                                <label for="close_time" class="form-label">ปิด Assignment เมื่อ:</label>
+                                <label for="close_time" class="form-label">ปิด Assignment เมื่อ:<span class="text-danger">*</label>
                                 <input type="datetime-local" class="form-control" name="close_time" id="close_time" required>
                             </div>
                         </div>

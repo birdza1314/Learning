@@ -57,7 +57,7 @@ try {
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
-                    <h1>ผลการทำแบบทดสอบ</h1>
+                    <h1>ผลการสอบ</h1>
                 </div>
                 <?php if(!empty($results)): ?>
                     <div class="card">

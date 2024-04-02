@@ -13,7 +13,7 @@ if (isset($_POST['question_id']) && !empty($_POST['question_id'])) {
     // Execute the statement with the question_id parameter
     if ($stmt->execute([$questionId])) {
         // If deletion is successful, return success message
-        $response = array('message' => 'Question deleted successfully.');
+        $response = array('message' => 'ลบข้อมูลสำเร็จ.');
         echo json_encode($response); // Make sure to return the response as JSON
     } else {
         // If deletion fails, return error message

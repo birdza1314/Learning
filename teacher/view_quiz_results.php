@@ -51,8 +51,8 @@ try {
             <div class="card-title">
                 <h1>ผลการสอบ</h1>
             </div>
-            <?php if(!empty($results)): ?>
-    <table class="table">
+            
+       <table class="table table-borderless datatable">
         <thead>
             <tr>
                 <th>ชื่อนักเรียน</th>
@@ -79,18 +79,16 @@ try {
             <?php endforeach; ?>
         </tbody>
     </table>
-<?php else: ?>
-    <p>No quiz scores found.</p>
-<?php endif; ?>
+
         </div>
     </div>
 </main>
 
-
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <!-- ======= Footer ======= -->
     <?php include('footer.php');?>
     <!-- ======= scripts ======= -->
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  
     <?php include('scripts.php');?>
 </body>
 </html>

@@ -43,17 +43,14 @@ function getAssignments() {
             return [];
         }
 
-        // Get the user ID of the logged-in student
-    $student_id = $_SESSION['user_id'];
-
-    // Prepare SQL query to fetch events, filtering out those already submitted by the student
-    $stmt = $db->prepare("SELECT a.assignment_id, a.title, a.open_time, a.close_time 
-                          FROM assignments a 
-                          LEFT JOIN submitted_assignments sa ON a.assignment_id = sa.assignment_id AND sa.student_id = :student_id
-                          WHERE sa.student_id IS NULL");
-    $stmt->bindParam(':student_id', $student_id);
-    $stmt->execute();
-    
+        // Prepare SQL query to fetch events, filtering out those already submitted by the student
+        $stmt = $db->prepare("SELECT a.assignment_id, a.title, a.open_time, a.close_time, a.course_id
+                              FROM assignments a 
+                              LEFT JOIN submitted_assignments sa ON a.assignment_id = sa.assignment_id AND sa.student_id = :student_id
+                              WHERE sa.student_id IS NULL");
+        $stmt->bindParam(':student_id', $student_id);
+        $stmt->execute();
+        
         $assignments = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $assignments;
     } catch (PDOException $e) {

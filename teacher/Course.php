@@ -52,27 +52,24 @@ try {
               <div class="card overflow-auto">
                 <div class="card-body">
                 <div class="card-header">
-    <div class="row justify-content-between align-items-center">
-        <div class="col">
-            <h4 class="mt-2">รายวิชาของฉัน</h4>
-        </div>
-        <div class="col-auto">
-            <div class="form-group mb-0">
-                <label class="mb-0" for="display-format">รูปแบบการแสดงผล:</label>
-                <select class="form-control" id="display-format">
-                    <option value="table">Table</option>
-                    <option value="card">Card</option>
-                </select>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col">
+                        <h4 class="mt-2">รายวิชาของฉัน</h4>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-group mb-0">
+                            <label class="mb-0" for="display-format">รูปแบบการแสดงผล:</label>
+                            <select class="form-control" id="display-format">
+                                <option value="table">Table</option>
+                                <option value="card">Card</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-
-         
- 
                   <a href="add_course.php"  class="btn btn-outline-primary mt-2 me-2" style=" float: right;">เพิ่มวิชาใหม่</a>
                   <div class="mt-6">           
-                  <table class="table table-borderless datatable table-format mt-5">
+                  <table class="table table-borderless datatable table-format ">
                     <thead>
                     <tr>
                         <th scope="col">รูป</th>
@@ -222,6 +219,9 @@ try {
                         </li>
                         <li>
                             <a class="dropdown-item" href="manage_members.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-people-fill"></i> จัดการสมาชิก</a>
+                        </li>
+                         <li>
+                            <a class="dropdown-item" href="attendance_details.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-journal-text"></i> รายละเอียดการเข้าเรียน</a>
                         </li>
                         <?php
                             // ตรวจสอบว่ามีการลงทะเบียนในคอร์สนี้หรือไม่
