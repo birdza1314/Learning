@@ -7,8 +7,8 @@
                                         <?= $lesson['lesson_name']; ?>
                                     </button>
                                     <button type="button" class="btn btn-outline-danger delete-lesson-btn border-0" data-lesson-id="<?= $lesson['lesson_id']; ?>">
-    <i class="bi bi-trash-fill"></i>
-</button>
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
 
                                 </h2>
                                 <div id="collapse<?= $lesson['lesson_id']; ?>" class="accordion-collapse collapse show">
@@ -132,10 +132,10 @@
                                                 // เช็คว่าเวลาปัจจุบันเกินเวลาส่งงานหรือไม่
                                                 if ($now > $deadline) {
                                                     // ถ้าเกินเวลาส่งงานแล้ว ให้เพิ่มคลาส 'text-danger' เพื่อแสดงสีแดง
-                                                    $cardClass = 'card border rounded-3 shadow-sm hover-effect text-hover-white text-danger';
+                                                    $cardClass = 'card border rounded-3 shadow-sm  text-danger';
                                                 } else {
                                                     // ถ้ายังไม่เกินเวลาส่งงาน ให้ใช้คลาสเดิม
-                                                    $cardClass = 'card border rounded-3 shadow-sm hover-effect text-hover-white';
+                                                    $cardClass = 'card border rounded-3 shadow-sm ';
                                                 }
                                                 ?>
                                                 <div class="col-lg-12">
@@ -214,38 +214,36 @@
                                         }
                                         ?>
                                  <div class="dropdown dropdown-add-activity mt-5 position-static dropdown-center">
-  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    เพิ่มกิจกรรม
-  </button>
-  <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
-  <li>
-    <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-outline-success mx-2 open-Quiz-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-        <i class="bi bi-clipboard-plus text-success"></i><br>Quiz
-      </button>
-      <a href="Add_assignment.php?lesson_id=<?php echo $lesson['lesson_id']; ?>&course_id=<?php echo $course_id; ?>" role="button" class="btn btn-outline-success mx-2 dropdown-activity-button">
-        <i class="bi bi-file-earmark-plus text-success"></i><br>Assignment
-      </a>
-      <button type="button" class="btn btn-outline-success mx-2 open-image-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-        <i class="bi bi-image text-success"></i><br>Image
-      </button>
-      <button type="button" class="btn btn-outline-success mx-2 open-file-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo isset($_POST['course_id']) ? $_POST['course_id'] : ''; ?>">
-        <i class="bi bi-file-earmark-text text-success"></i><br>File
-      </button>
-    </div>
-    <div class="d-flex justify-content-center mt-3">
-      <button type="button" class="btn btn-outline-success mx-2 open-Embed-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-        <i class="bi bi-film text-success"></i><br>Video Embed
-      </button>
-      <button type="button" class="btn btn-outline-success mx-2 open-URL-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
-        <i class="bi bi-link-45deg text-success"></i><br>URL
-      </button>
-    </div>
-  </li>
-</ul>
-
-</div>
-
+                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        เพิ่มกิจกรรม
+                                    </button>
+                                    <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-outline-success mx-2 open-Quiz-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                            <i class="bi bi-clipboard-plus text-success"></i><br>Quiz
+                                        </button>
+                                        <a href="Add_assignment.php?lesson_id=<?php echo $lesson['lesson_id']; ?>&course_id=<?php echo $course_id; ?>" role="button" class="btn btn-outline-success mx-2 dropdown-activity-button">
+                                            <i class="bi bi-file-earmark-plus text-success"></i><br>Assignment
+                                        </a>
+                                        <button type="button" class="btn btn-outline-success mx-2 open-image-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                            <i class="bi bi-image text-success"></i><br>Image
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success mx-2 open-file-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo isset($_POST['course_id']) ? $_POST['course_id'] : ''; ?>">
+                                            <i class="bi bi-file-earmark-text text-success"></i><br>File
+                                        </button>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                        <button type="button" class="btn btn-outline-success mx-2 open-Embed-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                            <i class="bi bi-film text-success"></i><br>Video Embed
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success mx-2 open-URL-modal dropdown-activity-button" data-lesson-id="<?php echo $lesson['lesson_id']; ?>" data-course-id="<?php echo $course_id; ?>">
+                                            <i class="bi bi-link-45deg text-success"></i><br>URL
+                                        </button>
+                                        </div>
+                                    </li>
+                                    </ul>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

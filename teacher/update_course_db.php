@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         isset($_POST['course_description']) &&
         isset($_POST['group_id']) &&
         isset($_POST['is_open']) &&
-        isset($_POST['access_code']) &&
-        isset($_POST['class']) 
+        isset($_POST['access_code']) 
+
     ) {
         // เชื่อมต่อกับฐานข้อมูล
         include('../connections/connection.php');
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $course_code = htmlspecialchars($_POST['course_code']); // ป้องกัน XSS
         $course_description = htmlspecialchars($_POST['course_description']); // ป้องกัน XSS
         $group_id = $_POST['group_id'];
-        $class = $_POST['class'];
+     
 
         // ทำการอัปเดตข้อมูลในตาราง courses
         try {
@@ -88,21 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } catch (PDOException $e) {
             echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " . $e->getMessage();
-            exit();
-        }
-
-        // ทำการเพิ่มข้อมูลลงในตาราง student_course_registration
-        try {
-            $sql = "INSERT INTO student_course_registration (student_id, class, course_id) 
-            SELECT s_id, :class, :course_id 
-            FROM students 
-            WHERE class = :class";       
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':class', $class);
-            $stmt->bindParam(':course_id', $course_id);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo "เกิดข้อผิดพลาดในการเพิ่มข้อมูลลงในตาราง student_course_registration: " . $e->getMessage();
             exit();
         }
 

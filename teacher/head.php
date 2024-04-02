@@ -377,7 +377,26 @@
   right: 20px; /* ปรับตำแหน่งตามต้องการ */
   z-index: 1000;
 }
+.red-bar {
+            background-color: red;
+        }
 
+        .orange-bar {
+            background-color: orange;
+        }
+
+        .yellow-bar {
+            background-color: yellow;
+        }
+
+        .green-bar {
+            background-color: green;
+        }
+
+        .attendance-bar {
+            height: 10px;
+            border-radius: 5px;
+        }
 
 </style>
 </head>
