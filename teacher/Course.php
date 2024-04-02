@@ -157,6 +157,9 @@ try {
                                                 <li>
                                                     <a class="dropdown-item" href="manage_members.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-people-fill"></i> จัดการสมาชิก</a>
                                                 </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="attendance_details.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-journal-text"></i> รายละเอียดการเข้าเรียน</a>
+                                                </li>
                                                 <?php
                                                     // ตรวจสอบว่ามีการลงทะเบียนในคอร์สนี้หรือไม่
                                                     $course_id = $row['c_id'];
