@@ -5,7 +5,7 @@ include('../connections/connection.php');
 // ตรวจสอบว่าผู้ใช้เป็นครูหรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ใช่ครูให้เปลี่ยนเส้นทางไปที่หน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 try {

@@ -3,11 +3,14 @@
 include('../connections/connection.php');
 session_start();
 if ($_SESSION['role'] !== 'admin') {
-  header("Location: login.php");
+  header("Location: ../login.php");
   exit();
 }
 ?>
-
+<?php
+// เริ่มต้นจากลำดับที่ 1
+$counter = 1;
+?>
 <?php
 $menu = "student";
 include("header.php");
@@ -70,8 +73,8 @@ include("header.php");
                 <th scope="col">ชื่อผู้ใช้</th>
                 <th scope="col">ชื่อ</th>
                 <th scope="col">นามสกุล</th>
-               
-                <th scope="col">ชั้น</th>
+                <th scope="col">ห้องเรียน</th>
+                <th scope="col">ปีการศึกษา</th>
                 <th scope="col">ตัวเลือก</th>
               </tr>
             </thead>
@@ -86,17 +89,19 @@ include("header.php");
                 foreach ($students as $row) {
               ?>
                   <tr>
-                    <td scope="row"><?= $row['s_id']; ?></td>
+                  
+
+                    <!-- ใช้ตัวแปร $counter เพื่อแสดงลำดับ -->
+                    <td scope="row"><?= $counter++; ?></td>
                     <td><?= $row['username']; ?></td>
                     <td><?= $row['first_name']; ?></td>
                     <td><?= $row['last_name']; ?></td>
-                   
-                    <td><?= $row['class']; ?></td>
+                    <td><?= $row['classroom']; ?></td>
+                    <td><?= $row['year']; ?></td>
                     <td align="center">
                       
                     <a class="btn btn-info btn-xs" href="#" data-bs-toggle="modal" data-bs-target="#profileModal"data-id="<?= $row['s_id']; ?>"><i class="fas fa-eye"></i></a>
                     <a href="student_edit.php?s_id=<?= $row['s_id']; ?>" class="btn btn-warning btn-xs"><i class="fas fa-pencil-alt"></i></a>
-
                       <a href="student_process/student_delete.php?s_id=<?= $row['s_id']; ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?');"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
@@ -125,7 +130,7 @@ include("header.php");
           <!-- ใช้ Bootstrap Grid System เพื่อจัดรูปแบบข้อมูล -->
           <div class="container">
             <div class="row mb-3">
-              <label class="col-md-3 col-form-label">ID:</label>
+              <label class="col-md-3 col-form-label">ลำดับ:</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" name="s_id" readonly>
               </div>
@@ -137,27 +142,27 @@ include("header.php");
               </div>
             </div>
             <div class="row mb-3">
-              <label class="col-md-3 col-form-label">First Name:</label>
+              <label class="col-md-3 col-form-label">ชื่อ:</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" name="first_name" readonly>
               </div>
             </div>
             <div class="row mb-3">
-              <label class="col-md-3 col-form-label">Last Name:</label>
+              <label class="col-md-3 col-form-label">นามสกุล:</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" name="last_name" readonly>
               </div>
-            </div>
+            </div>   
             <div class="row mb-3">
-              <label class="col-md-3 col-form-label">Gender:</label>
+              <label class="col-md-3 col-form-label">ห้องเรียน:</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" name="gender" readonly>
+                <input type="text" class="form-control" name="classroom" readonly>
               </div>
             </div>
             <div class="row mb-3">
-              <label class="col-md-3 col-form-label">Class:</label>
+              <label class="col-md-3 col-form-label">ปีการศึกษา:</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" name="class" readonly>
+                <input type="text" class="form-control" name="year" readonly>
               </div>
             </div>
           </div>
@@ -204,15 +209,12 @@ include("header.php");
               <input type="text" class="form-control" id="last_name" name="last_name" required>
             </div>
             <div class="form-group">
-              <label for="gender">เพศ:</label>
-              <select class="form-control" id="gender" name="gender" required>
-                <option value="male">ชาย</option>
-                <option value="female">หญิง</option>
-              </select>
+              <label for="classroom">ห้องเรียน:</label>
+              <input type="text" class="form-control" id="classroom" name="classroom" required>
             </div>
             <div class="form-group">
-              <label for="class">ชั้นมัธยมสึกษาปีที่:</label>
-              <input type="text" class="form-control" id="class" name="class" required>
+              <label for="year">ปีการศึกษา:</label>
+              <input type="text" class="form-control" id="year" name="year" required>
             </div>
             <button type="submit" class="btn btn-primary">บันทึก</button>
         </form>
@@ -245,8 +247,8 @@ include("header.php");
           $('#profileModal .modal-body input[name="username"]').val(data.username);
           $('#profileModal .modal-body input[name="first_name"]').val(data.first_name);
           $('#profileModal .modal-body input[name="last_name"]').val(data.last_name);
-          $('#profileModal .modal-body input[name="gender"]').val(data.gender);
-          $('#profileModal .modal-body input[name="class"]').val(data.class);
+          $('#profileModal .modal-body input[name="classroom"]').val(data.classroom);
+          $('#profileModal .modal-body input[name="year"]').val(data.year);
         },
         error: function() {
           alert('เกิดข้อผิดพลาดในการดึงข้อมูลนักเรียน');

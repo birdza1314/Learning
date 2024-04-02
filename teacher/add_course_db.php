@@ -42,7 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file]);
                     $db = null;
                     echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-                    echo "<script>window.history.back();</script>";
+                    header("Location: course.php?user_id=$user_id");
+                    exit();
+                    
                 } else {
                     echo 'ไม่สามารถอัปโหลดไฟล์รูปภาพได้';
                 }
@@ -61,7 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file]);
             $db = null;
             echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-            echo "<script>window.history.back(-2);</script>";
+            header("Location: course.php?user_id=$user_id");
+            exit();
+            
         }
     } else {
         echo "Missing required fields.";

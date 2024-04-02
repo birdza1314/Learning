@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    $sql = "UPDATE teachers SET username = :username, password = :password, first_name = :first_name, last_name = :last_name, email = :email, group_id = :group_id, image_id = :image_id WHERE t_id = :t_id";
+    $sql = "UPDATE teachers SET username = :username, password = :password, first_name = :first_name, last_name = :last_name, email = :email, group_id = :group_id WHERE t_id = :t_id";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $hashedPassword);
@@ -36,46 +36,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':group_id', $group_id);
     $stmt->bindParam(':t_id', $t_id);
 
-    // ดึงข้อมูลรูปภาพจากตาราง teachers_images
-    $imageQuery = "SELECT image_id, filename FROM teachers_images WHERE teacher_id = :teacher_id";
-    $imageStmt = $db->prepare($imageQuery);
-    $imageStmt->bindParam(':teacher_id', $t_id);
-    $imageStmt->execute();
-    $image = $imageStmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!empty($image['filename'])) {
-        // ถ้ามีรูปภาพใน teachers_images ให้ใส่ image_id ลงใน teachers
-        $stmt->bindParam(':image_id', $image['image_id']);  // แทน image_id ด้วยชื่อคอลัมน์ที่เก็บ ID ในตาราง teachers_images
-    } else {
-        // ถ้าไม่มีรูปภาพใน teachers_images ให้ใส่ค่า NULL ลงใน teachers
-        $stmt->bindValue(':image_id', null, PDO::PARAM_NULL);
-    }
-
     // ตรวจสอบว่ามีไฟล์รูปถูกอัปโหลดมาหรือไม่
-    if (isset($_FILES['teacher_image']) && $_FILES['teacher_image']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // ตั้งชื่อไฟล์และที่อยู่ที่ต้องการบันทึกไฟล์รูปภาพ
         $upload_dir = 'img/';  // ปรับตามโครงสร้างโฟลเดอร์ของคุณ
-        $image_name = $_FILES['teacher_image']['name'];
+        $image_name = $_FILES['image']['name'];
         $image_path = $upload_dir . $image_name;
 
         // ลบรูปภาพเก่า (ถ้ามี)
-        if (!empty($image['filename'])) {
-            unlink('img/' . $image['filename']);
+        $imageQuery = "SELECT image FROM teachers WHERE t_id = :t_id";
+        $imageStmt = $db->prepare($imageQuery);
+        $imageStmt->bindParam(':t_id', $t_id);
+        $imageStmt->execute();
+        $oldImage = $imageStmt->fetchColumn();
+        if (!empty($oldImage)) {
+            unlink('img/' . $oldImage);
         }
 
         // บันทึกรูปภาพใหม่
-        move_uploaded_file($_FILES['teacher_image']['tmp_name'], $image_path);
+        move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
 
-        // บันทึกชื่อไฟล์รูปภาพลงในตาราง teachers_images
-        if (empty($image['filename'])) {
-            $query_insert_image = "INSERT INTO teachers_images (teacher_id, filename) VALUES (:teacher_id, :filename)";
-        } else {
-            $query_insert_image = "UPDATE teachers_images SET filename = :filename WHERE teacher_id = :teacher_id";
-        }
-        $stmt_insert_image = $db->prepare($query_insert_image);
-        $stmt_insert_image->bindParam(':teacher_id', $t_id);
-        $stmt_insert_image->bindParam(':filename', $image_name);
-        $stmt_insert_image->execute();
+        // บันทึกชื่อไฟล์รูปภาพลงในตาราง teachers
+        $stmt_update_image = $db->prepare("UPDATE teachers SET image = :image WHERE t_id = :t_id");
+        $stmt_update_image->bindParam(':image', $image_name);
+        $stmt_update_image->bindParam(':t_id', $t_id);
+        $stmt_update_image->execute();
     }
 
     if ($stmt->execute()) {
@@ -84,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['error'] = "เกิดข้อผิดพลาดในการอัพเดทข้อมูล";
     }
 
-    header("Location: ../teacher.php");  // กลับไปยังหน้าที่คุณต้องการ
+    header("Location: ../teacher.php");
     exit();
 }
 ?>

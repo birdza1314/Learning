@@ -3,7 +3,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // Redirect to login page or any other page if user is not logged in or doesn't have the correct role
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 

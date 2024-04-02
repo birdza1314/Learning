@@ -94,13 +94,13 @@
         </div>
     </div>
  
-  <!-- Modal Add Lessons -->
+<!-- Modal Add Lessons -->
 <div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addLessonModalLabel">เพิ่มบทเรียน</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddLessonModalBtn">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -119,6 +119,16 @@
         </div>
     </div>
 </div>
+
+<script>
+  // เมื่อคลิกที่ปุ่ม "ปิด"
+  document.getElementById('closeAddLessonModalBtn').addEventListener('click', function() {
+    // หากใช้ Bootstrap 4 หรือ 5
+    var modal = new bootstrap.Modal(document.getElementById('addLessonModal'));
+    modal.hide();
+  });
+</script>
+
 
  <!-- Modal Add Question -->
 <div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">
@@ -165,7 +175,7 @@
                         <input type="hidden" id="correctAnswer" name="correctAnswer" value="" required>
                     </div>
                     <div class="form-group">
-                        <label for="choice4">รายละเอียด</label>
+                        <label for="choice4">คำแนะนำ</label>
                         <textarea type="text" class="form-control" id="description" name="description" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">ส่งคำตอบ</button>

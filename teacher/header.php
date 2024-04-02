@@ -1,11 +1,12 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-  <a href="index.php" class="logo d-flex align-items-center">
-    <img src="../uploads/img/logo.png" alt="">
+  <a href="index.php" >
+    <img src="../uploads/img/logo.png" alt="" style="width: 250px; height: 60px;">
   </a>
-  <i class="bi bi-list toggle-sidebar-btn"></i>
-</div><!-- End Logo -->
+  <i class="bi bi-list toggle-sidebar-btn" style="font-size: 24px;"></i>
+</div>
+
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
@@ -13,28 +14,18 @@
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
          <!-- ตรวจสอบว่ามีรูปภาพในตาราง teachers_images หรือไม่ -->
-                  <?php if (!empty($teacher['image_id'])): ?>
-                      <?php
-                      // ดึง URL ของรูปภาพจากตาราง teachers_images
-                      $imageQuery = "SELECT filename FROM teachers_images WHERE image_id = :image_id";
-                      $imageStmt = $db->prepare($imageQuery);
-                      $imageStmt->bindParam(':image_id', $teacher['image_id']);
-                      $imageStmt->execute();
-                      $image = $imageStmt->fetch(PDO::FETCH_ASSOC);
+         <?php if (!empty($teacher['image'])): ?>
+    <?php
+    // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
+    $imagePath = '../admin/teacher_process/img/' . $teacher['image'];
+    ?>
+    <!-- แสดงรูปภาพ -->
+    <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
+<?php else: ?>
+    <!-- กรณีไม่มีรูปภาพ -->
+    <img src="../admin/teacher_process/img/Default.png" alt="Default Profile" class="rounded-circle">
+<?php endif; ?>
 
-                      // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
-                      if (!empty($image['filename'])):
-                          $imagePath = '../admin/teacher_process/img/' . $image['filename'];
-                      else:
-                          $imagePath = '../admin/teacher_process/img/Defaul.png'; // กำหนด local path ของรูปภาพที่ใช้เป็นค่าสำรอง
-                      endif;
-                      ?>
-                      <!-- แสดงรูปภาพ -->
-                      <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
-                  <?php else: ?>
-                      <!-- กรณีไม่มี image_id ในตาราง teachers -->
-                      <img src="../admin/teacher_process/img/Defaul.png" alt="Default Profile" class="rounded-circle">
-                  <?php endif; ?>
 
         <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $teacher['first_name'];?></span>
       </a><!-- End Profile Iamge Icon -->

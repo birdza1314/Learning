@@ -4,9 +4,9 @@ include('../connections/connection.php');
 // เรียกใช้งาน session
 session_start();
 
-// ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'studen' หรือไม่
+// ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'student' หรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'studen' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
+    // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'student' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
     header('Location: ../login.php'); 
     exit();
 }
@@ -36,21 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // ย้ายไฟล์ไปยังโฟลเดอร์ที่เหมาะสม
             if (move_uploaded_file($_FILES['newProfileImage']['tmp_name'], 'images/' . $newFileName)) {
-                // เพิ่มข้อมูลรูปภาพใหม่ลงในตาราง students_images
-                $imageInsertStmt = $db->prepare("INSERT INTO student_images (student_id, filename) VALUES (:user_id, :filename)");
+                // เพิ่มข้อมูลรูปภาพใหม่ลงในตาราง students
+                $imageInsertStmt = $db->prepare("UPDATE students SET image = :filename WHERE s_id = :user_id");
                 $imageInsertStmt->bindParam(':user_id', $user_id);
                 $imageInsertStmt->bindParam(':filename', $newFileName);
                 $imageInsertStmt->execute();
-
-                // ดึง image_id ที่เพิ่งเพิ่มลงในตาราง students_images
-                $imageId = $db->lastInsertId();
-
-                // อัปเดต image_id ในตาราง students
-                $updateImageIdStmt = $db->prepare("UPDATE students SET image_id = :image_id WHERE s_id = :user_id");
-                $updateImageIdStmt->bindParam(':image_id', $imageId);
-                $updateImageIdStmt->bindParam(':user_id', $user_id);
-                $updateImageIdStmt->execute();
-
                 // แสดงการแจ้งเตือนเมื่อรูปภาพถูกอัปโหลดเรียบร้อย
                 echo '<script>alert("อัปโหลดรูปภาพเรียบร้อยแล้ว");</script>';
             } else {

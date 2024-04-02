@@ -60,17 +60,14 @@ include("header.php");
           <input type="text" class="form-control" id="edit_last_name" name="last_name" value="<?= $row['last_name']; ?>" required>
         </div>
 
+  
         <div class="mb-3">
-          <label for="edit_gender" class="form-label">Gender:</label>
-          <select class="form-control" id="edit_gender" name="gender" required>
-            <option value="male" <?php echo ($row['gender'] == 'male') ? 'selected' : ''; ?>>Male</option>
-            <option value="female" <?php echo ($row['gender'] == 'female') ? 'selected' : ''; ?>>Female</option>
-          </select>
+          <label for="edit_class" class="form-label">classroom:</label>
+          <input type="text" class="form-control" id="edit_class" name="classroom" value="<?= $row['classroom']; ?>" required>
         </div>
-
         <div class="mb-3">
-          <label for="edit_class" class="form-label">class:</label>
-          <input type="text" class="form-control" id="edit_class" name="class" value="<?= $row['class']; ?>" required>
+          <label for="year" class="form-label">year:</label>
+          <input type="text" class="form-control" id="year" name="year" value="<?= $row['year']; ?>" required>
         </div>
 
 

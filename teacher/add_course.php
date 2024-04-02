@@ -5,7 +5,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 
@@ -42,12 +42,11 @@ try {
   <main id="main" class="main">
 
 <div class="pagetitle">
-  <h1>Form Layouts</h1>
+  <h1>Add Course</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.php">Home</a></li>
       <li class="breadcrumb-item">Forms</li>
-      <li class="breadcrumb-item active">Layouts</li>
     </ol>
   </nav>
 </div><!-- End Page Title -->

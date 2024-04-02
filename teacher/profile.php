@@ -5,7 +5,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
         // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-        header('Location: login.php'); 
+        header('Location: ../login.php'); 
         exit();
     }
 
@@ -55,29 +55,19 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
           <div class="col-xl-4">
             <div class="card">
               <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                <!-- ตรวจสอบว่ามีรูปภาพในตาราง teachers_images หรือไม่ -->
-                  <?php if (!empty($teacher['image_id'])): ?>
-                      <?php
-                      // ดึง URL ของรูปภาพจากตาราง teachers_images
-                      $imageQuery = "SELECT filename FROM teachers_images WHERE image_id = :image_id";
-                      $imageStmt = $db->prepare($imageQuery);
-                      $imageStmt->bindParam(':image_id', $teacher['image_id']);
-                      $imageStmt->execute();
-                      $image = $imageStmt->fetch(PDO::FETCH_ASSOC);
+                <!-- ตรวจสอบว่ามีรูปภาพในตาราง teachers หรือไม่ -->
+                <?php if (!empty($teacher['image'])): ?>
+                  <?php
+                  // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
+                  $imagePath = '../admin/teacher_process/img/' . $teacher['image'];
+                  ?>
+                  <!-- แสดงรูปภาพ -->
+                  <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
+              <?php else: ?>
+                  <!-- กรณีไม่มีรูปภาพ -->
+                  <img src="../admin/teacher_process/img/Default.png" alt="Default Profile" class="rounded-circle">
+              <?php endif; ?>
 
-                      // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
-                      if (!empty($image['filename'])):
-                          $imagePath = '../admin/teacher_process/img/' . $image['filename'];
-                      else:
-                          $imagePath = '../admin/teacher_process/img/Defaul.png'; // กำหนด local path ของรูปภาพที่ใช้เป็นค่าสำรอง
-                      endif;
-                      ?>
-                      <!-- แสดงรูปภาพ -->
-                      <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
-                  <?php else: ?>
-                      <!-- กรณีไม่มี image_id ในตาราง teachers -->
-                      <img src="../admin/teacher_process/img/Defaul.png" alt="Default Profile" class="rounded-circle">
-                  <?php endif; ?>
 
                 <h2><?php echo $teacher['first_name'];?></h2>
                 <h3><?php echo $_SESSION['role'];?></h3>
@@ -148,28 +138,18 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
                   <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">รูปโปรไฟล์</label>
                   <div class="col-md-8 col-lg-9">
               <!-- ตรวจสอบว่ามีรูปภาพในตาราง teachers_images หรือไม่ -->
-              <?php if (!empty($teacher['image_id'])): ?>
-                  <?php
-                  // ดึง URL ของรูปภาพจากตาราง teachers_images
-                  $imageQuery = "SELECT filename FROM teachers_images WHERE teacher_id = :teacher_id";
-                  $imageStmt = $db->prepare($imageQuery);
-                  $imageStmt->bindParam(':teacher_id', $teacher['t_id']);
-                  $imageStmt->execute();
-                  $image = $imageStmt->fetch(PDO::FETCH_ASSOC);
+              <?php if (!empty($teacher['image'])): ?>
+    <?php
+    // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
+    $imagePath = '../admin/teacher_process/img/' . $teacher['image'];
+    ?>
+    <!-- แสดงรูปภาพ -->
+    <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
+<?php else: ?>
+    <!-- กรณีไม่มีรูปภาพ -->
+    <img src="../admin/teacher_process/img/Default.png" alt="Default Profile" class="rounded-circle">
+<?php endif; ?>
 
-                  // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
-                  if (!empty($image['filename'])):
-                      $imagePath = '../admin/teacher_process/img/' . $image['filename'];
-                  else:
-                      $imagePath = '../admin/teacher_process/img/Defaul.png'; // กำหนด local path ของรูปภาพที่ใช้เป็นค่าสำรอง
-                  endif;
-                  ?>
-                  <!-- แสดงรูปภาพ -->
-                  <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
-              <?php else: ?>
-                  <!-- กรณีไม่มีรูปในตาราง teachers_images -->
-                  <img src="../admin/teacher_process/img/Defaul.png" alt="Default Profile" class="rounded-circle">
-              <?php endif; ?>
               <div class="pt-2">
                   <label for="newProfileImage">Choose image File:</label>
                   <input type="file" name="newProfileImage" id="newProfileImage" class="form-control-file">

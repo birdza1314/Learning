@@ -4,7 +4,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 
@@ -170,27 +170,7 @@ if (isset($_GET['course_id'])) {
                                             <input type="password" class="form-control" id="access_code" name="access_code" value="<?php echo $course['access_code']; ?>">
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                    <label for="class" class="col-sm-2 col-form-label">เลือกนักเรียน</label>
-                                    <div class="col-sm-10">
-                                        <!-- เพิ่ม dropdown เพื่อเลือกนักเรียน -->
-                                        <select class="form-control" id="class" name="class">
-                                            <?php
-                                            include('../connections/connection.php');
-                                            
-                                            // สร้างคำสั่ง SQL เพื่อดึงชื่อคลาสที่ไม่ซ้ำกัน
-                                            $sql = "SELECT DISTINCT class FROM students";
-                                            $stmt = $db->query($sql);
-                                            $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                                            // วนลูปเพื่อแสดงรายชื่อคลาสใน dropdown
-                                            foreach ($classes as $class) : ?>
-                                                <option value="<?php echo $class['class']; ?>"><?php echo $class['class']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <!-- เพิ่ม dropdown เพื่อเลือกนักเรียน -->
-                                    </div>
-                                    </div>
+                
                                     <!-- เพิ่ม input text เพื่อรับค่า access_code -->
                                     <div class="text-center">
                                         <button type="save" class="btn btn-primary">บันทึก</button>

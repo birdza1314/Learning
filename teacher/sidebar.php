@@ -9,7 +9,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link collapsed" href="Course.php">
+    <a class="nav-link collapsed" href="course.php">
       <i class="bi bi-grid"></i>
       <span>วิชาของฉัน</span>
     </a>

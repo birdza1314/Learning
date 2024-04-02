@@ -38,8 +38,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 $total_exercises = $result['total_exercises'];
 // คำสั่ง SQL เพื่อดึงจำนวนไฟล์ทั้งหมด
 $stmt = $db->prepare("SELECT (SELECT COUNT(*) FROM files) +
-                             (SELECT COUNT(*) FROM student_images) +
-                             (SELECT COUNT(*) FROM teachers_images) +
                              (SELECT COUNT(*) FROM images) +
                              (SELECT COUNT(*) FROM submitted_assignments) AS total_files");
 $stmt->execute();

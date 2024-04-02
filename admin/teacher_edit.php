@@ -37,25 +37,19 @@ include("header.php");
                   
           <!-- โค้ด HTML สำหรับอัปโหลดรูปภาพ -->
           <div class="mb-3">
-              <?php
-          // ตรวจสอบว่ามีข้อมูลใน $row['filename'] หรือไม่
-
-          // ตรวจสอบว่ามีข้อมูลรูปภาพหรือไม่
-          $stmtImage = $db->prepare("SELECT * FROM teachers_images WHERE teacher_id = ?");
-          $stmtImage->execute([$row['t_id']]);
-
-          if ($stmtImage->rowCount() > 0) {
-              $imageRow = $stmtImage->fetch(PDO::FETCH_ASSOC);
-              echo '<img src="teacher_process/img/' . $imageRow['filename'] . '" alt="Teacher Image" style="max-width: 100px; max-height: 100px;">';
+          <?php
+          // ตรวจสอบว่ามีข้อมูลใน $row['image'] หรือไม่
+          if (!empty($row['image'])) {
+              echo '<img src="teacher_process/img/' . $row['image'] . '" alt="Teacher Image" style="max-width: 100px; max-height: 100px;">';
           } else {
-            echo '<img src="teacher_process/img/Defaul.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
+              echo '<img src="teacher_process/img/Default.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
           }
           ?>
           </div>
 
 
-        <label for="teacher_image" class="form-label">อัปโหลดรูปภาพใหม่:</label>
-        <input type="file" name="teacher_image" id="teacher_image">
+        <label for="image" class="form-label">อัปโหลดรูปภาพใหม่:</label>
+        <input type="file" name="image" id="image">
         <div class="mb-3">
           <label for="edit_username" class="form-label">Username:</label>
           <input type="text" class="form-control" id="edit_username" name="username" value="<?= $row['username']; ?>" autocomplete="username" required>

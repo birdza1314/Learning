@@ -7,7 +7,7 @@ session_start();
 // ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'teacher' หรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 
@@ -30,35 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // ตรวจสอบว่ามีการอัปโหลดรูปภาพหรือไม่
         if (isset($_FILES['newProfileImage']) && $_FILES['newProfileImage']['error'] === UPLOAD_ERR_OK) {
-            // ตรวจสอบประเภทของไฟล์
-            $fileType = pathinfo($_FILES['newProfileImage']['name'], PATHINFO_EXTENSION);
+            // ตั้งชื่อไฟล์และที่อยู่ที่ต้องการบันทึกไฟล์รูปภาพ
+            $upload_dir = '../admin/teacher_process/img/'; // โฟลเดอร์ที่เก็บรูปภาพบนเซิร์ฟเวอร์
+            $image_name = $_FILES['newProfileImage']['name'];
+            $image_path = $upload_dir . $image_name;
 
-            // สร้างชื่อไฟล์ใหม่โดยใช้รหัสผู้ใช้
-            $newFileName = $user_id . '.' . $fileType;
+            // บันทึกรูปภาพใหม่
+            move_uploaded_file($_FILES['newProfileImage']['tmp_name'], $image_path);
 
-            // ย้ายไฟล์ไปยังโฟลเดอร์ที่เหมาะสม
-            if (move_uploaded_file($_FILES['newProfileImage']['tmp_name'], '../admin/teacher_process/img/' . $newFileName)) {
-                // เพิ่มข้อมูลรูปภาพใหม่ลงในตาราง teachers_images
-                $imageInsertStmt = $db->prepare("INSERT INTO teachers_images (teacher_id, filename) VALUES (:user_id, :filename)");
-                $imageInsertStmt->bindParam(':user_id', $user_id);
-                $imageInsertStmt->bindParam(':filename', $newFileName);
-                $imageInsertStmt->execute();
-
-                // ดึง image_id ที่เพิ่งเพิ่มลงในตาราง teachers_images
-                $imageId = $db->lastInsertId();
-
-                // อัปเดต image_id ในตาราง teachers
-                $updateImageIdStmt = $db->prepare("UPDATE teachers SET image_id = :image_id WHERE t_id = :user_id");
-                $updateImageIdStmt->bindParam(':image_id', $imageId);
-                $updateImageIdStmt->bindParam(':user_id', $user_id);
-                $updateImageIdStmt->execute();
-
-                // แสดงการแจ้งเตือนเมื่อรูปภาพถูกอัปโหลดเรียบร้อย
-                echo '<script>alert("อัปโหลดรูปภาพเรียบร้อยแล้ว");</script>';
-            } else {
-                // แสดงข้อผิดพลาดถ้าไม่สามารถอัปโหลดรูปได้
-                echo '<script>alert("เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ");</script>';
-            }
+            // บันทึกชื่อไฟล์รูปภาพลงในตาราง teachers
+            $sql = "UPDATE teachers SET image = :image WHERE t_id = :user_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':image', $image_name);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
         }
         echo '<script>alert("อัพเดทข้อมูลสำเร็จ"); window.location.href = "profile.php?success=1";</script>';
         exit();

@@ -4,7 +4,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login.php'); 
     exit();
 }
 // ตรวจสอบว่ามีข้อมูล $teacher หรือไม่
@@ -150,10 +150,13 @@ if (isset($_GET['course_id'])) {
 
             </div>
         </div>
+        <div class="row">
+    <div class="col-12 d-flex justify-content-end">
+        <button type="button" class="btn btn-primary mt-3 open-Lesson-modal">เพิ่มบทเรียน</button>
+    </div>
+</div>
 
-            <div class="row">
-                    <button type="button"  class="btn btn-outline-primary btn-block mt-3 open-Lesson-modal">เพิ่มบทเรียน</button>
-            </div>
+
             <!-- เพิ่ม Element input hidden สำหรับ courseId -->
             <input type="hidden" id="courseId" value="<?= $course_id ?>">
             <div id="accordionContainer">
@@ -176,7 +179,22 @@ if (isset($_GET['course_id'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Add Bootstrap script -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
   <script>
+    // เมื่อเลื่อนหน้าจอ
+window.onscroll = function() {stickyBtn()};
+
+var btn = document.querySelector('.open-Lesson-modal');
+var sticky = btn.offsetTop;
+
+function stickyBtn() {
+  if (window.pageYOffset >= sticky) {
+    btn.classList.add("sticky-btn");
+  } else {
+    btn.classList.remove("sticky-btn");
+  }
+}
+
         // Store the current URL in local storage when the page loads
         localStorage.setItem('previousPageUrl', window.location.href);
     </script>

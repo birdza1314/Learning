@@ -85,29 +85,33 @@ try {
 <?php include('footer.php');?>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <?php include('scripts.php');?>
-
 <script>
-    
     window.onload = function() {
         var quizId = <?php echo htmlspecialchars($quiz_id); ?>;
         var s_id = <?php echo htmlspecialchars($student['s_id']); ?>;
-
         var lastTimeKey = 'timeRemaining_' + quizId + '_' + s_id;
-        var lastTime = localStorage.getItem(lastTimeKey);
+        var startTimeKey = 'startTime_' + quizId + '_' + s_id;
 
-        if (lastTime) {
-            timeRemaining = parseInt(lastTime);
-        } else {
-            timeRemaining = <?php echo htmlspecialchars($timeLimit); ?>;
+        var lastTime = localStorage.getItem(lastTimeKey);
+        var startTime = localStorage.getItem(startTimeKey);
+
+        var timeLimit = <?php echo htmlspecialchars($timeLimit); ?>;
+
+        if (!startTime) {
+            startTime = Date.now(); // เก็บเวลาเริ่มต้น
+            localStorage.setItem(startTimeKey, startTime);
         }
-        
+
+        var elapsedTime = Math.floor((Date.now() - parseInt(startTime)) / 1000);
+        var timeRemaining = timeLimit - elapsedTime;
+
         var timer = setInterval(function() {
             var minutes = Math.floor(timeRemaining / 60);
             var seconds = timeRemaining % 60;
-            // เพิ่มเลข 0 นำหน้านาทีและวินาทีเมื่อมีค่าน้อยกว่า 10
+
             var displayMinutes = (minutes < 10) ? "0" + minutes : minutes;
             var displaySeconds = (seconds < 10) ? "0" + seconds : seconds;
-            // แสดงเวลาที่เหลือในรูปแบบนาทีและวินาที
+
             document.getElementById('timeRemaining').innerHTML = displayMinutes + "m " + displaySeconds + "s ";
             timeRemaining--;
 
@@ -119,8 +123,16 @@ try {
                 document.getElementById('quizForm').submit();
             }
         }, 1000);
+
+        // เมื่อผู้ใช้ออกหรือปิดหน้าเว็บ
+        window.onbeforeunload = function() {
+            localStorage.setItem(lastTimeKey, timeRemaining);
+        };
     };
 </script>
+
+
+
 
 
 </body>

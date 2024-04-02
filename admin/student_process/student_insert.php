@@ -8,12 +8,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $first_name = htmlspecialchars($_POST['first_name']);
     $last_name = htmlspecialchars($_POST['last_name']);
-    $gender = $_POST['gender'];
-    $class = htmlspecialchars($_POST['class']);
+    $classroom = htmlspecialchars($_POST['classroom']);
+    $year = $_POST['year'];
 
     // เตรียมคำสั่ง SQL เพื่อเพิ่มข้อมูล
-    $sql = "INSERT INTO students (username, password, first_name, last_name, gender, class) 
-            VALUES (:username, :password, :first_name, :last_name, :gender, :class)";
+    $sql = "INSERT INTO students (username, password, first_name, last_name,classroom,year) 
+            VALUES (:username, :password, :first_name, :last_name,:classroom,:year)";
 
     // ใช้ PDO เพื่อทำการเพิ่มข้อมูล
     try {
@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':password', $hashed_password);
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
-        $stmt->bindParam(':gender', $gender);
-        $stmt->bindParam(':class', $class);
+        $stmt->bindParam(':classroom', $classroom);
+        $stmt->bindParam(':year', $year);
        
 
         // ประมวลผลคำสั่ง SQL

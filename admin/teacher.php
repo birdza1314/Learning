@@ -2,12 +2,15 @@
 include('../connections/connection.php');
 session_start();
 if ($_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
 
 ?>
-
+<?php
+// เริ่มต้นจากลำดับที่ 1
+$counter = 1;
+?>
 <?php
 $menu = "index";
 include("header.php");
@@ -89,20 +92,18 @@ include("header.php");
                                 $groupResult = $groupStmt->fetch(PDO::FETCH_ASSOC);
                                 ?>
                                 <tr>
-                                    <td scope="row"><?= $row['t_id']; ?></td>
+                                <td scope="row"><?= $counter++; ?></td>
                                     <td align="center">
-                                       <?php
-                                        // ตรวจสอบว่ามีข้อมูลรูปภาพหรือไม่
-                                        $stmtImage = $db->prepare("SELECT * FROM teachers_images WHERE teacher_id = ?");
-                                        $stmtImage->execute([$row['t_id']]);
+                                    <?php
+                                    // ตรวจสอบว่ามีข้อมูลใน $row['image'] หรือไม่
+                                    if (!empty($row['image'])) {
+                                        echo '<img src="teacher_process/img/' . $row['image'] . '" alt="Teacher Image" style="max-width: 100px; max-height: 100px;">';
+                                    } else {
+                                        // ใช้รูปภาพ Default ในกรณีที่ไม่มีรูปภาพ
+                                        echo '<img src="teacher_process/img/Default.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
+                                    }
+                                    ?>
 
-                                        if ($stmtImage->rowCount() > 0) {
-                                            $imageRow = $stmtImage->fetch(PDO::FETCH_ASSOC);
-                                            echo '<img src="teacher_process/img/' . $imageRow['filename'] . '" alt="Teacher Image" style="max-width: 100px; max-height: 100px;">';
-                                        } else {
-                                            echo '<img src="teacher_process/img/Defaul.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
-                                        }
-                                        ?>
                                     </td>
                                     <td><?= $row['username']; ?></td>
                                     <td><?= $row['first_name']; ?></td>

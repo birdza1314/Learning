@@ -51,28 +51,17 @@ try {
       <div class="col-xl-4">
     <div class="card">
         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-        <?php if (!empty($student['image_id'])): ?>
-                      <?php
-                      // ดึง URL ของรูปภาพจากตาราง student_images
-                      $imageQuery = "SELECT filename FROM student_images WHERE image_id = :image_id";
-                      $imageStmt = $db->prepare($imageQuery);
-                      $imageStmt->bindParam(':image_id', $student['image_id']);
-                      $imageStmt->execute();
-                      $image = $imageStmt->fetch(PDO::FETCH_ASSOC);
-
-                      // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
-                      if (!empty($image['filename'])):
-                          $imagePath = 'images/' . $image['filename'];
-                      else:
-                          $imagePath = 'images/Defaul.png'; // กำหนด local path ของรูปภาพที่ใช้เป็นค่าสำรอง
-                      endif;
-                      ?>
-                      <!-- แสดงรูปภาพ -->
-                      <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
-                  <?php else: ?>
-                      <!-- กรณีไม่มี image_id ในตาราง student -->
-                      <img src="images/Defaul.png" alt="Default Profile" class="rounded-circle">
-                  <?php endif; ?>
+        <?php if (!empty($student['image'])): ?>
+                  <?php
+                  // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
+                  $imagePath = 'images/' . $student['image'];
+                  ?>
+                  <!-- แสดงรูปภาพ -->
+                  <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
+              <?php else: ?>
+                  <!-- กรณีไม่มีรูปภาพ -->
+                  <img src="images/Default.png" alt="Default Profile" class="rounded-circle">
+              <?php endif; ?>
             <h2><?php echo $student['first_name'];?></h2>
             <h3><?php echo $_SESSION['role'];?></h3>
             <div class="social-links mt-2">
@@ -139,29 +128,17 @@ try {
                   <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">รูปโปรไฟล์</label>
                   <div class="col-md-8 col-lg-9">
               <!-- ตรวจสอบว่ามีรูปภาพในตาราง students_images หรือไม่ -->
-              <?php if (!empty($student['image_id'])): ?>
-                      <?php
-                      // ดึง URL ของรูปภาพจากตาราง student_images
-                      $imageQuery = "SELECT filename FROM student_images WHERE image_id = :image_id";
-                      $imageStmt = $db->prepare($imageQuery);
-                      $imageStmt->bindParam(':image_id', $student['image_id']);
-                      $imageStmt->execute();
-                      $image = $imageStmt->fetch(PDO::FETCH_ASSOC);
-
-                      // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
-                      if (!empty($image['filename'])):
-                          $imagePath = 'images/' . $image['filename'];
-                      else:
-                          $imagePath = 'images/Defaul.png'; // กำหนด local path ของรูปภาพที่ใช้เป็นค่าสำรอง
-                      endif;
-                      ?>
-                      <!-- แสดงรูปภาพ -->
-                      <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
-                  <?php else: ?>
-                      <!-- กรณีไม่มี image_id ในตาราง student -->
-                      <img src="images/Defaul.png" alt="Default Profile" class="rounded-circle">
-                  <?php endif; ?>
-
+              <?php if (!empty($student['image'])): ?>
+                  <?php
+                  // ตรวจสอบว่ามี URL ของรูปภาพหรือไม่
+                  $imagePath = 'images/' . $student['image'];
+                  ?>
+                  <!-- แสดงรูปภาพ -->
+                  <img src="<?php echo $imagePath; ?>" alt="Profile" class="rounded-circle">
+              <?php else: ?>
+                  <!-- กรณีไม่มีรูปภาพ -->
+                  <img src="images/Default.png" alt="Default Profile" class="rounded-circle">
+              <?php endif; ?>
               <div class="pt-2">
                   <label for="newProfileImage">Choose image File:</label>
                   <input type="file" name="newProfileImage" id="newProfileImage" class="form-control-file">

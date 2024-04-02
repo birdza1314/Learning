@@ -26,12 +26,13 @@ if (isset($_POST['save_excel_data'])) {
                 $password = password_hash($rawPassword, PASSWORD_DEFAULT);
                 $first_name = $row[2];
                 $last_name = $row[3];
-                $class = $row[4];
+                $classroom = $row[4];
+                $year = $row[5];
                 
 
-                $sql = "INSERT INTO students (username, password, first_name, last_name,  class) VALUES (:username, :password, :first_name, :last_name,  :class)";
+                $sql = "INSERT INTO students (username, password, first_name, last_name,  classroom,year) VALUES (:username, :password, :first_name, :last_name,  :classroom, :year)";
                 $stmt = $db->prepare($sql);
-                $stmt->execute([':username' => $username, ':password' => $password, ':first_name' => $first_name, ':last_name' => $last_name,  ':class' => $class]);
+                $stmt->execute([':username' => $username, ':password' => $password, ':first_name' => $first_name, ':last_name' => $last_name,  ':classroom' => $classroom, ':year' => $year]);
 
             } else {
                 $count++;

@@ -358,6 +358,7 @@
 
 
 }
+
     /* Media queries เพื่อทำให้หน้าเว็บ responsive */
     @media (max-width: 767px) {
       /* ปรับขนาดของภาพให้เต็มกว้างในขนาดหน้าจอเล็ก */
@@ -365,7 +366,19 @@
         width: 100%;
       }
     }
-    
+    .dropdown-add-activity .dropdown-menu .dropdown-activity-button {
+  width: 150px; /* Adjust width as needed */
+  /* OR */
+  height: 60px; /* Adjust height as needed */
+}
+.sticky-btn {
+  position: fixed;
+  top: 50px; /* ปรับตำแหน่งตามต้องการ */
+  right: 20px; /* ปรับตำแหน่งตามต้องการ */
+  z-index: 1000;
+}
+
+
 </style>
 </head>
 <!-- ======= Head ======= -->
