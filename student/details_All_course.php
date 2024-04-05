@@ -45,7 +45,7 @@ foreach ($rows as $row) {
             $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
             ?>
             <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
-            <a href="course_details.php?course_id=<?php echo $row['c_id']; ?>" class="btn btn-primary">รายละเอียด</a>
+            <a href="course_details?course_id=<?php echo $row['c_id']; ?>" class="btn btn-primary">รายละเอียด</a>
         </div>
     </div>
 </div>

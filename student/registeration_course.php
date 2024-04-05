@@ -4,7 +4,7 @@ session_start();
 
 // ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'student' หรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 
@@ -55,7 +55,7 @@ try {
 
         // เมื่อลงทะเบียนสำเร็จให้แสดงข้อความแจ้งเตือนและกลับไปยังหน้า my_course.php
         echo "<script>alert('ลงทะเบียนเรียนสำเร็จ');</script>";
-        header('Location: course_details.php?course_id=' . $course_id);
+        header('Location: course_details?course_id=' . $course_id);
         exit();
     } else {
         // ถ้ารหัสลงทะเบียนไม่ถูกต้อง

@@ -5,7 +5,7 @@ include('../connections/connection.php');
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'student' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -93,7 +93,7 @@ if (isset($_GET['group_id'])) {
                           $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
                           ?>
                           <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
-                          <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+                          <a href="course_details?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
                       </div>
                   </div>
               </div>

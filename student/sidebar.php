@@ -4,13 +4,13 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         <!-- เมนูเดิม -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="index.php">
+            <a class="nav-link collapsed" href="index">
                 <i class="bi bi-grid"></i>
                 <span>หน้าหลัก</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="my_course.php">
+            <a class="nav-link collapsed" href="my_course">
                 <i class="bi bi-grid"></i>
                 <span>วิชาเรียนของฉัน</span>
             </a>
@@ -21,12 +21,12 @@
   </a>
   <ul id="new-tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
     <li>
-      <a href="new_table_1.php">
+      <a href="new_table_1">
         <i class="bi bi-circle"></i><span>คู่มือการใช้งาน สำหรับครู</span>
       </a>
     </li>
     <li>
-      <a href="new_table_2.php">
+      <a href="new_table_2">
         <i class="bi bi-circle"></i><span>คู่มือการใช้งาน สำหรับนักเรียน</span>
       </a>
     </li>
@@ -36,20 +36,20 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item ">
-            <a class="nav-link collapsed " href="profile.php">
+            <a class="nav-link collapsed " href="profile">
                 <i class="bi bi-person"></i>
                 <span>โปรไฟล์</span>
             </a>
         </li>
         <!-- ปฏิทิน -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="calendar_event.php">
+            <a class="nav-link collapsed" href="calendar_event">
                 <i class="bi bi-calendar"></i>
                 <span>ปฏิทินกิจกรรม</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="../logout.php">
+            <a class="nav-link collapsed" href="../logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>ออกจากระะบบ</span>
             </a>

@@ -64,7 +64,7 @@
                     <h1>เข้าสู่ระบบ</h1>
                 </div>
                 <div class="card-body py-5 px-md-5">
-                    <form action="login_db.php" method="POST" class="register-form" id="login-form">
+                    <form action="login_db" method="POST" class="register-form" id="login-form">
                         <div class="form-group">
                             <label for="username"><i class="zmdi zmdi-account material-icons-name"></i> ชื่อผู้ใช้</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>

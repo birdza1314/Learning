@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($admin && password_verify($password, $admin['password'])) {
             $_SESSION['user_id'] = $admin['a_id'];
             $_SESSION['role'] = 'admin';
-            header("Location: admin/index.php");
+            header("Location: admin/index");
             exit();
         }
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($teacher && password_verify($password, $teacher['password'])) {
             $_SESSION['user_id'] = $teacher['t_id'];
             $_SESSION['role'] = 'teacher';
-            header("Location: teacher/index.php");
+            header("Location: teacher/index");
             exit();
         }
 
@@ -39,13 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($student && password_verify($password, $student['password'])) {
             $_SESSION['user_id'] = $student['s_id'];
             $_SESSION['role'] = 'student';
-            header("Location: student/index.php");
+            header("Location: student/index");
             exit();
         }
 
         // If no matching data found in any table
         echo '<script>alert("รหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบ ID และ รหัสผ่านให้ถูกต้อง");</script>';
-        header("Refresh: 0; url=login.php");
+        header("Refresh: 0; url=login");
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }

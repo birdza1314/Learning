@@ -36,7 +36,7 @@ if(isset($_POST['group_id']) && isset($_POST['query'])) {
                 $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
                 
                 echo '<p class="card-text">ครูผู้สอน: ' . $teacher['first_name'] . ' ' . $teacher['last_name'] . '</p>';
-                echo '<a href="course_details.php?course_id=' . $course['c_id'] . '" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>';
+                echo '<a href="course_details?course_id=' . $course['c_id'] . '" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>';
                 echo '</div></div></div>';
             }
         } else {

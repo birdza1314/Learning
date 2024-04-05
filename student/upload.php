@@ -4,7 +4,7 @@ session_start();
 
 // ตรวจสอบการเข้าสู่ระบบและบทบาทของผู้ใช้ว่าเป็นนักเรียนหรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-        echo "<script>window.location.href = 'status_assignment.php?assignment_id=" . $assignment_id . "';</script>";    
+        echo "<script>window.location.href = 'status_assignment?assignment_id=" . $assignment_id . "';</script>";    
     }
 }
 

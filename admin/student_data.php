@@ -3,7 +3,7 @@
 include('../connections/connection.php');
 session_start();
 if ($_SESSION['role'] !== 'admin') {
-  header("Location: ../login.php");
+  header("Location: ../login");
   exit();
 }
 ?>
@@ -43,7 +43,7 @@ include("header.php");
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                          <form action="../import_file/student_import.php" method="POST" enctype="multipart/form-data">
+                          <form action="../import_file/student_import" method="POST" enctype="multipart/form-data">
                           <div class="mb-3">
                               <label for="import_file" class="form-label">เพิ่มข้อมูลนักเรียน:</label>
                               <h6 style="color: red;">
@@ -101,8 +101,8 @@ include("header.php");
                     <td align="center">
                       
                     <a class="btn btn-info btn-xs" href="#" data-bs-toggle="modal" data-bs-target="#profileModal"data-id="<?= $row['s_id']; ?>"><i class="fas fa-eye"></i></a>
-                    <a href="student_edit.php?s_id=<?= $row['s_id']; ?>" class="btn btn-warning btn-xs"><i class="fas fa-pencil-alt"></i></a>
-                      <a href="student_process/student_delete.php?s_id=<?= $row['s_id']; ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?');"><i class="fas fa-trash-alt"></i></a>
+                    <a href="student_edit?s_id=<?= $row['s_id']; ?>" class="btn btn-warning btn-xs"><i class="fas fa-pencil-alt"></i></a>
+                      <a href="student_process/student_delete?s_id=<?= $row['s_id']; ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?');"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
               <?php
@@ -187,7 +187,7 @@ include("header.php");
         </button>
       </div>
       <div class="modal-body">
-        <form action="student_process/student_insert.php" method="post">
+        <form action="student_process/student_insert" method="post">
           <div class="form-group">
             <label for="add_username">ชื่อผู้ใช้:</label>
             <input type="text" class="form-control" id="add_username" name="username" autocomplete="username" required>

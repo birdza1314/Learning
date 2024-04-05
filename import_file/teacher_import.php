@@ -43,13 +43,13 @@ if (isset($_POST['save_excel_data'])) {
         // Adding JavaScript code to show alert
         echo '<script type="text/javascript">';
         echo 'alert("Successfully Imported");';
-        echo 'window.location.href = "../admin/index.php";';  // Redirect after showing the alert
+        echo 'window.location.href = "../admin/index";';  // Redirect after showing the alert
         echo '</script>';
 
         exit(0);
     } else {
         $_SESSION['message'] = "Invalid File";
-        header('Location: ../admin/index.php');
+        header('Location: ../admin/index');
         exit(0);
     }
 }

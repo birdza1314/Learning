@@ -32,7 +32,7 @@ include("header.php");
   <h1 class="mb-4">User Edit Form</h1>
   <div class="card">
     <div class="card-body">
-      <form action="teacher_process/teacher_update.php" method="post" onsubmit="return validateForm()"  enctype="multipart/form-data">
+      <form action="teacher_process/teacher_update" method="post" onsubmit="return validateForm()"  enctype="multipart/form-data">
         <input type="hidden" name="t_id" value="<?= $row['t_id']; ?>">
                   
           <!-- โค้ด HTML สำหรับอัปโหลดรูปภาพ -->
@@ -97,7 +97,7 @@ include("header.php");
          </div>
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="../admin/index.php" class="btn btn-secondary" onclick="cancelEdit()">Cancel</a>
+        <a href="../admin/index" class="btn btn-secondary" onclick="cancelEdit()">Cancel</a>
       </form>
     </div>
   </div>

@@ -4,7 +4,7 @@ include('../connections/connection.php');
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
     // ถ้าไม่ได้ล็อกอินหรือไม่ใช่บทบาท 'student' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 try {
@@ -24,7 +24,7 @@ try {
 
 if (!isset($_GET['quiz_id'])) {
     // ถ้าไม่มี quiz_id ให้เปลี่ยนเส้นทางไปที่หน้าหลักหรือหน้าที่คุณต้องการ
-    header('Location: index.php');
+    header('Location: index');
     exit();
 }
 

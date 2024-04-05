@@ -59,7 +59,7 @@ $endDateTime = strftime('%A, %e %B %Y %I:%M %p', strtotime($assignment['close_ti
                         <p><?php echo $assignment['description']; ?></p><br><br>
                         <h3>File Upload</h3>
                        <!-- File Upload Form -->
-                        <form action="upload.php" method="post" enctype="multipart/form-data" class="dropzone" id="myAwesomeDropzone">
+                        <form action="upload" method="post" enctype="multipart/form-data" class="dropzone" id="myAwesomeDropzone">
                             <!-- Input hidden เพื่อส่ง assignment_id -->
                             <input type="hidden" name="assignment_id" value="<?php echo $assignment_id; ?>">
     

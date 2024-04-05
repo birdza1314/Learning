@@ -4,7 +4,7 @@ session_start();
 
 // ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'student' หรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 
@@ -27,7 +27,7 @@ try {
 
     // ถ้ามีการลงทะเบียนแล้วให้กลับไปยังหน้า my_course.php ด้วยข้อความที่บอกว่าได้ลงทะเบียนแล้ว
     if ($registration) {
-        header('Location: my_course.php');
+        header('Location: my_course');
         exit();
     }
 

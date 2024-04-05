@@ -15,8 +15,6 @@ try {
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
     
-    // ดึงข้อมูลจากผลลัพธ์ของคำสั่ง SQL
-    $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
     
 } catch (PDOException $e) {
     // แสดงข้อผิดพลาด
@@ -31,7 +29,15 @@ if (!isset($_GET['course_id'])) {
 
 // รับค่า course_id จาก URL
 $course_id = $_GET['course_id'];
+// ดึงข้อมูลจากผลลัพธ์ของคำสั่ง SQL
+$teacher = $stmt->fetch(PDO::FETCH_ASSOC);
+// Prepare SQL statement to select course details
+$stmt = $db->prepare("SELECT * FROM courses WHERE c_id = :course_id");
+$stmt->bindParam(':course_id', $course_id);
+$stmt->execute();
 
+// Fetch course details
+$course = $stmt->fetch(PDO::FETCH_ASSOC);
 // คำสั่ง SQL สำหรับดึงข้อมูลการเข้าเรียนของนักเรียนในคอร์สนี้
 $sql = "SELECT s.username, s.first_name, s.last_name, 
                MAX(m.mark_date) AS last_mark_date,
@@ -70,7 +76,7 @@ try {
             <div class="card-body">
                 <div class="card-header">
                     <h1>รายละเอียดการเข้าเรียน</h1>
-                    <p>ชื่อคอร์ส: <?= $attendances[0]['course_name']; ?></p>
+                    <p>ชื่อคอร์ส: <?= $course['course_name']; ?></p>
                 </div>
 
                 <table class="table table-borderless datatable table-format ">

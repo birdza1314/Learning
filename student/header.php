@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-  <a href="index.php" >
+  <a href="index" >
     <img src="../uploads/img/logo.png" alt="" style="width: 250px; height: 60px;">
   </a>
   <i class="bi bi-list toggle-sidebar-btn" style="font-size: 24px;"></i>
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="profile.php">
+          <a class="dropdown-item d-flex align-items-center" href="profile">
             <i class="bi bi-person"></i>
             <span>โปรไฟล์</span>
           </a>
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <hr class="dropdown-divider">
         </li>
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="../logout.php">
+          <a class="dropdown-item d-flex align-items-center" href="../logout">
             <i class="bi bi-box-arrow-right"></i>
             <span>ออกจากระบบ</span>
           </a>

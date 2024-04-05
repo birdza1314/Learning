@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom sticky-top">
   <div class="container-fluid">
     <!-- Navbar brand with logo -->
-    <a class="navbar-brand navbar-brand-custom" href="index.php">
+    <a class="navbar-brand navbar-brand-custom" href="index">
       <img src="uploads/img/logo.png" alt="Logo">
     </a>
     <!-- Button to toggle the navbar on mobile -->
@@ -16,22 +16,22 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="index.php">หน้าหลัก</a>
+          <a class="nav-link" href="index">หน้าหลัก</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           คู่มือการใช้งาน
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">คู่มือการใช้งานสำหรับครู</a></li>
-            <li><a class="dropdown-item" href="#">คู่มือการใช้งานสำหรับนักเรียน</a></li>
+            <li><a class="dropdown-item" href="student_manual">คู่มือการใช้งานสำหรับครู</a></li>
+            <li><a class="dropdown-item" href="student_manual">คู่มือการใช้งานสำหรับนักเรียน</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link me-2" href="#">ติดต่อสอบถาม</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary nav-btn" href="login.php">เข้าสู่ระบบ</a>
+          <a class="btn btn-outline-primary nav-btn" href="login">เข้าสู่ระบบ</a>
         </li>
       </ul>
     </div>
@@ -45,7 +45,7 @@
   <div class="col-12">
           <img src="uploads/img/R.jpg" class="d-block w-100" alt="รูปภาพ 2">
           <div class="carousel-caption d-none d-md-block">
-            <a href="login.php" class="btn btn-outline-primary">เข้าสู่เว็บไซต์</a>
+            <a href="login" class="btn btn-outline-primary">เข้าสู่เว็บไซต์</a>
           </div>
         </div>
 
@@ -60,7 +60,7 @@
   <div class="card-body">
     <div class="row mt-5">
       <div class="col-sm-4">
-        <a href="student/group_details.php?group_id=1">
+        <a href="student/group_details?group_id=1">
           <div class="card-body">
             <!-- เพิ่มรูปภาพ -->
             <img src="teacher/uploads/group/1.png" alt="ภาษาไทย" class="hover-img">
@@ -68,7 +68,7 @@
         </a>
       </div>
       <div class="col-sm-4">
-        <a href="student/group_details.php?group_id=2">
+        <a href="student/group_details?group_id=2">
           <div class="card-body">
             <!-- เพิ่มรูปภาพ -->
             <img src="teacher/uploads/group/2.png" alt="คณิตศาสตร์" class="hover-img">
@@ -76,7 +76,7 @@
         </a>
       </div>
       <div class="col-sm-4">
-        <a href="student/group_details.php?group_id=3">
+        <a href="student/group_details?group_id=3">
           <div class="card-body">
             <!-- เพิ่มรูปภาพ -->
             <img src="teacher/uploads/group/3.png" alt="วิทยาศาสตร์และเทคโนโลยี" class="hover-img">
@@ -87,7 +87,7 @@
 
     <div class="row">
       <div class="col-sm-4">
-        <a href="student/group_details.php?group_id=4">
+        <a href="student/group_details?group_id=4">
           <div class="card-body">
             <!-- เพิ่มรูปภาพ -->
             <img src="teacher/uploads/group/4.png" alt="สังคมศึกษาฯ" class="hover-img">
@@ -95,7 +95,7 @@
         </a>
       </div>
       <div class="col-sm-4">
-        <a href="student/group_details.php?group_id=5">
+        <a href="student/group_details?group_id=5">
           <div class="card-body">
             <!-- เพิ่มรูปภาพ -->
             <img src="teacher/uploads/group/5.png" alt="สุขศึกษาฯ" class="hover-img">
@@ -103,7 +103,7 @@
         </a>
       </div>
       <div class="col-sm-4">
-        <a href="student/group_details.php?group_id=6">
+        <a href="student/group_details?group_id=6">
           <div class="card-body">
             <!-- เพิ่มรูปภาพ -->
             <img src="teacher/uploads/group/6.png" alt="เรียนรู้ศิลปะ" class="hover-img">
@@ -114,7 +114,7 @@
 
     <div style="text-align: center;" class="py-4">
       <!-- เพิ่มปุ่มรายวิชาทั้งหมดที่นี่ -->
-      <a href="student/lib_all_course.php" class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></a>
+      <a href="student/lib_all_course" class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></a>
     </div>
   </div>
 </div><!--Card over -->
@@ -150,7 +150,7 @@
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      <!-- Purchase the pro version with working/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
       Designed by <a href="https://web.facebook.com/profile.php?id=100009502864499" target="_blank" >Ruslan Matha</a>
 
     </div>

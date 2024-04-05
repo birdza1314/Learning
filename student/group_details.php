@@ -32,7 +32,7 @@ if (isset($_GET['group_id'])) {
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom sticky-top">
   <div class="container-fluid">
     <!-- Navbar brand with logo -->
-    <a class="navbar-brand navbar-brand-custom" href="../index.php">
+    <a class="navbar-brand navbar-brand-custom" href="../index">
       <img src="../uploads/img/logo.png" alt="Logo">
     </a>
     <!-- Button to toggle the navbar on mobile -->
@@ -44,7 +44,7 @@ if (isset($_GET['group_id'])) {
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="../index.php">หน้าหลัก</a>
+          <a class="nav-link" href="../index">หน้าหลัก</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,7 +59,7 @@ if (isset($_GET['group_id'])) {
           <a class="nav-link me-2" href="#">ติดต่อสอบถาม</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary nav-btn" href="../login.php">เข้าสู่ระบบ</a>
+          <a class="btn btn-outline-primary nav-btn" href="../login">เข้าสู่ระบบ</a>
         </li>
       </ul>
     </div>
@@ -99,7 +99,7 @@ if (isset($_GET['group_id'])) {
                           $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
                           ?>
                           <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
-                          <a href="../login.php" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+                          <a href="../login" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
                       </div>
                   </div>
               </div>

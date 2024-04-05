@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['error'] = "เกิดข้อผิดพลาดในการอัพเดทข้อมูล";
     }
 
-    header("Location: ../teacher.php");
+    header("Location: ../teacher");
     exit();
 }
 ?>

@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // แสดงข้อความเมื่อบันทึกสำเร็จ
         echo "<script>
                 alert('บันทึกสำเร็จ! ข้อมูลของคุณได้รับการบันทึกเรียบร้อยแล้ว');
-                window.location = '../teacher.php';
+                window.location = '../teacher';
               </script>";
     } catch (PDOException $e) {
         // กรณีเกิดข้อผิดพลาด
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // หากไม่มีการส่งข้อมูลมาโดยตรงผ่าน POST ให้ redirect กลับไปยังหน้า index.php
-    header("Location: ../index.php");
+    header("Location: ../index");
     exit();
 }
 ?>

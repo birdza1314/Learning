@@ -72,7 +72,7 @@ include("header.php");
 
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="../admin/student_data.php" class="btn btn-secondary" onclick="cancelEdit()">Cancel</a>
+        <a href="../admin/student_data" class="btn btn-secondary" onclick="cancelEdit()">Cancel</a>
       </form>
     </div>
   </div>
@@ -86,7 +86,7 @@ include("header.php");
     
     if (confirmation) {
       // กรณีผู้ใช้ยืนยันการยกเลิก
-      window.location.href = "cancel_edit.php";
+      window.location.href = "cancel_edit";
     }
   }
   // Validation function

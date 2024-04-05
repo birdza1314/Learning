@@ -20,12 +20,12 @@ try {
     }
 
     // ส่งกลับไปยัง homepage.php
-    header('Location: ../student_data.php');
+    header('Location: ../student_data');
     exit;
 
 } catch (PDOException $e) {
     $_SESSION['error'] = "Error: " . $e->getMessage();
-    header('Location: ../student_data.php');
+    header('Location: ../student_data');
     exit;
 }
 ?>

@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is logged in and has a role of 'student'
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 
@@ -120,9 +120,9 @@ if ($time_remaining->invert) {
 
                         <div class="py-2 mt-5">
                             <?php if ($submission) { ?>
-                                <a href="update_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary">แก้ไขงาน</a>
+                                <a href="update_assignment?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary">แก้ไขงาน</a>
                             <?php } else { ?>
-                                <a href="submit_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary">เพิ่มการส่งงาน</a>
+                                <a href="submit_assignment?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary">เพิ่มการส่งงาน</a>
                             <?php } ?>
                         </div>
                     </div>

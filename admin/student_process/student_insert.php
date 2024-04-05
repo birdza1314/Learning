@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // หากไม่มีการส่งข้อมูลมาโดยตรงผ่าน POST ให้ redirect กลับไปยังหน้า index.php
-    header("Location: ../student_data.php");
+    header("Location: ../student_data");
     exit();
 }
 ?>

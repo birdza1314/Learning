@@ -3,7 +3,7 @@ session_start();
 include('../connections/connection.php');
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -18,7 +18,7 @@ try {
 }
 
 if (!isset($_GET['quiz_id'])) {
-    header('Location: index.php');
+    header('Location: index');
     exit();
 }
 

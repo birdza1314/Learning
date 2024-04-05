@@ -4,7 +4,7 @@ include('../connections/connection.php');
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php'); // ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหากไม่ได้ล็อกอิน
+    header('Location: ../login'); // ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหากไม่ได้ล็อกอิน
     exit();
 }
 
@@ -50,7 +50,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="col-sm-10">
                         <div class="search-bar">
-                            <form action="details_All_course.php" method="POST" class="p-3">
+                            <form action="details_All_course" method="POST" class="p-3">
                                 <div class="input-group">
                                     <input type="text" name="search" id="search" class="form-control form-control-lg  rounded-0" placeholder="ค้นหารายวิชา..." autocomplete="off" required>
                                         <input type="submit" name="submit" value="ค้นหา" class="btn btn-outline-secondary btn-sm">
@@ -117,7 +117,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $completion_percentage; ?>%" aria-valuenow="<?php echo $completion_percentage; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $completion_percentage; ?>% complete</div>
                                             </div>
-                                            <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary mt-1" style="float: right;">รายละเอียด</a>
+                                            <a href="course_details?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary mt-1" style="float: right;">รายละเอียด</a>
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                        <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary mt-3" style="float: right;">รายละเอียด</a>
+                        <a href="course_details?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary mt-3" style="float: right;">รายละเอียด</a>
                     </div>
                 </div>
             </div>

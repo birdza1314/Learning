@@ -3,7 +3,7 @@ include('../connections/connection.php');
 
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -39,7 +39,7 @@ try {
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="index">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -123,7 +123,7 @@ try {
 
 
           <!-- Profile Edit Form -->
-          <form action="save_profile.php" method="post" enctype="multipart/form-data">
+          <form action="save_profile" method="post" enctype="multipart/form-data">
               <div class="row mb-3">
                   <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">รูปโปรไฟล์</label>
                   <div class="col-md-8 col-lg-9">

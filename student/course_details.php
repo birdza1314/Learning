@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is logged in and has a role of 'student'
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 
@@ -111,7 +111,7 @@ try {
                                         <button id="markAsDoneButton<?= $lesson['lesson_id']; ?>" onclick="markAsDone(<?= $lesson['lesson_id']; ?>, <?= $course_id; ?>)" class="btn btn-outline-primary" style="float: inline-end;">  
                                             <?php
                                                 // Check if the lesson_id, student_id, and course_id exist in the Marks_as_done table
-                                                $stmt = $db->prepare("SELECT COUNT(*) as count FROM Marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
+                                                $stmt = $db->prepare("SELECT COUNT(*) as count FROM marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
                                                 $stmt->bindParam(':lesson_id', $lesson['lesson_id'], PDO::PARAM_INT);
                                                 $stmt->bindParam(':student_id', $user_id, PDO::PARAM_INT); // เปลี่ยน $student_id เป็น $user_id
                                                 $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
@@ -129,7 +129,7 @@ try {
                                         </div>
                                         </div>
                                         <!-- เริ่มต้นการวนลูปการแสดงผลข้อมูลหัวข้อ -->
-                                        <?php include('display_topics.php'); ?>
+                                        <?php include('../student/display_topics.php'); ?>
                                         <!-- สิ้นสุดการวนลูปการแสดงผลข้อมูลหัวข้อ -->
                                     </div>
                                 </div>

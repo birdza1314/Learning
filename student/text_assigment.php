@@ -4,7 +4,7 @@ session_start();
 
 // ตรวจสอบการเข้าสู่ระบบและบทบาทของผู้ใช้ว่าเป็นนักเรียนหรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 

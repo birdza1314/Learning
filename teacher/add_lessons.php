@@ -133,7 +133,7 @@ if (isset($_GET['course_id'])) {
   <div class="container">
     <div class="card">
         <div class="card-body">
-        <h2>Course Details</h2>
+        
         <div class="card mt-3">
             <div class="card-body">
             

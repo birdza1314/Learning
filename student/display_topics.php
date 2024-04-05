@@ -149,9 +149,9 @@
                                                                 <div class="col-md-4">
                                                                     <div class="d-flex justify-content-end mt-3">
                                                                     <?php if ($isOverdue) : ?>
-                                                                        <a href="status_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-danger ">ส่งงาน</a>
+                                                                        <a href="status_assignment?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-danger ">ส่งงาน</a>
                                                                     <?php else : ?>
-                                                                        <a href="status_assignment.php?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary ">ส่งงาน</a>
+                                                                        <a href="status_assignment?assignment_id=<?= $assignment['assignment_id']; ?>" class="btn btn-outline-primary ">ส่งงาน</a>
                                                                     <?php endif; ?>
 
                                                                     </div>

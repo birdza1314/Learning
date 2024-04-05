@@ -2,7 +2,7 @@
 include('../connections/connection.php');
 session_start();
 if ($_SESSION['role'] !== 'admin') {
-    header("Location: ../login.php");
+    header("Location: ../login");
     exit();
 }
 
@@ -39,7 +39,7 @@ include("header.php");
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="../import_file/teacher_import.php" method="POST" enctype="multipart/form-data">
+                            <form action="../import_file/teacher_import" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="import_file" class="form-label">เลือกไฟล์บุคลากร:</label>
                                     <h6 style="color: red;">
@@ -115,8 +115,8 @@ include("header.php");
                                     <td align="center">
                                         <!-- ตัวเลือกอื่น ๆ ที่คุณต้องการ -->
                                         <a class="btn btn-info btn-xs" href="#" data-bs-toggle="modal" data-bs-target="#profileModal" data-id="<?= $row['t_id']; ?>"><i class="fas fa-eye"></i></a>
-                                        <a href="teacher_edit.php?t_id=<?= $row['t_id']; ?>" class="btn btn-warning btn-xs"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="teacher_process/teacher_delete.php?t_id=<?= $row['t_id']; ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?');"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="teacher_edit?t_id=<?= $row['t_id']; ?>" class="btn btn-warning btn-xs"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="teacher_process/teacher_delete?t_id=<?= $row['t_id']; ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?');"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                         <?php

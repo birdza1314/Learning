@@ -4,7 +4,7 @@ include('../connections/connection.php');
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
     // ถ้าผู้ใช้ไม่ได้เข้าสู่ระบบหรือไม่ใช่บทบาท 'student' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -80,7 +80,7 @@ try {
                 <div class="col-lg-4 mt-5">
                 <!-- แสดงเฉพาะปุ่มลงทะเบียน -->
                 <h3>กดเพื่อลงทะเบียน</h3>
-                <form action="registeration_course_no_pass.php?course_id=<?php echo $course_id; ?>" method="POST">
+                <form action="registeration_course_no_pass?course_id=<?php echo $course_id; ?>" method="POST">
                     <button type="submit" class="btn btn-primary btn-lg">ลงทะเบียน</button>
                 </form>
             </div>
@@ -90,7 +90,7 @@ try {
                 <div class="col-lg-4">
                     <!-- แสดงฟอร์มกรอกรหัสลงทะเบียน -->
                     <h3>กรอกรหัสเพื่อลงทะเบียน</h3>
-                    <form action="registeration_course.php?course_id=<?php echo $course_id; ?>" method="POST">
+                    <form action="registeration_course?course_id=<?php echo $course_id; ?>" method="POST">
                         <div class="mb-3">
                             <label for="access_code" class="form-label">รหัสลงทะเบียน<span style="color: red;">*</span></label>
                             <input type="password" class="form-control" id="access_code" name="access_code" required>

@@ -6,7 +6,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'admin' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -44,7 +44,7 @@ try {
         </div>
         <div class="p-2">
         <?php echo $admin['username'];?>
-        <a href="admin_edit.php" class="btn btn-warning btn-xs "><i class="fas fa-pencil-alt"></i></a>
+        <a href="admin_edit" class="btn btn-warning btn-xs "><i class="fas fa-pencil-alt"></i></a>
       </div>
       </div>
 
@@ -56,7 +56,7 @@ try {
                with font-awesome or any other icon font library -->
        <!-- เมนู Dashboard -->
 <li class="nav-item">
-    <a href="index.php" class="nav-link <?php if($menu=="Dashboard"){echo "active";} ?> ">
+    <a href="index" class="nav-link <?php if($menu=="Dashboard"){echo "active";} ?> ">
         <i class="nav-icon fas fa-chart-line"></i> <!-- เปลี่ยนไอคอนเป็น fa-chart-line -->
         <p>Dashboard</p>
     </a>
@@ -64,7 +64,7 @@ try {
 
 <!-- เมนู ข้อมูลนักเรียน -->
 <li class="nav-item">
-    <a href="student_data.php" class="nav-link <?php if($menu=="student"){echo "active";} ?> ">
+    <a href="student_data" class="nav-link <?php if($menu=="student"){echo "active";} ?> ">
         <i class="nav-icon fas fa-user-graduate"></i> <!-- เปลี่ยนไอคอนเป็น fa-user-graduate -->
         <p>ข้อมูลนักเรียน</p>
     </a>
@@ -72,7 +72,7 @@ try {
 
 <!-- เมนู ข้อมูลบุคลากร -->
 <li class="nav-item" >
-    <a href="teacher.php" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
+    <a href="teacher" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
         <i class="nav-icon fas fa-chalkboard-teacher"></i> <!-- เปลี่ยนไอคอนเป็น fa-chalkboard-teacher -->
         <p>ข้อมูลบุคลากร</p>
     </a>
@@ -80,7 +80,7 @@ try {
 
 <!-- เมนู วิชาทั้งหมด -->
 <li class="nav-item" >
-    <a href="Lib_course.php" class="nav-link <?php if($menu=="course"){echo "active";} ?> ">
+    <a href="Lib_course" class="nav-link <?php if($menu=="course"){echo "active";} ?> ">
         <i class="nav-icon fas fa-book"></i> <!-- เปลี่ยนไอคอนเป็น fa-book -->
         <p>วิชาทั้งหมด</p>
     </a>
@@ -88,7 +88,7 @@ try {
 
 <!-- เมนู ออกจากระบบ -->
 <li class="nav-item">
-    <a href="../logout.php" class="nav-link text-danger">
+    <a href="../logout" class="nav-link text-danger">
         <i class="nav-icon fas fa-sign-out-alt"></i> <!-- เปลี่ยนไอคอนเป็น fa-sign-out-alt -->
         <p>ออกจากระบบ</p>
     </a>

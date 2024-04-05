@@ -4,7 +4,7 @@ include('../connections/connection.php');
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'student' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -51,7 +51,7 @@ try {
 
         <div class="row mt-5">
         <div class="col-sm-6">
-            <a href="group_details_student.php?group_id=1">
+            <a href="group_details_student?group_id=1">
                 <div class="card-body">
                     <!-- เพิ่มรูปภาพ -->
                     <img style="margin-left: 150px; " src="../teacher/uploads/group/1.png" alt="ภาษาไทย" width="70%" class="hover-img">
@@ -60,7 +60,7 @@ try {
         </div>
 
         <div class="col-sm-6">
-            <a href="group_details_student.php?group_id=2">
+            <a href="group_details_student?group_id=2">
                 <div class="card-body">
                     <!-- เพิ่มรูปภาพ -->
                     <img style=" margin-right: 150px;" src="../teacher/uploads/group/2.png" alt="คณิตศาสตร์" width="70%" class="hover-img">
@@ -71,7 +71,7 @@ try {
 
     <div class="row">
         <div class="col-sm-6 d-flex justify-content-center align-items-center">    
-            <a href="group_details_student.php?group_id=3">
+            <a href="group_details_student?group_id=3">
                 <div class="card-body">
                     <!-- เพิ่มรูปภาพ -->
                     <img  style="margin-left: 150px; " src="../teacher/uploads/group/3.png" alt="วิทยาศาสตร์และเทคโนโลยี" width="70%" class="hover-img">
@@ -80,7 +80,7 @@ try {
         </div>
 
         <div class="col-sm-6 d-flex justify-content-center align-items-center">
-            <a href="group_details_student.php?group_id=4">
+            <a href="group_details_student?group_id=4">
                 <div class="card-body">
                     <!-- เพิ่มรูปภาพ -->
                     <img style=" margin-right: 150px;" src="../teacher/uploads/group/4.png" alt="สังคมศึกษาฯ" width="70%" class="hover-img">
@@ -91,7 +91,7 @@ try {
 
     <div class="row">
         <div class="col-sm-6 d-flex justify-content-center align-items-center"> 
-            <a href="group_details_student.php?group_id=5">
+            <a href="group_details_student?group_id=5">
                 <div class="card-body">
                     <!-- เพิ่มรูปภาพ -->
                     <img style="margin-left: 150px;" src="../teacher/uploads/group/5.png" alt="สุขศึกษาฯ" width="70%" class="hover-img">
@@ -100,7 +100,7 @@ try {
         </div>
 
         <div class="col-sm-6 d-flex justify-content-center align-items-center">         
-            <a href="group_details_student.php?group_id=6">
+            <a href="group_details_student?group_id=6">
                 <div class="card-body">
                     <!-- เพิ่มรูปภาพ -->
                     <img style=" margin-right: 150px;" src="../teacher/uploads/group/6.png" alt="เรียนรู้ศิลปะ" width="70%" class="hover-img">
@@ -114,7 +114,7 @@ try {
                 <a href="lib_course.php" class="btn btn-outline-primary">รายวิชาทั้งหมด <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="search-bar">
-                <form action="details_All_course.php" method="POST" class="p-3">
+                <form action="details_All_course" method="POST" class="p-3">
                     <div class="input-group">
                         <input type="text" name="search" id="search" class="form-control form-control-lg  rounded-0" placeholder="ค้นหารายวิชา..." autocomplete="off" required>
                             <input type="submit" name="submit" value="ค้นหา" class="btn btn-outline-secondary btn-sm">

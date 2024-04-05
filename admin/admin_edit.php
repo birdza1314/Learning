@@ -5,7 +5,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'admin' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -34,7 +34,7 @@ include("header.php");
   <h1 class="mb-4">User Edit Form</h1>
   <div class="card">
     <div class="card-body">
-      <form action="admin_update.php" method="post" onsubmit="return validateForm()">
+      <form action="admin_update" method="post" onsubmit="return validateForm()">
       <input type="hidden" name="a_id" value="<?= $admin['a_id']; ?>" >
 
         <div class="mb-3">
@@ -53,7 +53,7 @@ include("header.php");
         </div>
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="index.php" class="btn btn-secondary" onclick="cancelEdit()">Cancel</a>
+        <a href="index" class="btn btn-secondary" onclick="cancelEdit()">Cancel</a>
       </form>
     </div>
   </div>
@@ -67,7 +67,7 @@ include("header.php");
     
     if (confirmation) {
       // กรณีผู้ใช้ยืนยันการยกเลิก
-      window.location.href = "index.php";
+      window.location.href = "index";
     }
   }
   // Validation function
