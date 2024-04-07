@@ -29,44 +29,44 @@ include("header.php");
 <!-- Your HTML and Bootstrap code for the edit form goes here -->
 <!-- Populate the form fields with the fetched user data -->
 <div class="container mt-5">
-  <h1 class="mb-4">User Edit Form</h1>
+  <h1 class="mb-4">แก้ไขข้อมูลนักเรียน</h1>
   <div class="card">
     <div class="card-body">
       <form action="student_process/student_update.php" method="post" onsubmit="return validateForm()">
         <input type="hidden" name="s_id" value="<?= $row['s_id']; ?>">
 
         <div class="mb-3">
-          <label for="edit_username" class="form-label">Username:</label>
+          <label for="edit_username" class="form-label">ชื่อผู้ใช้:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_username" name="username" value="<?= $row['username']; ?>" autocomplete="username" required>
         </div>
 
         <div class="mb-3">
-          <label for="edit_password" class="form-label">Password:</label>
+          <label for="edit_password" class="form-label">รหัสผ่าน: <span style="color:red;">*</span></label>
           <input type="password" class="form-control" id="edit_password" name="password">
         </div>
 
         <div class="mb-3">
-          <label for="edit_confirm_password" class="form-label">Confirm Password:</label>
+          <label for="edit_confirm_password" class="form-label">ยืนยัน รหัสผ่าน :<span style="color:red;">*</span></label>
           <input type="password" class="form-control" id="edit_confirm_password" name="confirm_password">
         </div>
 
         <div class="mb-3">
-          <label for="edit_first_name" class="form-label">First Name:</label>
+          <label for="edit_first_name" class="form-label">ชื่อ:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_first_name" name="first_name" value="<?= $row['first_name']; ?>" required>
         </div>
 
         <div class="mb-3">
-          <label for="edit_last_name" class="form-label">Last Name:</label>
+          <label for="edit_last_name" class="form-label">นามสกุล:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_last_name" name="last_name" value="<?= $row['last_name']; ?>" required>
         </div>
 
   
         <div class="mb-3">
-          <label for="edit_class" class="form-label">classroom:</label>
+          <label for="edit_class" class="form-label">ห้องเรียน:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_class" name="classroom" value="<?= $row['classroom']; ?>" required>
         </div>
         <div class="mb-3">
-          <label for="year" class="form-label">year:</label>
+          <label for="year" class="form-label">ปีการศึกษา:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="year" name="year" value="<?= $row['year']; ?>" required>
         </div>
 

@@ -39,11 +39,11 @@ if (isset($_POST['save_excel_data'])) {
             }
         }
 
-        $_SESSION['message'] = "Successfully Imported";
+        $_SESSION['message'] = "เพิ่มข้อมูลสำเร็จ";
 
         // Adding JavaScript code to show alert
         echo '<script type="text/javascript">';
-        echo 'alert("Successfully Imported");';
+        echo 'alert("เพิ่มข้อมูลสำเร็จ");';
         echo 'window.location.href = "../admin/student_data";';  // Redirect after showing the alert
         echo '</script>';
 

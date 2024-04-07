@@ -67,11 +67,9 @@ include("header.php");
                     <thead>
                         <tr class="bg-info">
                             <th scope="col">ลำดับที่</th>
-                            <th scope="col">รูปภาพ</th>
                             <th scope="col">ชื่อผู้ใช้</th>
                             <th scope="col">ชื่อ</th>
-                            <th scope="col">นามสกุล</th>
-                            <th scope="col">อีเมล์</th>     
+                            <th scope="col">นามสกุล</th>    
                             <th scope="col">กลุ่มสาระการเรียนรู้</th>
                             <th scope="col">ตัวเลือก</th>
                         </tr>
@@ -103,14 +101,10 @@ include("header.php");
                                         echo '<img src="teacher_process/img/Default.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
                                     }
                                     ?>
-
                                     </td>
                                     <td><?= $row['username']; ?></td>
                                     <td><?= $row['first_name']; ?></td>
-                                    <td><?= $row['last_name']; ?></td>
-                                    <td><?= $row['email']; ?></td>
-                                    
-                                   
+                                    <td><?= $row['last_name']; ?></td>                                  
                                     <td><?= isset($groupResult['group_name']) ? $groupResult['group_name'] : 'N/A'; ?></td>
                                     <td align="center">
                                         <!-- ตัวเลือกอื่น ๆ ที่คุณต้องการ -->
@@ -143,37 +137,25 @@ include("header.php");
                         <!-- ใช้ Bootstrap Grid System เพื่อจัดรูปแบบข้อมูล -->
                         <div class="container">
                             <div class="row mb-3">
-                                <label class="col-md-3 col-form-label">ID:</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="t_id" value="<?= $row['t_id']; ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-md-3 col-form-label">Username:</label>
+                                <label class="col-md-3 col-form-label">ชื่อผู้ใช้:</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="username" value="<?= $row['username']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-md-3 col-form-label">First Name:</label>
+                                <label class="col-md-3 col-form-label">ชื่อ:</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="first_name" value="<?= $row['first_name']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-md-3 col-form-label">Last Name:</label>
+                                <label class="col-md-3 col-form-label">นามสกุล:</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="last_name" value="<?= $row['last_name']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-md-3 col-form-label">Email:</label>
-                                <div class="col-md-9">
-                                    <input type="email" class="form-control" name="email" value="<?= $row['email']; ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-md-3 col-form-label">Group Name:</label>
+                                <label class="col-md-3 col-form-label">กลุ่มสาระ:</label>
                                 <div class="col-md-9">
                                     <!-- ต้องทำการดึงข้อมูลกลุ่มที่เรียนจากตาราง learning_subject_group และแสดงใน input -->
                                     <?php
@@ -195,7 +177,6 @@ include("header.php");
             </div>
         </div>
     </div>
-
 
         <!-- Modal for Add Member -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -229,10 +210,6 @@ include("header.php");
                                 <label for="last_name">นามสกุล:</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email">อีเมล์:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
                             <button type="submit" class="btn btn-primary">บันทึก</button>
                         </form>
                     </div>
@@ -253,12 +230,9 @@ include("header.php");
             data: { teacherId: teacherId },
             dataType: 'json',
             success: function (data) {
-                $('#profileModal [name="t_id"]').val(data.t_id);
                 $('#profileModal [name="username"]').val(data.username);
                 $('#profileModal [name="first_name"]').val(data.first_name);
                 $('#profileModal [name="last_name"]').val(data.last_name);
-                $('#profileModal [name="email"]').val(data.email);
-
                 $.ajax({
                     type: 'POST',
                     url: 'get_group_data.php',

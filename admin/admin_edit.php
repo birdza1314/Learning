@@ -34,7 +34,7 @@ include("header.php");
   <h1 class="mb-4">User Edit Form</h1>
   <div class="card">
     <div class="card-body">
-      <form action="admin_update" method="post" onsubmit="return validateForm()">
+      <form action="admin_process/admin_update" method="post" onsubmit="return validateForm()">
       <input type="hidden" name="a_id" value="<?= $admin['a_id']; ?>" >
 
         <div class="mb-3">
@@ -67,7 +67,7 @@ include("header.php");
     
     if (confirmation) {
       // กรณีผู้ใช้ยืนยันการยกเลิก
-      window.location.href = "index";
+      window.location.href = "../index";
     }
   }
   // Validation function

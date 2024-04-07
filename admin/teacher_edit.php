@@ -29,7 +29,7 @@ include("header.php");
 <!-- Your HTML and Bootstrap code for the edit form goes here -->
 <!-- Populate the form fields with the fetched user data -->
 <div class="container mt-5">
-  <h1 class="mb-4">User Edit Form</h1>
+  <h1 class="mb-4">แก้ไขข้อมูลครู</h1>
   <div class="card">
     <div class="card-body">
       <form action="teacher_process/teacher_update" method="post" onsubmit="return validateForm()"  enctype="multipart/form-data">
@@ -51,34 +51,30 @@ include("header.php");
         <label for="image" class="form-label">อัปโหลดรูปภาพใหม่:</label>
         <input type="file" name="image" id="image">
         <div class="mb-3">
-          <label for="edit_username" class="form-label">Username:</label>
+          <label for="edit_username" class="form-label">ชื่อผุ็ใช้:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_username" name="username" value="<?= $row['username']; ?>" autocomplete="username" required>
         </div>
 
         <div class="mb-3">
-          <label for="edit_password" class="form-label">Password:</label>
-          <input type="password" class="form-control" id="edit_password" name="password">
+          <label for="edit_password" class="form-label">รหัสผ่าน:<span style="color:red;">*</span></label>
+          <input type="password" class="form-control" id="edit_password" name="password" required>
         </div>
 
         <div class="mb-3">
-          <label for="edit_confirm_password" class="form-label">Confirm Password:</label>
-          <input type="password" class="form-control" id="edit_confirm_password" name="confirm_password">
+          <label for="edit_confirm_password" class="form-label">ยืนยัน รหัผ่าน:<span style="color:red;">*</span></label>
+          <input type="password" class="form-control" id="edit_confirm_password" name="confirm_password" required>
         </div>
 
         <div class="mb-3">
-          <label for="edit_first_name" class="form-label">First Name:</label>
+          <label for="edit_first_name" class="form-label">ชื่อ:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_first_name" name="first_name" value="<?= $row['first_name']; ?>" required>
         </div>
 
         <div class="mb-3">
-          <label for="edit_last_name" class="form-label">Last Name:</label>
+          <label for="edit_last_name" class="form-label">นามสกุล:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_last_name" name="last_name" value="<?= $row['last_name']; ?>" required>
         </div>
 
-        <div class="mb-3">
-          <label for="edit_email" class="form-label">Email:</label>
-          <input type="email" class="form-control" id="edit_email" name="email" value="<?= $row['email']; ?>" required>
-        </div>
         <div class="mb-3">
         <label for="edit_group_id" class="form-label">กลุ่มที่เรียน:</label>
            <select class="form-select" id="edit_group_id" name="group_id">

@@ -26,30 +26,29 @@ if (isset($_POST['save_excel_data'])) {
                 $password = password_hash($rawPassword, PASSWORD_DEFAULT);
                 $first_name = $row[2];
                 $last_name = $row[3];
-                $email = $row[4];
                 
 
-                $sql = "INSERT INTO teachers (username, password, first_name, last_name,  email) VALUES (:username, :password, :first_name, :last_name, :email)";
+                $sql = "INSERT INTO teachers (username, password, first_name, last_name) VALUES (:username, :password, :first_name, :last_name)";
                 $stmt = $db->prepare($sql);
-                $stmt->execute([':username' => $username, ':password' => $password, ':first_name' => $first_name, ':last_name' => $last_name, ':email' => $email]);
+                $stmt->execute([':username' => $username, ':password' => $password, ':first_name' => $first_name, ':last_name' => $last_name]);
 
             } else {
                 $count++;
             }
         }
 
-        $_SESSION['message'] = "Successfully Imported";
+        $_SESSION['message'] = "เพิ่มข้อมูลสำเร็จ";
 
         // Adding JavaScript code to show alert
         echo '<script type="text/javascript">';
-        echo 'alert("Successfully Imported");';
-        echo 'window.location.href = "../admin/index";';  // Redirect after showing the alert
+        echo 'alert("เพิ่มข้อมูลสำเร็จ");';
+        echo 'window.location.href = "../admin/teacher";';  // Redirect after showing the alert
         echo '</script>';
 
         exit(0);
     } else {
         $_SESSION['message'] = "Invalid File";
-        header('Location: ../admin/index');
+        header('Location: ../admin/teacher');
         exit(0);
     }
 }

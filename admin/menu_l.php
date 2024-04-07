@@ -45,6 +45,9 @@ try {
         <div class="p-2">
         <?php echo $admin['username'];?>
         <a href="admin_edit" class="btn btn-warning btn-xs "><i class="fas fa-pencil-alt"></i></a>
+        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#adminModal">
+            <i class="fa fa-user-plus"></i> 
+        </button>
       </div>
       </div>
 
@@ -74,7 +77,7 @@ try {
 <li class="nav-item" >
     <a href="teacher" class="nav-link <?php if($menu=="index"){echo "active";} ?> ">
         <i class="nav-icon fas fa-chalkboard-teacher"></i> <!-- เปลี่ยนไอคอนเป็น fa-chalkboard-teacher -->
-        <p>ข้อมูลบุคลากร</p>
+        <p>ข้อมูลครู</p>
     </a>
 </li>
 
@@ -102,3 +105,33 @@ try {
     </div>
     <!-- /.sidebar -->
   </aside>
+  <!-- Modal for Add Member -->
+<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adminModalLabel">เพิ่มข้อมูลสมาชิกฝ่ายทะเบียน</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="admin_process/admin_insert" method="post">
+          <div class="form-group">
+            <label for="add_username">ชื่อผู้ใช้:<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="add_username" name="username" autocomplete="username" required>
+          </div>
+          <div class="form-group">
+              <label for="password">รหัสผ่าน:<span style="color:red;">*</span></label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm_password">ยืนยันรหัสผ่าน:<span style="color:red;">*</span></label>
+              <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">บันทึก</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

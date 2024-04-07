@@ -6,13 +6,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // รับค่าที่ส่งมาจากฟอร์ม
     $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
-    $first_name = htmlspecialchars($_POST['first_name']);
-    $last_name = htmlspecialchars($_POST['last_name']);
-
 
     // เตรียมคำสั่ง SQL เพื่อเพิ่มข้อมูล
-    $sql = "INSERT INTO teachers (username, password, first_name, last_name) 
-            VALUES (:username, :password, :first_name, :last_name)";
+    $sql = "INSERT INTO admin (username, password) 
+            VALUES (:username, :password )";
 
     // ใช้ PDO เพื่อทำการเพิ่มข้อมูล
     try {
@@ -22,17 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $hashed_password);
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name', $last_name);
-       
-
+     
         // ประมวลผลคำสั่ง SQL
         $stmt->execute();
 
         // แสดงข้อความเมื่อบันทึกสำเร็จ
         echo "<script>
                 alert('บันทึกสำเร็จ! ข้อมูลของคุณได้รับการบันทึกเรียบร้อยแล้ว');
-                window.location = '../teacher';
+                window.location = '../index';
               </script>";
     } catch (PDOException $e) {
         // กรณีเกิดข้อผิดพลาด

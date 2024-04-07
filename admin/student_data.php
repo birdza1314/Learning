@@ -2,9 +2,11 @@
 <?php
 include('../connections/connection.php');
 session_start();
-if ($_SESSION['role'] !== 'admin') {
-  header("Location: ../login");
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+  // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'admin' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
+  header('Location: ../login'); 
   exit();
+
 }
 ?>
 <?php
@@ -189,31 +191,31 @@ include("header.php");
       <div class="modal-body">
         <form action="student_process/student_insert" method="post">
           <div class="form-group">
-            <label for="add_username">ชื่อผู้ใช้:</label>
+            <label for="add_username">ชื่อผู้ใช้:<span style="color:red;">*</span></label>
             <input type="text" class="form-control" id="add_username" name="username" autocomplete="username" required>
           </div>
           <div class="form-group">
-              <label for="password">รหัสผ่าน:</label>
+              <label for="password">รหัสผ่าน:<span style="color:red;">*</span></label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="form-group">
-              <label for="confirm_password">ยืนยันรหัสผ่าน:</label>
+              <label for="confirm_password">ยืนยันรหัสผ่าน:<span style="color:red;">*</span></label>
               <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
             </div>
             <div class="form-group">
-              <label for="first_name">ชื่อ:</label>
+              <label for="first_name">ชื่อ:<span style="color:red;">*</span></label>
               <input type="text" class="form-control" id="first_name" name="first_name" required>
             </div>
             <div class="form-group">
-              <label for="last_name">นามสกุล:</label>
+              <label for="last_name">นามสกุล:<span style="color:red;">*</span></label>
               <input type="text" class="form-control" id="last_name" name="last_name" required>
             </div>
             <div class="form-group">
-              <label for="classroom">ห้องเรียน:</label>
+              <label for="classroom">ห้องเรียน:<span style="color:red;">*</span></label>
               <input type="text" class="form-control" id="classroom" name="classroom" required>
             </div>
             <div class="form-group">
-              <label for="year">ปีการศึกษา:</label>
+              <label for="year">ปีการศึกษา:<span style="color:red;">*</span></label>
               <input type="text" class="form-control" id="year" name="year" required>
             </div>
             <button type="submit" class="btn btn-primary">บันทึก</button>

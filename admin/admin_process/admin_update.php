@@ -1,5 +1,5 @@
 <?php
-include('../connections/connection.php');
+include('../../connections/connection.php');
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['error'] = "เกิดข้อผิดพลาดในการอัพเดทข้อมูล";
     }
 
-    header("Location: index");  // กลับไปยังหน้าที่คุณต้องการ
+    header("Location: ../index");  // กลับไปยังหน้าที่คุณต้องการ
     exit();
 }
 ?>

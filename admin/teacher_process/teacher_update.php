@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
-    $email = $_POST['email'];
     $group_id = $_POST['group_id'];
 
     // อัพเดทข้อมูลในฐานข้อมูล
@@ -26,13 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    $sql = "UPDATE teachers SET username = :username, password = :password, first_name = :first_name, last_name = :last_name, email = :email, group_id = :group_id WHERE t_id = :t_id";
+    $sql = "UPDATE teachers SET username = :username, password = :password, first_name = :first_name, last_name = :last_name, group_id = :group_id WHERE t_id = :t_id";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $hashedPassword);
     $stmt->bindParam(':first_name', $firstName);
     $stmt->bindParam(':last_name', $lastName);
-    $stmt->bindParam(':email', $email);
     $stmt->bindParam(':group_id', $group_id);
     $stmt->bindParam(':t_id', $t_id);
 
