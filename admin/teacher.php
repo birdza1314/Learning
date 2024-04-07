@@ -91,17 +91,6 @@ include("header.php");
                                 ?>
                                 <tr>
                                 <td scope="row"><?= $counter++; ?></td>
-                                    <td align="center">
-                                    <?php
-                                    // ตรวจสอบว่ามีข้อมูลใน $row['image'] หรือไม่
-                                    if (!empty($row['image'])) {
-                                        echo '<img src="teacher_process/img/' . $row['image'] . '" alt="Teacher Image" style="max-width: 100px; max-height: 100px;">';
-                                    } else {
-                                        // ใช้รูปภาพ Default ในกรณีที่ไม่มีรูปภาพ
-                                        echo '<img src="teacher_process/img/Default.png" alt="Default Image" style="max-width: 100px; max-height: 100px;">';
-                                    }
-                                    ?>
-                                    </td>
                                     <td><?= $row['username']; ?></td>
                                     <td><?= $row['first_name']; ?></td>
                                     <td><?= $row['last_name']; ?></td>                                  
