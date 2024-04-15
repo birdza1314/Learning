@@ -73,8 +73,11 @@ $topic_type = 'แบบฝึกหัด';
 
 if ($stmt_add_topic->execute()) {
     // แสดงข้อความแจ้งเตือนเมื่อเพิ่มข้อมูลสำเร็จ
-    echo "<script>alert('เพิ่ม Assignment ใหม่เรียบร้อยแล้ว');</script>";
-    echo "<script>window.history.back();</script>";
+ echo '<script>
+        alert("เพิ่ม Assignment ใหม่เรียบร้อยแล้ว");
+        window.location.href = "add_lessons.php?course_id='.$course_id.'"; // ให้กลับไปที่หน้าหลักหลังจากการเพิ่ม
+      </script>';
+
 } else {
     // แสดงข้อความผิดพลาดเมื่อไม่สามารถเพิ่มข้อมูลได้
     echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงในตาราง add_topic: ');</script>" . $stmt_add_topic->errorInfo()[2];

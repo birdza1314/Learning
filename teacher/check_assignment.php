@@ -3,7 +3,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // Redirect to login page or any other page if user is not logged in or doesn't have the correct role
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -54,13 +54,17 @@ if(isset($_GET['assignment_id'])) {
         <div class="col-lg-12">
           <div class="card overflow-auto">
             <div class="card-body">
-              <div class="card-header d-flex">
-                <h4 class="mt-2">ตรวจสอบงานที่มอบหมาย</h4>
-              </div>
+            <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mt-2">ตรวจสอบงานที่มอบหมาย</h4>
+            <a href="check_ass_all.php?assignment_id=<?= $assignment_id;?>" class="btn btn-primary">นักเรียนทั้งหมด</a>
+        </div>
+
+
               <div class="mt-5">
                 <table class="table table-borderless datatable">
                   <thead>
                     <tr>
+                    <th>รหัสนักเรียน</th>
                       <th>ชื้อ นักเรียน</th>
                       <th>ไฟล์ที่ส่ง</th>
                       <th>วันที่ส่ง</th>
@@ -77,12 +81,13 @@ if(isset($_GET['assignment_id'])) {
                         if (!in_array($student_id, $unique_student_ids)) {
                             $unique_student_ids[] = $student_id; // เพิ่ม student_id เข้าไปในอาร์เรย์เพื่อไม่ให้ถูกดึงซ้ำอีก
                             // ดึงข้อมูลของนักเรียนจากฐานข้อมูล
-                            $stmt_student = $db->prepare("SELECT first_name, last_name FROM students WHERE s_id = :student_id");
+                            $stmt_student = $db->prepare("SELECT username, first_name, last_name FROM students WHERE s_id = :student_id ORDER BY username ASC");
                             $stmt_student->bindParam(':student_id', $student_id);
                             $stmt_student->execute();
                             $student = $stmt_student->fetch(PDO::FETCH_ASSOC);
                     ?>
                     <tr>
+                    <td><?= $student['username'] ?></td>
                         <td><?= $student['first_name'] ?> <?= $student['last_name'] ?></td>
                         <td>
                             <?php

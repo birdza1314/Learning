@@ -5,7 +5,7 @@ include('../connections/connection.php');
 // ตรวจสอบการล็อกอินและบทบาทของผู้ใช้
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 try {
@@ -76,7 +76,7 @@ try {
             <div class="card-body">
                 <div class="card-header">
                     <h1>รายละเอียดการเข้าเรียน</h1>
-                    <p>ชื่อคอร์ส: <?= $course['course_name']; ?></p>
+                    <h3>ชื่อคอร์ส: <?= $course['course_name']; ?></h3>
                 </div>
 
                 <table class="table table-borderless datatable table-format ">

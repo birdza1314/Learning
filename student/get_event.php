@@ -43,12 +43,11 @@ function getAssignments() {
             return [];
         }
 
-        // Prepare SQL query to fetch events, filtering out those already submitted by the student
+        // Prepare SQL query to fetch assignments for registered courses that are open
         $stmt = $db->prepare("SELECT a.assignment_id, a.title, a.open_time, a.close_time, a.course_id
                               FROM assignments a 
-                              LEFT JOIN submitted_assignments sa ON a.assignment_id = sa.assignment_id AND sa.student_id = :student_id
-                              WHERE sa.student_id IS NULL");
-        $stmt->bindParam(':student_id', $student_id);
+                              INNER JOIN courses c ON a.course_id = c.c_id
+                              WHERE c.c_id IN (".implode(',', $registered_courses).") AND c.is_open = 1");
         $stmt->execute();
         
         $assignments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -57,6 +56,7 @@ function getAssignments() {
         echo "เกิดข้อผิดพลาด: " . $e->getMessage();
     }
 }
+
 
 // เรียกใช้งานฟังก์ชันเพื่อดึงข้อมูลกิจกรรม
 $assignments = getAssignments();

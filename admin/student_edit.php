@@ -59,7 +59,10 @@ include("header.php");
           <label for="edit_last_name" class="form-label">นามสกุล:<span style="color:red;">*</span></label>
           <input type="text" class="form-control" id="edit_last_name" name="last_name" value="<?= $row['last_name']; ?>" required>
         </div>
-
+        <div class="mb-3">
+          <label for="edit_class" class="form-label">ระดับชั้น:<span style="color:red;">*</span></label>
+          <input type="text" class="form-control" id="edit_class" name="classes" value="<?= $row['classes']; ?>" required>
+        </div>
   
         <div class="mb-3">
           <label for="edit_class" class="form-label">ห้องเรียน:<span style="color:red;">*</span></label>

@@ -68,6 +68,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="row mt-3 card-format">
                         <?php if ($courses): ?>
                             <?php foreach ($courses as $course): ?>
+                                <?php if ($course['is_open'] == 1): ?>
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
                                     <?php if (!empty($course['c_img'])): ?>
@@ -121,6 +122,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <div class="col">

@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         isset($_POST['course_code']) &&
         isset($_POST['course_description']) &&
         isset($_POST['group_id']) &&
+        isset($_POST['class_id']) &&
         isset($_POST['is_open']) &&
         isset($_POST['access_code']) 
 
@@ -25,12 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // เชื่อมต่อกับฐานข้อมูล
         include('../connections/connection.php');
 
-        // รับค่าจากฟอร์ม
+        // รับค่าจากฟอร์ม  
         $course_id = $_POST['course_id'];
         $course_name = htmlspecialchars($_POST['course_name']); // ป้องกัน XSS
         $course_code = htmlspecialchars($_POST['course_code']); // ป้องกัน XSS
         $course_description = htmlspecialchars($_POST['course_description']); // ป้องกัน XSS
         $group_id = $_POST['group_id'];
+        $class_id = $_POST['class_id'];
      
 
         // ทำการอัปเดตข้อมูลในตาราง courses
@@ -56,7 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $sql = "UPDATE courses 
-                        SET course_name = ?, course_code = ?, description = ?, teacher_id = ?, updated_at = NOW(), group_id = ?, c_img = ?, is_open = ?, access_code = ? 
+                        SET course_name = ?, course_code = ?, description = ?, teacher_id = ?,
+                         updated_at = NOW(), group_id = ?, class_id = ?, c_img = ?, is_open = ?, access_code = ? 
                         WHERE c_id = ?";
                 $stmt = $db->prepare($sql);
                 $stmt->execute([
@@ -65,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $course_description,
                     $user_id,
                     $group_id,
+                    $class_id,
                     $uploaded_file,
                     $_POST['is_open'],
                     $_POST['access_code'],
@@ -72,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ]);
             } else {
                 $sql = "UPDATE courses 
-                        SET course_name = ?, course_code = ?, description = ?, teacher_id = ?, updated_at = NOW(), group_id = ?, is_open = ?, access_code = ? 
+                        SET course_name = ?, course_code = ?, description = ?, teacher_id = ?, updated_at = NOW(), group_id = ?,class_id = ?, is_open = ?, access_code = ?  
                         WHERE c_id = ?";
                 $stmt = $db->prepare($sql);
                 $stmt->execute([
@@ -81,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $course_description,
                     $user_id,
                     $group_id,
+                    $class_id,
                     $_POST['is_open'],
                     $_POST['access_code'],
                     $course_id

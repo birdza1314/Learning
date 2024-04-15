@@ -73,12 +73,16 @@
                             <label for="password"><i class="zmdi zmdi-lock"></i> รหัสผ่าน</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-flex justify-content-between align-items-center">
+                        <div class="form-check">
                             <input type="checkbox" name="remember-me" id="remember-me" class="form-check-input">
                             <label for="remember-me" class="form-check-label">Remember me</label>
                         </div>
+                        <a href="contact">ลืมรหัสผ่าน ?</a>
+                    </div>
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="btn btn-primary" value="เข้าสู่ระบบ">
+                        
                         </div>
                     </form>
                 </div>

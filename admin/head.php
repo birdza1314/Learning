@@ -47,10 +47,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
-    body {
-      font-family: 'Kanit', sans-serif;
-      
-      /*font-size: 14px;*/
-    }
+   body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #c4c4c4;
+ }
+ 
   </style>
 </head>

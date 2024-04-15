@@ -7,24 +7,34 @@ if (isset($_GET['group_id'])) {
     $group_id = $_GET['group_id'];
 
     // คำสั่ง SQL เพื่อดึงข้อมูลของกลุ่มสาระนั้น ๆ
-    $sql = "SELECT * FROM courses WHERE group_id = :group_id";
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':group_id', $group_id);
-    $stmt->execute();
-    $group_courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $sql_group = "SELECT * FROM learning_subject_group WHERE group_id = :group_id";
+    $stmt_group = $db->prepare($sql_group);
+    $stmt_group->bindParam(':group_id', $group_id);
+    $stmt_group->execute();
+    $group_data = $stmt_group->fetch(PDO::FETCH_ASSOC);
 
-    // คำสั่ง SQL เพื่อดึงชื่อของกลุ่มสาระ
-    $sql_group_name = "SELECT group_name FROM learning_subject_group WHERE group_id = :group_id";
-    $stmt_group_name = $db->prepare($sql_group_name);
-    $stmt_group_name->bindParam(':group_id', $group_id);
-    $stmt_group_name->execute();
-    $group_name = $stmt_group_name->fetchColumn(); // ใช้ fetchColumn() เพื่อดึงค่าเดียวจากคอลัมน์แรก
+    if ($group_data) {
+        // ดึงข้อมูลกลุ่มสาระ
+        $group_name = $group_data['group_name'];
+
+        // คำสั่ง SQL เพื่อดึงข้อมูลของวิชาในกลุ่มสาระนั้น ๆ
+        $sql_courses = "SELECT * FROM courses WHERE group_id = :group_id";
+        $stmt_courses = $db->prepare($sql_courses);
+        $stmt_courses->bindParam(':group_id', $group_id);
+        $stmt_courses->execute();
+        $group_courses = $stmt_courses->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        // แสดงข้อความแจ้งเตือนหากไม่พบข้อมูลกลุ่มสาระ
+        echo "ไม่พบข้อมูลกลุ่มสาระ";
+        exit;
+    }
 } else {
-    // ถ้าไม่มีค่า $_GET['group_id'] ที่ถูกส่งมาใน URL
-    // คุณสามารถทำการจัดการข้อผิดพลาดได้ตามต้องการ
-    echo "ไม่พบรหัสกลุ่มสาระ";
+    // แสดงข้อความแจ้งเตือนหากไม่มีค่า $_GET['group_id'] ที่ถูกส่งมา
+    echo "ไม่มีค่ารหัสกลุ่มสาระ";
+    exit;
 }
 ?>
+
 
 <?php include('../uploads/head.php');?>
 <body style="background-color: rgb(220, 220, 220);">
@@ -51,12 +61,12 @@ if (isset($_GET['group_id'])) {
           คู่มือการใช้งาน
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">คู่มือการใช้งานสำหรับครู</a></li>
-            <li><a class="dropdown-item" href="#">คู่มือการใช้งานสำหรับนักเรียน</a></li>
+            <li><a class="dropdown-item" href="../login">คู่มือการใช้งานสำหรับครู</a></li>
+            <li><a class="dropdown-item" href="../login">คู่มือการใช้งานสำหรับนักเรียน</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link me-2" href="#">ติดต่อสอบถาม</a>
+          <a class="nav-link me-2" href="../contact">ติดต่อสอบถาม</a>
         </li>
         <li class="nav-item">
           <a class="btn btn-outline-primary nav-btn" href="../login">เข้าสู่ระบบ</a>
@@ -71,8 +81,18 @@ if (isset($_GET['group_id'])) {
     <div class="card " >  
     <h1 class="text-center">รายละเอียดกลุ่มสาระ</h1>
     <h2 class="text-center"><?php echo $group_name; ?></h2>
- 
-      
+    <div class="row mt-5 me-5 mx-5">
+    <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    เลื่อกระดับชั้น
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <?php for ($i = 1; $i <= 6; $i++): ?>
+                        <li><a class="dropdown-item" href="#" data-search="<?php echo $i; ?>" data-class-id="<?php echo $group_id; ?>"><?php echo $i; ?></a></li>
+                    <?php endfor; ?>
+                </ul>
+            </div>
+    </div> 
     <div class="row mt-5 me-5 mx-5">
             <?php foreach ($group_courses as $course): ?>
                 <?php if ($course['is_open'] == 1): ?>
@@ -108,6 +128,84 @@ if (isset($_GET['group_id'])) {
         </div>
     </div>
     </div>
+    <!-- ======= scripts ======= -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $(".dropdown-item").click(function() {
+        var classId = $(this).data('class-id'); // ดึงค่า class_id จาก attribute data-class-id ของลิงก์ที่คลิก
+        var searchText = $(this).data('search'); // ดึงคำค้นหาจาก attribute data-search ของลิงก์ที่คลิก
+        filterCourses(classId, searchText); // เรียกใช้ฟังก์ชัน filterCourses และส่ง class_id และ searchText ไป
+    });
+
+    $("#search").keyup(function() {
+        var searchText = $(this).val();
+        if (searchText != "") {
+            filterCourses(null, searchText); // เรียกใช้ฟังก์ชัน filterCourses โดยไม่ระบุ class_id แต่ระบุ searchText
+        } else {
+            $("#show-list").html("");
+        }
+    });
+
+    function filterCourses(classId, searchText) {
+        $.ajax({
+            url: "get_course_classes.php",
+            method: "post",
+            data: {
+                group_id: <?php echo $group_id; ?>, // เพิ่มการส่ง group_id ไปยังไฟล์ get_course_classes.php
+                class_id: classId, 
+                query: searchText
+            },
+            success: function(response) {
+                $("#show-list").html(response);
+            }
+        });
+    }
+});
+
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var courseLinks = document.querySelectorAll('a[data-search]');
+  var courses = <?php echo json_encode($group_courses); ?>;
+
+  courseLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault(); // ป้องกันการโหลดหน้าใหม่เมื่อคลิกที่ลิงก์
+
+      var class_id = link.getAttribute('data-class-id'); // ดึงค่า class_id จากลิงก์
+      console.log("class_id:", class_id); // ตรวจสอบค่า class_id ในคอนโซล
+
+      var filteredCourses = courses.filter(function(course) {
+        return course.class_id == class_id; // กรองคอร์สตาม class_id
+      });
+      console.log("Filtered courses:", filteredCourses); // ตรวจสอบคอร์สที่ถูกกรองในคอนโซล
+
+      var courseContainer = document.querySelector('.row.mt-5');
+      courseContainer.innerHTML = '';
+
+      filteredCourses.forEach(function(course) {
+        var card = document.createElement('div');
+        card.classList.add('col-md-4', 'mb-4');
+        card.innerHTML = `
+          <div class="card" style="width: 18rem;">
+            <img src="${course.c_img}" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">${course.course_name}</h5>
+              <p class="card-text">รหัสวิชา: ${course.course_code}</p>
+              <p class="card-text">ครูผู้สอน: ${course.teacher ? course.teacher.first_name + ' ' + course.teacher.last_name : 'ไม่พบข้อมูล'}</p>
+              <a href="course_details.php?course_id=${course.c_id}" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+            </div>
+          </div>
+        `;
+        courseContainer.appendChild(card);
+      });
+    });
+  });
+});
+</script>
     <footer class="footer bg-secondary text-light py-4">
         <div class="container">
             <div class="row">
@@ -140,7 +238,7 @@ if (isset($_GET['group_id'])) {
 
     </div>
 </footer>
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+   
 </body>
 </html>

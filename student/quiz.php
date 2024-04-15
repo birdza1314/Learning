@@ -67,13 +67,16 @@ try {
                     <h5>จำนวนข้อสอบ : <?php echo $quiz['question_limit']; ?> ข้อ</h5>
                 </div> 
                 <div class="col-sm-6 py-5">
-                    <!-- เพิ่มลิงก์ที่นำไปยังหน้าทำแบบทดสอบ หรือ หน้าผลการสอบ ตามเงื่อนไข -->
-                    <?php if ($quizTaken): ?>
-                        <a class="btn btn-outline-primary" style="float: center;" href="quiz_results.php?quiz_id=<?php echo $quiz_id; ?>">ผลการสอบ</a>
-                    <?php else: ?>
-                        <a class="btn btn-outline-primary" style="float: center;" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบ</a>
-                    <?php endif; ?>
-                </div>           
+                <!-- เพิ่มลิงก์ที่นำไปยังหน้าทำแบบทดสอบ หรือ หน้าผลการสอบ ตามเงื่อนไข -->
+                <?php if ($quizTaken): ?>
+                    <!-- ถ้าผู้ใช้ทำแบบทดสอบแล้ว -->
+                    <a class="btn btn-outline-primary" style="float: center;" href="quiz_results.php?quiz_id=<?php echo $quiz_id; ?>">ผลการสอบ</a>
+                    <a class="btn btn-outline-primary" style="float: center;" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบใหม่</a>
+                <?php else: ?>
+                    <!-- ถ้าผู้ใช้ยังไม่ได้ทำแบบทดสอบ -->
+                    <a class="btn btn-outline-primary" style="float: center;" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบ</a>
+                <?php endif; ?>
+            </div>           
              </div>  
         </div>
     </div>

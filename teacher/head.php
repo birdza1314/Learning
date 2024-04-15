@@ -43,7 +43,7 @@
   }
   body {
   font-family: "Open Sans", sans-serif;
-  background-color: #e1eafc;
+  background-color: #c5d1e8;
  }
 
 </style>
@@ -397,6 +397,21 @@
             height: 10px;
             border-radius: 5px;
         }
+        .submitted {
+        background-color: lightgreen;
+    }
+    .not-submitted {
+        background-color: wheat;
+    }
+    .late-submission {
+        background-color: lightcoral;
+    }
+    .done-button {
+    background-color: green; /* สีเขียวเมื่อเสร็จสิ้น */
+    color: white;
+}
+
+
 
 </style>
 </head>

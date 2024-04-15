@@ -75,8 +75,9 @@ include("header.php");
                 <th scope="col">ชื่อผู้ใช้</th>
                 <th scope="col">ชื่อ</th>
                 <th scope="col">นามสกุล</th>
+                <th scope="col">ระดับชั้น</th>
                 <th scope="col">ห้องเรียน</th>
-                <th scope="col">ปีการศึกษา</th>
+                <th scope="col">ปีการศึกษาเข้า</th>
                 <th scope="col">ตัวเลือก</th>
               </tr>
             </thead>
@@ -98,6 +99,7 @@ include("header.php");
                     <td><?= $row['username']; ?></td>
                     <td><?= $row['first_name']; ?></td>
                     <td><?= $row['last_name']; ?></td>
+                    <td><?= $row['classes']; ?></td>
                     <td><?= $row['classroom']; ?></td>
                     <td><?= $row['year']; ?></td>
                     <td align="center">
@@ -154,7 +156,13 @@ include("header.php");
               <div class="col-md-9">
                 <input type="text" class="form-control" name="last_name" readonly>
               </div>
-            </div>   
+            </div>  
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label">ระดับชั้นมัธยมศึกษาปีที่ :</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" name="classes" readonly>
+              </div>
+            </div> 
             <div class="row mb-3">
               <label class="col-md-3 col-form-label">ห้องเรียน:</label>
               <div class="col-md-9">
@@ -211,6 +219,10 @@ include("header.php");
               <input type="text" class="form-control" id="last_name" name="last_name" required>
             </div>
             <div class="form-group">
+              <label for="classes">ระดับชั้นมัธยมศึกษาปีที่ :<span style="color:red;">*</span></label>
+              <input type="text" class="form-control" id="classes" name="classes" required>
+            </div>
+            <div class="form-group">
               <label for="classroom">ห้องเรียน:<span style="color:red;">*</span></label>
               <input type="text" class="form-control" id="classroom" name="classroom" required>
             </div>
@@ -249,6 +261,7 @@ include("header.php");
           $('#profileModal .modal-body input[name="username"]').val(data.username);
           $('#profileModal .modal-body input[name="first_name"]').val(data.first_name);
           $('#profileModal .modal-body input[name="last_name"]').val(data.last_name);
+          $('#profileModal .modal-body input[name="classes"]').val(data.classes);
           $('#profileModal .modal-body input[name="classroom"]').val(data.classroom);
           $('#profileModal .modal-body input[name="year"]').val(data.year);
         },

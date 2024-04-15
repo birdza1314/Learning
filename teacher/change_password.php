@@ -8,7 +8,7 @@ include('../connections/connection.php');
 // ตรวจสอบการล็อกอิน
 if (!isset($_SESSION['user_id'])) {
     // ถ้าไม่ได้ล็อกอิน ให้เปลี่ยนเส้นทางไปยังหน้าล็อกอิน
-    header('Location: login.php');
+    header('Location: login');
     exit();
 }
 
@@ -33,6 +33,6 @@ $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 
 // เปลี่ยนเส้นทางไปยังหน้าโปรไฟล์พร้อมกับข้อความแจ้งเตือน
-echo '<script>alert("อัพเดทข้อมูลสำเร็จ"); window.location.href = "profile.php?success=1";</script>';
+echo '<script>alert("อัพเดทข้อมูลสำเร็จ"); window.location.href = "profile?success=1";</script>';
 exit();
 ?>

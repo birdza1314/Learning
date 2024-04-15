@@ -12,104 +12,82 @@ function editQuiz(quizId) {
 </script>
 
 <script>
-    // ฟังก์ชั่นสำหรับการลบ file
+    // ฟังก์ชั่นสำหรับการลบ Quiz
     function deleteQuiz(quizId) {
-        // ใช้ SweetAlert เพื่อแสดงการยืนยันก่อนลบ
-        swal({
-            title: "คุณแน่ใจหรือไม่?",
-            text: "คุณแน่ใจหรือไม่ว่าต้องการลบการมอบหมายนี้?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                // ถ้าผู้ใช้ต้องการลบ
-                $.ajax({
-                    type: "POST",
-                    url: "delete_quiz.php",
-                    data: { quiz_id: quizId },
-                    success: function(response) {
-                        // รีโหลดหน้าเพื่อแสดงการเปลี่ยนแปลง
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        // แสดงข้อความผิดพลาดในกรณีที่ไม่สามารถลบได้
-                        console.error("Error deleting file:", error);
-                    }
-                });
-            } else {
-                // ถ้าผู้ใช้ยกเลิกการลบ
-                swal("การมอบหมายนี้ยังไม่ถูกลบ");
-            }
-        });
+        // ใช้ confirm เพื่อแสดงการยืนยันก่อนลบ
+        var confirmDelete = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบการมอบหมายนี้?");
+        if (confirmDelete) {
+            // ถ้าผู้ใช้ต้องการลบ
+            $.ajax({
+                type: "POST",
+                url: "delete_quiz.php",
+                data: { quiz_id: quizId },
+                success: function(response) {
+                    // รีโหลดหน้าเพื่อแสดงการเปลี่ยนแปลง
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // แสดงข้อความผิดพลาดในกรณีที่ไม่สามารถลบได้
+                    console.error("Error deleting quiz:", error);
+                }
+            });
+        } else {
+            // ถ้าผู้ใช้ยกเลิกการลบ
+            alert("การมอบหมายนี้ยังไม่ถูกลบ");
+        }
     }
 </script>
+
 <script>
-    // ฟังก์ชั่นสำหรับการลบ file
+    // ฟังก์ชั่นสำหรับการลบ Assignment
     function deleteAssignment(assignment_id) {
-        // ใช้ SweetAlert เพื่อแสดงการยืนยันก่อนลบ
-        swal({
-            title: "คุณแน่ใจหรือไม่?",
-            text: "คุณแน่ใจหรือไม่ว่าต้องการลบการมอบหมายนี้?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                // ถ้าผู้ใช้ต้องการลบ
-                $.ajax({
-                    type: "POST",
-                    url: "delete_assignment.php",
-                    data: { assignment_id: assignment_id },
-                    success: function(response) {
-                        // รีโหลดหน้าเพื่อแสดงการเปลี่ยนแปลง
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        // แสดงข้อความผิดพลาดในกรณีที่ไม่สามารถลบได้
-                        console.error("Error deleting file:", error);
-                    }
-                });
-            } else {
-                // ถ้าผู้ใช้ยกเลิกการลบ
-                swal("การมอบหมายนี้ยังไม่ถูกลบ");
-            }
-        });
+        // ใช้ confirm เพื่อแสดงการยืนยันก่อนลบ
+        var confirmDelete = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบการมอบหมายนี้?");
+        if (confirmDelete) {
+            // ถ้าผู้ใช้ต้องการลบ
+            $.ajax({
+                type: "POST",
+                url: "delete_assignment.php",
+                data: { assignment_id: assignment_id },
+                success: function(response) {
+                    // รีโหลดหน้าเพื่อแสดงการเปลี่ยนแปลง
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // แสดงข้อความผิดพลาดในกรณีที่ไม่สามารถลบได้
+                    console.error("Error deleting assignment:", error);
+                }
+            });
+        } else {
+            // ถ้าผู้ใช้ยกเลิกการลบ
+            alert("การมอบหมายนี้ยังไม่ถูกลบ");
+        }
     }
 </script>
+
 <script>
-    // ฟังก์ชั่นสำหรับการลบ file
+    // ฟังก์ชั่นสำหรับการลบไฟล์
     function deletefile(fileId) {
-        // ใช้ SweetAlert เพื่อแสดงการยืนยันก่อนลบ
-        swal({
-            title: "คุณแน่ใจหรือไม่?",
-            text: "คุณต้องการลบไฟล์นี้หรือไม่?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                // ถ้าผู้ใช้ต้องการลบ
-                $.ajax({
-                    type: "POST",
-                    url: "delete_file.php",
-                    data: { file_id: fileId },
-                    success: function(response) {
-                        // รีโหลดหน้าเพื่อแสดงการเปลี่ยนแปลง
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        // แสดงข้อความผิดพลาดในกรณีที่ไม่สามารถลบได้
-                        console.error("Error deleting file:", error);
-                    }
-                });
-            } else {
-                // ถ้าผู้ใช้ยกเลิกการลบ
-                swal("ไฟล์นี้ยังไม่ถูกลบ");
-            }
-        });
+        // ใช้ confirm เพื่อแสดงการยืนยันก่อนลบ
+        var confirmDelete = confirm("คุณต้องการลบไฟล์นี้หรือไม่?");
+        if (confirmDelete) {
+            // ถ้าผู้ใช้ต้องการลบ
+            $.ajax({
+                type: "POST",
+                url: "delete_file.php",
+                data: { file_id: fileId },
+                success: function(response) {
+                    // รีโหลดหน้าเพื่อแสดงการเปลี่ยนแปลง
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // แสดงข้อความผิดพลาดในกรณีที่ไม่สามารถลบได้
+                    console.error("Error deleting file:", error);
+                }
+            });
+        } else {
+            // ถ้าผู้ใช้ยกเลิกการลบ
+            alert("ไฟล์นี้ยังไม่ถูกลบ");
+        }
     }
 </script>

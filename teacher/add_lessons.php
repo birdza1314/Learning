@@ -4,7 +4,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 // ตรวจสอบว่ามีข้อมูล $teacher หรือไม่
@@ -101,7 +101,7 @@ if (isset($_GET['course_id'])) {
     }
 } else {
     // ถ้าไม่มี course_id ที่ส่งมา ให้ redirect หรือทำการแจ้งเตือนตามที่เหมาะสม
-    header('Location: index.php');
+    header('Location: index');
     exit();
 }
 ?>
@@ -160,6 +160,7 @@ if (isset($_GET['course_id'])) {
             <!-- เพิ่ม Element input hidden สำหรับ courseId -->
             <input type="hidden" id="courseId" value="<?= $course_id ?>">
             <div id="accordionContainer">
+           
                 <!-- Loop through lessons and display them --> 
                 <?php include('display_topics.php');?>
             </div>
@@ -180,24 +181,7 @@ if (isset($_GET['course_id'])) {
   <!-- Add Bootstrap script -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   
-  <script>
-    // เมื่อเลื่อนหน้าจอ
-window.onscroll = function() {stickyBtn()};
 
-var btn = document.querySelector('.open-Lesson-modal');
-var sticky = btn.offsetTop;
-
-function stickyBtn() {
-  if (window.pageYOffset >= sticky) {
-    btn.classList.add("sticky-btn");
-  } else {
-    btn.classList.remove("sticky-btn");
-  }
-}
-
-        // Store the current URL in local storage when the page loads
-        localStorage.setItem('previousPageUrl', window.location.href);
-    </script>
   <?php include('scripts_topic.php');?>
   <?php include('Modal_scripts.php');?>
 </body>

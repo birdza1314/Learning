@@ -23,14 +23,17 @@ try {
   echo "เกิดข้อผิดพลาด: " . $e->getMessage();
 }
 // Function to get assignments from the database
+// Function to get assignments from the database
 function getAssignments() {
   include('../connections/connection.php');
   try {
     // Get the user ID of the logged-in student
     $student_id = $_SESSION['user_id'];
 
-    // Retrieve the courses that the student is registered for
-    $stmt_courses = $db->prepare("SELECT course_id FROM student_course_registration WHERE student_id = :student_id");
+    // Retrieve the courses that the student is registered for and is open
+    $stmt_courses = $db->prepare("SELECT course_id 
+                                  FROM student_course_registration 
+                                  WHERE student_id = :student_id");
     $stmt_courses->bindParam(':student_id', $student_id);
     $stmt_courses->execute();
     $registered_courses = $stmt_courses->fetchAll(PDO::FETCH_COLUMN);
@@ -41,7 +44,10 @@ function getAssignments() {
     }
 
     // Prepare and execute the SQL query to fetch assignments for the registered courses
-    $stmt = $db->prepare("SELECT assignment_id, title, open_time, close_time, description FROM assignments WHERE course_id IN (".implode(',', $registered_courses).")");
+    $stmt = $db->prepare("SELECT a.assignment_id, a.title, a.open_time, a.close_time, a.description 
+                          FROM assignments a 
+                          INNER JOIN courses c ON a.course_id = c.c_id 
+                          WHERE a.course_id IN (".implode(',', $registered_courses).") AND c.is_open = 1");
     $stmt->execute();
     $assignments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $assignments;
@@ -49,6 +55,7 @@ function getAssignments() {
     echo "เกิดข้อผิดพลาด: " . $e->getMessage();
   }
 }
+
 
 // Function to check if submission exists for an assignment
 function isSubmissionExists($assignment_id) {
@@ -67,13 +74,25 @@ function isSubmissionExists($assignment_id) {
 $assignments = getAssignments();
 
 ?>
-<?php include('head.php'); ?>
-<body>
-    <?php include('header.php'); ?>
-    <?php include('sidebar.php'); ?>
 
-    <main id="main" class="main">
-    <div class="card">
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>หน้าแรกนักเรียน</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- เชื่อมต่อกับไฟล์ JavaScript ของ FullCalendar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <!-- เชื่อมต่อกับไฟล์ CSS ของ FullCalendar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+</head>
+</head>
+<body>
+
+<div class="card">
       <div class="card-body">
         <div class="card-title">
           <h3 style="text-align: center;">ปฏิทินกิจกรรม</h3>
@@ -88,39 +107,38 @@ $assignments = getAssignments();
   </div>
     </div>
   </div>
-</main>
-<?php include('footer.php'); ?>
-<?php include('scripts.php'); ?>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      locale: 'th',
-      initialView: 'dayGridMonth',
-      events: [
-        <?php foreach ($assignments as $assignment): ?>
-        {
-          title: '<?php echo $assignment['title']; ?>',
-          start: '<?php echo $assignment['open_time']; ?>',
-          description: '<?php echo $assignment['description']; ?>',
-          end: '<?php echo $assignment['close_time']; ?>' // เพิ่ม end โดยให้มีค่าเท่ากับ close_time
-        },
-        <?php endforeach; ?>
-      ],
-      eventDidMount: function(info) {
-        var tooltip = new bootstrap.Popover(info.el, {
-          title: info.event.title,
-          content: '<strong>วันเวลาปิดส่งงาน:</strong> ' + info.event.end.toLocaleString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }),
-          trigger: 'hover',
-          placement: 'auto',
-          html: true // เปิดใช้งาน HTML
-        });
-      }
+
+    <script>
+$(document).ready(function() {
+    var calendar = $('#calendar').fullCalendar({
+        locale: 'th', // กำหนด locale เป็น 'th' เพื่อแสดงภาษาไทย
+        events: [
+            <?php foreach ($assignments as $assignment): ?>
+                {
+                    title: '<?php echo $assignment['title']; ?>',
+                    start: '<?php echo $assignment['open_time']; ?>',
+                    end: '<?php echo $assignment['close_time']; ?>',
+                    url: 'submit_assignment.php?assignment_id=<?php echo $assignment['assignment_id']; ?>'
+                },
+            <?php endforeach; ?>
+        ]
     });
-    calendar.render();
-  });
-</script>
 
+    $('#calendar').on('mouseenter', '.fc-event', function() {
+        var title = $(this).find('.fc-title').text();
+        var start = $(this).find('.fc-time').text();
+        var end = $(this).find('.fc-time').next().text();
+        var content = '<b>' + title + '</b><br>เริ่ม: ' + start + '<br>ปิด: ' + end;
 
+        $(this).tooltip({
+            title: content,
+            placement: 'auto',
+            html: true,
+            trigger: 'hover'
+        });
+    });
+});
+
+    </script>
 </body>
 </html>

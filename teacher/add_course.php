@@ -5,7 +5,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -59,7 +59,7 @@ try {
           <h5 class="card-title">เพิ่มรายวิชา</h5>
 
           <!-- Horizontal Form -->
-          <form class=" mx-auto" action="add_course_db.php" method="post" enctype="multipart/form-data">
+          <form class=" mx-auto" action="add_course_db" method="post" enctype="multipart/form-data">
           <div class="row mb-3">
                   <label for="c_img" class="col-sm-2 col-form-label">รูป</label>
                   <div class="col-sm-10">
@@ -77,7 +77,23 @@ try {
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="course_Code" name="course_Code" required>
               </div>
-            </div>  
+            </div>
+            <div class="row mb-3">
+                <label for="class_id" class="col-sm-2 col-form-label">ระดับชั้น<span style="color: red;">*</span></label>
+                <div class="col-sm-10">
+                    <!-- ใช้ select element เพื่อให้เลือกกลุ่ม -->
+                    <select class="form-select" id="class_id" name="class_id">
+                        <!-- ตรวจสอบและแสดงตัวเลือกจากข้อมูลที่มีอยู่ในฐานข้อมูล -->
+                        <?php
+                        $stmt = $db->query("SELECT * FROM classes");
+                        $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($groups as $group) {
+                            echo "<option value='{$group['class_id']}'>{$group['classes']}</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>    
             <div class="row mb-3">
                 <label for="group_id" class="col-sm-2 col-form-label">กลุ่ม<span style="color: red;">*</span></label>
                 <div class="col-sm-10">
@@ -94,7 +110,7 @@ try {
                     </select>
                 </div>
             </div>         
-            <div class="row mb-3">
+              <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">รายละเอียด</label>
                   <div class="col-sm-10">
                     <textarea class="form-control" style="height: 100px" name="course_description"></textarea>
@@ -102,7 +118,7 @@ try {
                 </div> 
             <div class="text-center">
               <button type="submit" class="btn btn-primary">บันทึก</button>
-              <a href="../teacher/course.php" class="btn btn-secondary" onclick="cancelEdit()">ยกเลิก</a>
+              <a href="../teacher/course" class="btn btn-secondary" onclick="cancelEdit()">ยกเลิก</a>
             </div>
           </form><!-- End Horizontal Form -->
 

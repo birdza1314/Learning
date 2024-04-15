@@ -33,8 +33,8 @@ if(isset($_POST['file_id'])) {
 if(isset($_POST['course_id'])) {
     $course_id = $_POST['course_id'];
     // Redirect back to add_lessons.php with course_id parameter
-    echo "<script>window.location.href = 'add_lessons.php?course_id=$course_id';</script>";
+    echo "<script>window.location.href = 'add_lessons?course_id=$course_id';</script>";
 } else {
-    echo "<script>window.location.href = 'add_lessons.php';</script>";
+    echo "<script>window.location.href = 'add_lessons';</script>";
 }
 ?>

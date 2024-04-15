@@ -28,16 +28,16 @@ include('../connections/connection.php');
           <a class="nav-link" href="../index">หน้าหลัก</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="../login" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           คู่มือการใช้งาน
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">คู่มือการใช้งานสำหรับครู</a></li>
-            <li><a class="dropdown-item" href="#">คู่มือการใช้งานสำหรับนักเรียน</a></li>
+            <li><a class="dropdown-item" href="../login">คู่มือการใช้งานสำหรับครู</a></li>
+            <li><a class="dropdown-item" href="../login">คู่มือการใช้งานสำหรับนักเรียน</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link me-2" href="#">ติดต่อสอบถาม</a>
+          <a class="nav-link me-2" href="../contact">ติดต่อสอบถาม</a>
         </li>
         <li class="nav-item">
           <a class="btn btn-outline-primary nav-btn" href="../login">เข้าสู่ระบบ</a>
@@ -49,23 +49,20 @@ include('../connections/connection.php');
         <div class="container">
         <div class="card mt-5"> 
         <h3 class="my-4 me-5 mx-5">รายวิชาทั้งหมด</h3>
-        <div class="row me-5 mx-5">
-        <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    เลือกกลุ่มสาระการเรียนรู้
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <li><a class="dropdown-item" href="#" data-search="ภาษาไทย" data-group-id="1">กลุ่มสาระการเรียนรู้ภาษาไทย</a></li>
-    <li><a class="dropdown-item" href="#" data-search="คณิตศาสตร์" data-group-id="2">กลุ่มสาระการเรียนรู้คณิตศาสตร์</a></li>
-    <li><a class="dropdown-item" href="#" data-search="วิทยาศาสตร์และเทคโนโลยี" data-group-id="3">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี</a></li>
-    <li><a class="dropdown-item" href="#" data-search="สังคมศึกษา" data-group-id="4">กลุ่มสาระการเรียนรู้สังคมศึกษาฯ</a></li>
-    <li><a class="dropdown-item" href="#" data-search="สุขศึกษา" data-group-id="5">กลุ่มสาระการเรียนรู้สุขศึกษาฯ</a></li>
-    <li><a class="dropdown-item" href="#" data-search="ศิลปะ" data-group-id="6">กลุ่มสาระการเรียนรู้ศิลปะ</a></li>
-    <li><a class="dropdown-item" href="#" data-search="การงานอาชีพ" data-group-id="7">กลุ่มสาระการเรียนรู้การงานอาชีพ</a></li>
-    <li><a class="dropdown-item" href="#" data-search="ภาษาต่างประเทศ" data-group-id="8">กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ</a></li>
-    <li><a class="dropdown-item" href="#" data-search="อิสลามศึกษา" data-group-id="9">ครูผู้สอนอิสลามศึกษา</a></li>
-  </ul>
-</div>
+      <div class="row me-5 mx-5">
+      <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    เลื่อกระดับชั้น
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#" data-search="1" data-class-id="1">1</a></li>
+                    <li><a class="dropdown-item" href="#" data-search="2" data-class-id="2">2</a></li>
+                    <li><a class="dropdown-item" href="#" data-search="3" data-class-id="3">3</a></li>
+                    <li><a class="dropdown-item" href="#" data-search="4" data-class-id="4">4</a></li>
+                    <li><a class="dropdown-item" href="#" data-search="5" data-class-id="5">5</a></li>
+                    <li><a class="dropdown-item" href="#" data-search="6" data-class-id="6">6</a></li>
+                </ul>
+            </div>
       </div>
 
           <hr color="blue" size="2" width="100%">
@@ -115,26 +112,26 @@ include('../connections/connection.php');
 <script>
 $(document).ready(function() {
     $(".dropdown-item").click(function() {
-        var groupId = $(this).data('group-id'); // ดึงค่า group_id จาก attribute data-group-id ของลิงก์ที่คลิก
+        var classId = $(this).data('class-id'); // ดึงค่า class_id จาก attribute data-class-id ของลิงก์ที่คลิก
         var searchText = $(this).data('search'); // ดึงคำค้นหาจาก attribute data-search ของลิงก์ที่คลิก
-        filterCourses(groupId, searchText); // เรียกใช้ฟังก์ชัน filterCourses และส่ง group_id และ searchText ไป
+        filterCourses(classId, searchText); // เรียกใช้ฟังก์ชัน filterCourses และส่ง class_id และ searchText ไป
     });
 
     $("#search").keyup(function() {
         var searchText = $(this).val();
         if (searchText != "") {
-            filterCourses(null, searchText); // เรียกใช้ฟังก์ชัน filterCourses โดยไม่ระบุ group_id แต่ระบุ searchText
+            filterCourses(null, searchText); // เรียกใช้ฟังก์ชัน filterCourses โดยไม่ระบุ class_id แต่ระบุ searchText
         } else {
             $("#show-list").html("");
         }
     });
 
-    function filterCourses(groupId, searchText) {
+    function filterCourses(classId, searchText) {
         $.ajax({
-            url: "get_course.php",
+            url: "get_course_classes.php",
             method: "post",
             data: {
-                group_id: groupId, // ส่งค่า group_id ไปยัง action.php เพื่อใช้ในการกรองคอร์ส
+                class_id: classId, // ส่งค่า class_id ไปยัง action.php เพื่อใช้ในการกรองคอร์ส
                 query: searchText
             },
             success: function(response) {
@@ -155,11 +152,11 @@ document.addEventListener("DOMContentLoaded", function() {
     link.addEventListener('click', function(event) {
       event.preventDefault(); // ป้องกันการโหลดหน้าใหม่เมื่อคลิกที่ลิงก์
 
-      var group_id = link.getAttribute('data-group-id'); // ดึงค่า group_id จากลิงก์
-      console.log("group_id:", group_id); // ตรวจสอบค่า group_id ในคอนโซล
+      var class_id = link.getAttribute('data-class-id'); // ดึงค่า class_id จากลิงก์
+      console.log("class_id:", class_id); // ตรวจสอบค่า class_id ในคอนโซล
 
       var filteredCourses = courses.filter(function(course) {
-        return course.group_id == group_id; // กรองคอร์สตาม group_id
+        return course.class_id == class_id; // กรองคอร์สตาม class_id
       });
       console.log("Filtered courses:", filteredCourses); // ตรวจสอบคอร์สที่ถูกกรองในคอนโซล
 
@@ -167,29 +164,28 @@ document.addEventListener("DOMContentLoaded", function() {
       courseContainer.innerHTML = '';
 
       var filteredCourses = courses.filter(function(course) {
-  return course.group_id == group_id; // กรองคอร์สตาม group_id
+  return course.class_id == class_id; // กรองคอร์สตาม class_id
 });
-console.log("Filtered courses:", filteredCourses); // ตรวจสอบคอร์สที่ถูกกรองในคอนโซล
+  console.log("Filtered courses:", filteredCourses); // ตรวจสอบคอร์สที่ถูกกรองในคอนโซล
 
-var courseContainer = document.querySelector('.row.mt-5');
-courseContainer.innerHTML = '';
+  var courseContainer = document.querySelector('.row.mt-5');
+  courseContainer.innerHTML = '';
 
-filteredCourses.forEach(function(course) {
-  var card = document.createElement('div');
-  card.classList.add('col-md-4', 'mb-4');
-  card.innerHTML = `
-    <div class="card" style="width: 18rem;">
-      <img src="${course.c_img}" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
-      <div class="card-body">
-        <h5 class="card-title">${course.course_name}</h5>
-        <p class="card-text">รหัสวิชา: ${course.course_code}</p>
-        <p class="card-text">ครูผู้สอน: ${course.teacher ? course.teacher.first_name + ' ' + course.teacher.last_name : 'ไม่พบข้อมูล'}</p>
-        <a href="course_details.php?course_id=${course.c_id}" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+  filteredCourses.forEach(function(course) {
+    var card = document.createElement('div');
+    card.classList.add('col-md-4', 'mb-4');
+    card.innerHTML = `
+      <div class="card" style="width: 18rem;">
+        <img src="${course.c_img}" class="card-img-top" alt="Course Image" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">${course.course_name}</h5>
+          <p class="card-text">รหัสวิชา: ${course.course_code}</p>
+          <p class="card-text">ครูผู้สอน: ${course.teacher ? course.teacher.first_name + ' ' + course.teacher.last_name : 'ไม่พบข้อมูล'}</p>
+          <a href="course_details.php?course_id=${course.c_id}" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+        </div>
       </div>
-    </div>
-  `;
-  courseContainer.appendChild(card);
-
+    `;
+    courseContainer.appendChild(card);
       });
     });
   });
@@ -228,6 +224,9 @@ filteredCourses.forEach(function(course) {
       Designed by <a href="https://web.facebook.com/profile.php?id=100009502864499" target="_blank" >Ruslan Matha</a>
 
     </div>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </footer>
 </body>
 </html>

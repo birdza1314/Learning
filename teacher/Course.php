@@ -5,7 +5,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -23,6 +23,7 @@ try {
     // แสดงข้อผิดพลาด
     echo "เกิดข้อผิดพลาด: " . $e->getMessage();
 }
+
 ?>
 <?php
      include('head.php');
@@ -146,12 +147,12 @@ try {
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <li><a class="dropdown-item" href="add_lessons.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-file-plus"></i> แก้ไขบทเรียน</a></li>
-                                                <li><a class="dropdown-item" href="form_update_course.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-pencil-fill"></i> แก้ไขคอร์ส</a></li>
+                                                <li><a class="dropdown-item" href="form_update_course.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-pencil-fill"></i> แก้ไขรายวิชา</a></li>
                                                 <li>
                                                     <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
                                                         <input type="hidden" name="existing_course" value="<?= $row['c_id']; ?>">
                                                         <input type="hidden" name="new_course_name" value="Copy of <?= $row['course_name']; ?>">
-                                                        <button type="submit" class="dropdown-item"><i class="bi bi-copy"></i> คัดลอกคอร์ส</button>
+                                                        <button type="submit" class="dropdown-item"><i class="bi bi-copy"></i> คัดลอกรายวิชา</button>
                                                     </form>
                                                 </li>
                                                 <li>
@@ -169,7 +170,7 @@ try {
 
                                                     // หากไม่มีการลงทะเบียนในคอร์สนี้ แสดงปุ่มลบ
                                                     if (!$registration) {
-                                                        echo '<li><a class="dropdown-item" href="delete_course.php?course_id=' . $course_id . '" onclick="return confirm(\'คุณแน่ใจหรือไม่ว่าต้องการลบคอร์สนี้?\')"><i class="bi bi-trash-fill"></i> ลบคอร์ส</a></li>';
+                                                        echo '<li><a class="dropdown-item" href="delete_course.php?course_id=' . $course_id . '" onclick="return confirm(\'คุณแน่ใจหรือไม่ว่าต้องการลบรายวิชานี้?\')"><i class="bi bi-trash-fill"></i> ลบรายวิชา</a></li>';
                                                     }
                                                 ?>
                                             </ul>
@@ -211,20 +212,20 @@ try {
                     <i class="bi bi-gear"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="add_lessons.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-file-plus"></i> แก้ไขบทเรียน</a></li>
-                        <li><a class="dropdown-item" href="form_update_course.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-pencil-fill"></i> แก้ไขคอร์ส</a></li>
+                        <li><a class="dropdown-item" href="add_lessons?course_id=<?= $row['c_id']; ?>"><i class="bi bi-file-plus"></i> แก้ไขบทเรียน</a></li>
+                        <li><a class="dropdown-item" href="form_update_course?course_id=<?= $row['c_id']; ?>"><i class="bi bi-pencil-fill"></i> แก้ไขรายวิชา</a></li>
                         <li>
                             <form id="copyForm" method="post" action="copy_course.php" onsubmit="return confirmCopy()">
                                 <input type="hidden" name="existing_course" value="<?= $row['c_id']; ?>">
                                 <input type="hidden" name="new_course_name" value="Copy of <?= $row['course_name']; ?>">
-                                <button type="submit" class="dropdown-item"><i class="bi bi-copy"></i> คัดลอกคอร์ส</button>
+                                <button type="submit" class="dropdown-item"><i class="bi bi-copy"></i> คัดลอกรายวิชา</button>
                             </form>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="manage_members.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-people-fill"></i> จัดการสมาชิก</a>
+                            <a class="dropdown-item" href="manage_members?course_id=<?= $row['c_id']; ?>"><i class="bi bi-people-fill"></i> จัดการสมาชิก</a>
                         </li>
                          <li>
-                            <a class="dropdown-item" href="attendance_details.php?course_id=<?= $row['c_id']; ?>"><i class="bi bi-journal-text"></i> รายละเอียดการเข้าเรียน</a>
+                            <a class="dropdown-item" href="attendance_details?course_id=<?= $row['c_id']; ?>"><i class="bi bi-journal-text"></i> รายละเอียดการเข้าเรียน</a>
                         </li>
                         <?php
                             // ตรวจสอบว่ามีการลงทะเบียนในคอร์สนี้หรือไม่
@@ -235,7 +236,7 @@ try {
 
                             // หากไม่มีการลงทะเบียนในคอร์สนี้ แสดงปุ่มลบ
                             if (!$registration) {
-                                echo '<li><a class="dropdown-item" href="delete_course.php?course_id=' . $course_id . '" onclick="return confirm(\'คุณแน่ใจหรือไม่ว่าต้องการลบคอร์สนี้?\')"><i class="bi bi-trash-fill"></i> ลบคอร์ส</a></li>';
+                                echo '<li><a class="dropdown-item" href="delete_course?course_id=' . $course_id . '" onclick="return confirm(\'คุณแน่ใจหรือไม่ว่าต้องการลบรายวิชานี้?\')"><i class="bi bi-trash-fill"></i> ลบรายวิชา</a></li>';
                             }
                         ?>
                     </ul>

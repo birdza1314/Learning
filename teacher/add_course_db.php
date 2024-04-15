@@ -6,7 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         isset($_POST['course_name']) && 
         isset($_POST['course_Code']) &&
         isset($_POST['course_description']) &&
-        isset($_POST['group_id']) // เพิ่มตรงนี้
+        isset($_POST['group_id']) &&
+        isset($_POST['class_id'])
     ) {
         // เชื่อมต่อกับฐานข้อมูล
         include('../connections/connection.php');
@@ -16,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $course_name = htmlspecialchars($_POST['course_name']);
         $course_code = htmlspecialchars($_POST['course_Code']);
         $course_description = htmlspecialchars($_POST['course_description']);
-        $group_id = htmlspecialchars($_POST['group_id']); // เพิ่มตรงนี้
+        $group_id = htmlspecialchars($_POST['group_id']); 
+        $class_id = htmlspecialchars($_POST['class_id']); 
 
         // ตรวจสอบว่ามีการอัปโหลดไฟล์รูปภาพหรือไม่
         if (isset($_FILES['c_img']) && $_FILES['c_img']['error'] == 0) {
@@ -36,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if (move_uploaded_file($_FILES['c_img']['tmp_name'], $uploaded_file)) {
                     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
-                    $sql = "INSERT INTO courses (course_name, course_code, description, teacher_id, created_at, updated_at, group_id, c_img) 
-                            VALUES (?, ?, ?, ?, NOW(), NOW(), ?, ?)";
+                    $sql = "INSERT INTO courses (course_name, course_code, description, teacher_id, created_at, updated_at, group_id, c_img, class_id) 
+                            VALUES (?, ?, ?, ?, NOW(), NOW(), ?, ?,?)";
                     $stmt = $db->prepare($sql);
-                    $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file]);
+                    $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file, $class_id]);
                     $db = null;
                     echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
                     header("Location: course.php?user_id=$user_id");
@@ -57,10 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // ดำเนินการเพิ่มข้อมูลลงในฐานข้อมูล
             $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
-            $sql = "INSERT INTO courses (course_name, course_code, description, teacher_id, created_at, updated_at, group_id, c_img) 
-                    VALUES (?, ?, ?, ?, NOW(), NOW(), ?, ?)";
+            $sql = "INSERT INTO courses (course_name, course_code, description, teacher_id, created_at, updated_at, group_id, c_img, class_id) 
+                    VALUES (?, ?, ?, ?, NOW(), NOW(), ?, ?, ?)";
             $stmt = $db->prepare($sql);
-            $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file]);
+            $stmt->execute([$course_name, $course_code, $course_description, $user_id, $group_id, $uploaded_file, $class_id]);
             $db = null;
             echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
             header("Location: course.php?user_id=$user_id");

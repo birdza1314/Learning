@@ -4,7 +4,7 @@ include('../connections/connection.php');
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 
@@ -44,7 +44,9 @@ if (isset($_GET['course_id'])) {
         echo "Error: " . $e->getMessage();
         exit(); // จบการทำงานถ้าพบข้อผิดพลาด
     }
-
+    $stmt = $db->query("SELECT * FROM classes");
+    $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
     // ตรวจสอบว่ามีข้อมูล $teacher หรือไม่
     if (!empty($_SESSION['teacher_id'])) {
         $teacher_id = $_SESSION['teacher_id'];
@@ -103,7 +105,7 @@ if (isset($_GET['course_id'])) {
                                 </a>
                                 </div>
                                 <!-- Update Course Form -->
-                                <form class="mx-auto" action="update_course_db.php" method="post" enctype="multipart/form-data">
+                                <form class="mx-auto" action="update_course_db" method="post" enctype="multipart/form-data">
                                     <!-- เพิ่ม input hidden เพื่อเก็บค่า course_id -->
                                     <input type="hidden" name="course_id" value="<?php echo $course['c_id']; ?>">
                                     <!-- เพิ่ม input hidden เพื่อเก็บค่า course_id -->
@@ -152,6 +154,18 @@ if (isset($_GET['course_id'])) {
                                             <!-- เพิ่ม dropdown เพื่อเลือกกลุ่ม -->
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                    <label for="class_id" class="col-sm-2 col-form-label">ระดับชั้น</label>
+                                    <div class="col-sm-10">
+                                        <!-- เพิ่ม dropdown เพื่อเลือกระดับชั้น -->
+                                        <select class="form-control" id="class_id" name="class_id">
+                                            <?php foreach ($classes as $class) : ?>
+                                                <option value="<?php echo $class['class_id']; ?>" <?php echo ($class['class_id'] == $course['class_id']) ? 'selected' : ''; ?>><?php echo $class['classes']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <!-- เพิ่ม dropdown เพื่อเลือกระดับชั้น -->
+                                    </div>
+                                </div>
                                     <div class="row mb-3">
                                         <label for="is_open" class="col-sm-2 col-form-label">สถานะ</label>
                                         <div class="col-sm-10">

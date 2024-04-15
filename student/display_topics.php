@@ -10,7 +10,12 @@
 
                                         // ตรวจสอบว่ามีข้อมูลหัวข้อในบทเรียนนี้หรือไม่
                                         if ($topics) {
+                                            
                                             foreach ($topics as $topic) {
+                                                ?>
+                                                <div class="mt-5">
+                                                    <p><strong></strong><?= $topic['topic_type']; ?></p>
+                                                    <?php
                                                 // ตรวจสอบว่ามี video_embed_id หรือ video_file_id
                                                 if ($topic['video_embed_id'] != null) {
                                                     // กรณีมี video_embed_id แสดงว่าเป็นวิดีโอจาก embed code

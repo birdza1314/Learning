@@ -1,4 +1,24 @@
 <script>
+    // เมื่อเลื่อนหน้าจอ
+    window.onscroll = function() {stickyBtn()};
+
+    var btn = document.querySelector('.open-Lesson-modal');
+    var sticky = btn.offsetTop;
+
+    function stickyBtn() {
+    if (window.pageYOffset >= sticky) {
+        btn.classList.add("sticky-btn");
+    } else {
+        btn.classList.remove("sticky-btn");
+    }
+    }
+
+            // Store the current URL in local storage when the page loads
+    localStorage.setItem('previousPageUrl', window.location.href);
+</script>
+
+
+<script>
 
     // Handle click event on "Video" button to open modal
     $(document).on('click', '.open-video-modal', function() {
@@ -70,12 +90,17 @@ $(document).on('click', '.open-URL-modal', function() {
      // Show the modal
      $('#urlModal').modal('show'); 
 });
+
 $(document).ready(function(){
     $(".open-Lesson-modal").click(function(){
         $("#addLessonModal").modal("show");
     });
 });
 
+$(document).on('click', '.open-Lessontype-modal', function() {
+
+     $('#addLessontypeModal').modal('show'); 
+});
     
 </script>
   <script>

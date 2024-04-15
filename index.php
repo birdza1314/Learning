@@ -23,12 +23,12 @@
           คู่มือการใช้งาน
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="student_manual">คู่มือการใช้งานสำหรับครู</a></li>
-            <li><a class="dropdown-item" href="student_manual">คู่มือการใช้งานสำหรับนักเรียน</a></li>
+            <li><a class="dropdown-item" href="login">คู่มือการใช้งานสำหรับครู</a></li>
+            <li><a class="dropdown-item" href="login">คู่มือการใช้งานสำหรับนักเรียน</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link me-2" href="#">ติดต่อสอบถาม</a>
+          <a class="nav-link me-2" href="contact">ติดต่อสอบถาม</a>
         </li>
         <li class="nav-item">
           <a class="btn btn-outline-primary nav-btn" href="login">เข้าสู่ระบบ</a>
@@ -119,6 +119,17 @@
   </div>
 </div><!--Card over -->
 
+<div class="search-bar">
+                            <form action="details_All_course" method="POST" class="p-3">
+                                <div class="input-group">
+                                    <input type="text" name="search" id="search" class="form-control form-control-lg  rounded-0" placeholder="ค้นหารายวิชา..." autocomplete="off" required>
+                                        <input type="submit" name="submit" value="ค้นหา" class="btn btn-outline-secondary btn-sm">
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="list-group" style="width: 250px;" id="show-list"></div>
+                                </div>
+                            </form>
+                        </div><!-- End Search Bar -->
 
 <hr color="blue" size="2" width="100%">
 
@@ -158,6 +169,42 @@
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#display-format').change(function() {
+        var format = $(this).val();
+        if (format === 'list') {
+            $('.card-format').hide();
+            $('.list-format').show(); // ต้องแสดง .list-format เมื่อเปลี่ยนเป็น list
+        } else if (format === 'card') {
+            $('.list-format').hide();
+            $('.card-format').show();
+        }
+    });
+    $("#search").keyup(function() {
+        let searchText = $(this).val();
+        if (searchText != "") {
+            $.ajax({
+                url: "student/action.php",
+                method: "post",
+                data: {
+                    query: searchText
+                },
+                success: function(response) {
+                    $("#show-list").html(response);
+                }
+            })
+        } else {
+            $("#show-list").html("");
+        }
+    });
 
+    $(document).on('click', 'a', function() {
+        $("#search").val($(this).text())
+        $("#show-list").html("");
+    });
+});
+</script>
 </body>
 </html>

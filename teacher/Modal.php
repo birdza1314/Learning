@@ -70,7 +70,7 @@
                                 <input type="text" name="Quiz_Title" class="form-control" placeholder="Input Quiz Title" required="">
                             </div>
                         <div class="form-group">
-                            <label for="timeLimit">เวลาทำแบบทดสอบ<span style="color: red;">*</span></label>
+                            <label for="timeLimit">เวลาทำแบบทดสอบ (นาที)<span style="color: red;">*</span></label>
                             <input type="number" class="form-control" id="timeLimit" name="timeLimit" min="0" placeholder="Enter time in minutes" required>
                         </div>
                             <div class="form-group">
@@ -91,6 +91,7 @@
             </div>
         </div>
     </div>
+
 <!-- Modal Add Lessons -->
 <div class="modal fade" id="addLessonModal" tabindex="-1" aria-labelledby="addLessonModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -113,81 +114,42 @@
         </div>
     </div>
 </div>
-
-
-<script>
-  // เมื่อคลิกที่ปุ่ม "ปิด"
-  document.getElementById('closeAddLessonModalBtn').addEventListener('click', function() {
-    // หากใช้ Bootstrap 4 หรือ 5
-    var modal = new bootstrap.Modal(document.getElementById('addLessonModal'));
-    modal.hide();
-  });
-</script>
-
-
- <!-- Modal Add Question -->
-<div class="modal fade" id="modalForAddQuestion" tabindex="-1" aria-labelledby="modalForAddQuestionLabel" aria-hidden="true">
+<!-- Modal Add Lessons Type -->
+<div class="modal fade" id="addLessontypeModal" tabindex="-1" aria-labelledby="addLessontypeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalForAddQuestionLabel">เพิ่มคำถามใหม่</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="addLessontypeModalLabel">เพิ่มบทเรียน</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="save_question.php" method="post">
-                    <input type="hidden" name="quiz_id" value="<?php echo $quiz_id; ?>">
-                    <div class="form-group">
-                        <label for="questionText">คำถาม</label>
-                        <textarea class="form-control" id="questionText" name="questionText" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="choice1">ตัวเลือก 1<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control choice-input" id="choice1" name="choice1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="choice2">ตัวเลือก 2<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control choice-input" id="choice2" name="choice2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="choice3">ตัวเลือก 3<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control choice-input" id="choice3" name="choice3" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="choice4">ตัวเลือก 4<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control choice-input" id="choice4" name="choice4" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="correctAnswerSelect">คำตอบที่ถูกต้อง (ตัวเลือก)<span style="color: red;">*</span></label>
-                        <select class="form-control" id="correctAnswerSelect" name="correctAnswerSelect"  onchange="updateCorrectAnswer(this)" required>
-                            <option selected>เลือกตัวเลือก</option>
-                            <option value="choice1">ตัวเลือก 1</option>
-                            <option value="choice2">ตัวเลือก 2</option>
-                            <option value="choice3">ตัวเลือก 3</option>
-                            <option value="choice4">ตัวเลือก 4</option>
-                        </select>
-                        <input type="hidden" id="correctAnswer" name="correctAnswer" value="" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="choice4">คำแนะนำ<span style="color: red;">*</span></label>
-                        <textarea type="text" class="form-control" id="description" name="description" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">ส่งคำตอบ</button>
+                <form id="addLessonForm">
+                <div class="row mb-3">
+                <label for="group_id" class="col-sm-2 col-form-label">กลุ่ม<span style="color: red;">*</span></label>
+                <div class="col-sm-10">
+                    <!-- ใช้ select element เพื่อให้เลือกกลุ่ม -->
+                    <select class="form-select" id="group_id" name="group_id">
+                        <!-- ตรวจสอบและแสดงตัวเลือกจากข้อมูลที่มีอยู่ในฐานข้อมูล -->
+                        <?php
+                        $stmt = $db->query("SELECT * FROM add_topic");
+                        $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($groups as $group) {
+                            echo "<option value='{$group['topic_id']}'>{$group['topic_type']}</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveLessonBtn">บันทึก</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    function updateCorrectAnswer(selectElement) {
-        var selectedChoice = selectElement.value;
-        var choiceInputElement = document.querySelector('.choice-input[name="' + selectedChoice + '"]');
-        var choiceValue = choiceInputElement.value;
-        document.getElementById('correctAnswer').value = choiceValue;
-    }
-</script>
+
 
 <!-- Modal embed Modal -->
 <div class="modal fade" id="embedModal" tabindex="-1" aria-labelledby="embedModalLabel" aria-hidden="true">

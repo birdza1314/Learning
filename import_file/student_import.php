@@ -7,6 +7,8 @@ require '../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use function PHPSTORM_META\sql_injection_subst;
+
 if (isset($_POST['save_excel_data'])) {
     $fileName = $_FILES['import_file']['name'];
     $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -20,19 +22,55 @@ if (isset($_POST['save_excel_data'])) {
 
         $count = 0;
         foreach ($data as $row) {
-            if ($count > 0) {
+            if ($count > 0 && !empty($row[0])) {
                 $username = $row[0];
                 $rawPassword = $row[1]; // Assuming the password is in column 1 of the spreadsheet
                 $password = password_hash($rawPassword, PASSWORD_DEFAULT);
                 $first_name = $row[2];
                 $last_name = $row[3];
-                $classroom = $row[4];
-                $year = $row[5];
-                
+                $classes = $row[4];
+                $classroom = $row[5];
+                $year = $row[6];
 
-                $sql = "INSERT INTO students (username, password, first_name, last_name,  classroom,year) VALUES (:username, :password, :first_name, :last_name,  :classroom, :year)";
-                $stmt = $db->prepare($sql);
-                $stmt->execute([':username' => $username, ':password' => $password, ':first_name' => $first_name, ':last_name' => $last_name,  ':classroom' => $classroom, ':year' => $year]);
+                // Check if it's a new academic year
+                $current_year = date('Y');
+                $current_month = date('n');
+                $old_year = $year;
+
+                if ($current_month >= 6) {
+                    $academic_year = $current_year + 543; // Convert to Buddhist calendar
+                } else {
+                    $academic_year = $current_year + 542; // Convert to Buddhist calendar
+                }
+
+                $diff = $academic_year - $year;
+
+                // Calculate the student's level using the difference between academic year and the student's year
+                $level = $classes + $diff;
+
+                // If the level is greater than 6, set it to "Graduated"
+                if ($level > 6) {
+                    $level = "Graduated";
+                }
+
+                // Insert the new student data into the database
+                $sql_insert = "INSERT INTO students (username, password, first_name, last_name, classes, classroom, year) 
+                        VALUES (:username, :password, :first_name, :last_name, :classes, :classroom, :year)";
+                $stmt_insert = $db->prepare($sql_insert);
+                $stmt_insert->execute([
+                    ':username' => $username,
+                    ':password' => $password,
+                    ':first_name' => $first_name,
+                    ':last_name' => $last_name,
+                    ':classes' => $level,
+                    ':classroom' => $classroom,
+                    ':year' => $year
+                ]);       
+            // Update other data in the database if needed
+            $sql_update = "UPDATE students SET classes = :new_level 
+                WHERE year = :old_year";
+            $stmt_update = $db->prepare($sql_update);
+            $stmt_update->execute([':new_level' => $level, ':old_year' => $old_year]);
 
             } else {
                 $count++;
@@ -41,10 +79,10 @@ if (isset($_POST['save_excel_data'])) {
 
         $_SESSION['message'] = "เพิ่มข้อมูลสำเร็จ";
 
-        // Adding JavaScript code to show alert
+        // Redirect to the student_data page after adding the data and showing the alert
         echo '<script type="text/javascript">';
         echo 'alert("เพิ่มข้อมูลสำเร็จ");';
-        echo 'window.location.href = "../admin/student_data";';  // Redirect after showing the alert
+        echo 'window.location.href = "../admin/student_data";';  
         echo '</script>';
 
         exit(0);

@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
+    $classes = $_POST['classes'];
     $classroom = $_POST['classroom'];
     $year = $_POST['year'];
 
@@ -26,12 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    $sql = "UPDATE students SET username = :username, password = :password, first_name = :first_name, last_name = :last_name, classroom = :classroom, year = :year WHERE s_id = :s_id";
+    $sql = "UPDATE students SET username = :username, password = :password, first_name = :first_name, last_name = :last_name,classes = :classes, classroom = :classroom, year = :year WHERE s_id = :s_id";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $hashedPassword); // ใช้ hashedPassword ที่เราได้ hash ไว้แล้ว
     $stmt->bindParam(':first_name', $firstName);
     $stmt->bindParam(':last_name', $lastName);
+    $stmt->bindParam(':classes', $classes);
     $stmt->bindParam(':classroom', $classroom);
     $stmt->bindParam(':year', $year);
     $stmt->bindParam(':s_id', $s_id);

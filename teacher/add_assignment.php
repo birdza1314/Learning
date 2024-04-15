@@ -32,7 +32,7 @@ $course_id = $_GET['course_id'];
              <h2 class="fw-bold mb-0">เพิ่ม Assignment</h2>
         </div>
         <div class="card-body">
-             <form action="save_assignment.php?lesson_id=<?php echo $lesson_id; ?>&course_id=<?php echo $course_id; ?>" method="post" enctype="multipart/form-data">
+             <form action="save_assignment?lesson_id=<?php echo $lesson_id; ?>&course_id=<?php echo $course_id; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="lesson_id" value="<?php echo $lesson_id; ?>">
                 <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
 

@@ -52,7 +52,7 @@ if(isset($_GET['assignment_id'])) {
                 <h2 class="fw-bold mb-0">แก้ไข งานที่มอบหมาย</h2>
             </div>
             <div class="card-body">
-                <form action="update_assignment.php" method="post" enctype="multipart/form-data">
+                <form action="update_assignment" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="assignment_id" value="<?php echo $assignment_id; ?>">
                     
                     <div class="mb-3">

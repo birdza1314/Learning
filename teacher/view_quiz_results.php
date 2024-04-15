@@ -55,6 +55,7 @@ try {
        <table class="table table-borderless datatable">
         <thead>
             <tr>
+                <th>สอบครั้งที่</th>
                 <th>ชื่อนักเรียน</th>
                 <th>คะแนน</th>
                 <th>คะแนนเต็ม</th>
@@ -63,8 +64,10 @@ try {
             </tr>
         </thead>
         <tbody>
+        <?php $counter = 1; ?>
             <?php foreach ($results as $result): ?>
             <tr>
+            <td><?php echo $counter++; ?></td>
                 <td><?php echo $result['first_name']; ?></td>
                 <td <?php echo ($result['score'] < $result['total_questions'] / 2) ? 'style="color:red;"' : 'style="color:green;"'; ?>>
                     <?php echo $result['score']; ?>

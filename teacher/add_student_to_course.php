@@ -5,7 +5,7 @@ include('../connections/connection.php');
 // ตรวจสอบการล็อกอินและบทบาทของผู้ใช้
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 try {
@@ -41,8 +41,8 @@ try {
     <form id="registrationForm">
         <!-- Dropdown ปีการศึกษา -->
         <div class="form-group">
-            <label for="yearSelect">ปีการศึกษา<span style="color: red;">*</span></label>
-            <select class="form-control" id="yearSelect" required>
+            <label for="classesSelect">ปีการศึกษา<span style="color: red;">*</span></label>
+            <select class="form-control" id="classesSelect" required>
                 <!-- Options will be populated dynamically using JavaScript -->
             </select>
         </div>
@@ -71,29 +71,29 @@ try {
 
 <script>
 $(document).ready(function() {
-    // Populate year options
+    // Populate classes options
     $.ajax({
-        url: "Get_data_students/get_years.php",
+        url: "Get_data_students/get_classes.php",
         type: "GET",
         dataType: "json",
         success: function(data) {
             var options = '<option value="">เลือกปีการศึกษา</option>';
-            data.forEach(function(year) {
-                options += '<option value="' + year + '">' + year + '</option>';
+            data.forEach(function(classes) {
+                options += '<option value="' + classes + '">' + classes + '</option>';
             });
-            $('#yearSelect').html(options);
+            $('#classesSelect').html(options);
         }
     });
 
-    // Handle change event on year select
-    $('#yearSelect').change(function() {
-        var year = $(this).val();
-        // Populate classroom options based on selected year
+    // Handle change event on classes select
+    $('#classesSelect').change(function() {
+        var classes = $(this).val();
+        // Populate classroom options based on selected classes
         $.ajax({
             url: "Get_data_students/get_classrooms.php",
             type: "GET",
             dataType: "json",
-            data: { year: year },
+            data: { classes: classes },
             success: function(data) {
                 var options = '<option value="">เลือกห้องเรียน</option>';
                 data.forEach(function(classroom) {
@@ -110,7 +110,7 @@ $(document).ready(function() {
 
         // Gather form data
         var formData = {
-            year: $('#yearSelect').val(),
+            classes: $('#classesSelect').val(),
             classroom: $('#classroomSelect').val(),
             course_id: <?php echo $_GET['course_id']; ?> // Get course ID from URL
         };

@@ -43,7 +43,7 @@
         }
     } else {
         // If quiz_id is not set in the URL, redirect back to the page with an error message
-        echo "<script>window.location.href = 'add_lessons.php?error=Quiz ID not provided';</script>";
+        echo "<script>window.location.href = 'add_lessons?error=Quiz ID not provided';</script>";
     }
 ?>
 <?php include('session.php'); ?>
@@ -69,7 +69,7 @@
                     <h2 class="card-title">ข้อมูลแบบทดสอบ</h2>
                 </div>
                 <div class="card-body">
-                    <form action="update_quiz.php" method="post" enctype="multipart/form-data">
+                    <form action="update_quiz" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="quiz_id" value="<?php echo $quiz['quiz_id']; ?>">
                         <div class="form-group">
                             <label>ชื่อเรื่อง</label>
@@ -117,10 +117,10 @@
                     </span>
                     <div class="btn-actions-pane-right">
                     <?php if ($question_count < $question_limit): ?>
-                        <button class="btn btn-sm btn-outline-primary" style="float: right;" data-toggle="modal" data-target="#modalForAddQuestion">
+                        <a href="add_question.php?quiz_id=<?php echo $quiz_id; ?>" class="btn btn-sm btn-outline-primary" style="float: right;">
                             <i class="bi bi-plus-circle-fill"></i>
                             <span>เพิ่มคำถาม</span>
-                        </button>
+                        </a>
                     <?php endif; ?>
                 </div>
 

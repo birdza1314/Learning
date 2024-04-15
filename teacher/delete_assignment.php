@@ -1,29 +1,42 @@
+
 <?php
+// Include database connection
 include('../connections/connection.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Check if quiz_id is set
+if(isset($_POST['assignment_id'])) {
     $assignment_id = $_POST['assignment_id'];
 
-    // Delete assignment from the assignments table
-    $stmt_delete_assignment = $db->prepare("DELETE FROM assignments WHERE assignment_id = :assignment_id");
-    $stmt_delete_assignment->bindParam(':assignment_id', $assignment_id);
-    $stmt_delete_assignment->execute();
+    try {
+        // Prepare SQL statement to delete the quiz
+        $stmt = $db->prepare("DELETE FROM assignments WHERE assignment_id = :assignment_id");
+        $stmt->bindParam(':assignment_id', $assignment_id);
+        $stmt->execute();
 
-    // Delete assignment from the topics table
-    $stmt_delete_topic = $db->prepare("DELETE FROM topics WHERE assignment_id = :assignment_id");
-    $stmt_delete_topic->bindParam(':assignment_id', $assignment_id);
-    $stmt_delete_topic->execute();
-
-    // Check if the assignment was successfully deleted
-    if ($stmt_delete_assignment->rowCount() > 0 && $stmt_delete_topic->rowCount() > 0) {
-        // Return success message or any other relevant data
-        echo "Assignment and related topics deleted successfully";
-    } else {
-        // Return error message or handle the situation as needed
-        echo "Failed to delete assignment and related topics";
+        // Check if any rows were affected
+        if($stmt->rowCount() > 0) {
+            // If successful, return success message
+            echo "ลบข้อมูลสำเร็จ!";
+        } else {
+            // If no rows were affected, return error message
+            echo "No quiz found with the given ID!";
+        }
+    } catch (PDOException $e) {
+        // Display an error message if something goes wrong
+        echo "Error: " . $e->getMessage();
     }
 } else {
-    // Handle invalid request method
-    echo "Invalid request method";
+    // If quiz_id is not set, return error message
+    echo "Quiz ID is not provided!";
+}
+
+// Redirect back to add_lessons.php with course_id
+if(isset($_POST['course_id'])) {
+    $course_id = $_POST['course_id'];
+    // Redirect back to add_lessons.php with course_id parameter
+    echo "ลบข้อมูลสำเร็จ!";
+    echo "<script>window.location.href = 'add_lessons?course_id=$course_id';</script>";
+} else {
+    echo "<script>window.location.href = 'add_lessons';</script>";
 }
 ?>

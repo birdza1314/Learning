@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
     // ทำการ execute คำสั่ง SQL
     if ($stmt->execute()) {
         echo "<script>alert('แก้ไขข้อมูลสำเร็จ');</script>";
-        echo "<script>window.history.back(-2);</script>";
+        echo "<script>window.history.back();</script>"; // กลับไปหน้าก่อนหน้า
     } else {
         echo "Failed to update question: " . $stmt->errorInfo()[2];
     }
@@ -128,4 +128,3 @@ if (!$question) {
 
 </body>
 </html>
-

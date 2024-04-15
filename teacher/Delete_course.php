@@ -5,7 +5,7 @@ session_start();
 // ตรวจสอบว่ามีการล็อกอินและมีบทบาทเป็น 'teacher' หรือไม่
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     // ถ้าไม่ได้ล็อกอินหรือบทบาทไม่ใช่ 'teacher' ให้เปลี่ยนเส้นทางไปที่หน้าล็อกอินหรือหน้าที่คุณต้องการ
-    header('Location: ../login.php');
+    header('Location: ../login');
     exit();
 }
 
@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['course_id'])) {
         $db = null;
 
         // ทำสิ่งที่คุณต้องการหลังจากลบข้อมูล
-        echo "<script>alert('ลบคอร์สสำเร็จ'); window.location.href = 'course.php?success=true';</script>";
+        echo "<script>alert('ลบคอร์สสำเร็จ'); window.location.href = 'course?success=true';</script>";
     } else {
         // ถ้าครูที่ล็อกอินไม่มีสิทธิ์ลบคอร์สนี้
-        echo "<script>alert('คุณไม่มีสิทธิ์ลบคอร์สนี้'); window.location.href = 'course.php';</script>";
+        echo "<script>alert('คุณไม่มีสิทธิ์ลบคอร์สนี้'); window.location.href = 'course';</script>";
     }
 } else {
     echo "Missing required fields.";

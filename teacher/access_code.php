@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // หลังจากอัปเดตสำเร็จ สามารถให้ปิด Modal ได้
         echo '<script>
               alert("Access Code updated successfully");
-              window.location.href = "course.php"; // ให้กลับไปที่หน้าหลักหลังจากการอัปเดต
+              window.location.href = "course"; // ให้กลับไปที่หน้าหลักหลังจากการอัปเดต
             </script>';
     } catch (PDOException $e) {
         // กรณีเกิดข้อผิดพลาด

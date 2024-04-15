@@ -5,7 +5,7 @@ include('../connections/connection.php');
 // ตรวจสอบการล็อกอินและบทบาทของผู้ใช้
 session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
-    header('Location: ../login.php'); 
+    header('Location: ../login'); 
     exit();
 }
 

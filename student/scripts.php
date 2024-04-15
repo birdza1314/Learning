@@ -12,7 +12,7 @@
 <script src="vendor/tinymce/tinymce.min.js"></script>
 <script src="vendor/php-email-form/validate.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+
 
 <!-- Template Main JS File -->
 <script src="js/main.js"></script>

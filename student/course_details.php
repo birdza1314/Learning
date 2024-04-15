@@ -107,26 +107,26 @@ try {
                                     <div class="row my-4">
                                         <div class="col-sm-9 ">
                                         </div>
-                                        <div class="col-sm-3 ">
-                                        <button id="markAsDoneButton<?= $lesson['lesson_id']; ?>" onclick="markAsDone(<?= $lesson['lesson_id']; ?>, <?= $course_id; ?>)" class="btn btn-outline-primary" style="float: inline-end;">  
+                                        <div class="col-sm-3">
                                             <?php
-                                                // Check if the lesson_id, student_id, and course_id exist in the Marks_as_done table
-                                                $stmt = $db->prepare("SELECT COUNT(*) as count FROM marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
-                                                $stmt->bindParam(':lesson_id', $lesson['lesson_id'], PDO::PARAM_INT);
-                                                $stmt->bindParam(':student_id', $user_id, PDO::PARAM_INT); // เปลี่ยน $student_id เป็น $user_id
-                                                $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
-                                                $stmt->execute();
-                                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                                                // If the lesson is marked as done, display "Done", otherwise display "Mark as done"
-                                                if ($row['count'] > 0) {
-                                                    echo 'Done';
-                                                } else {
-                                                    echo 'Mark as done';
-                                                }
-                                                ?>
-                                        </button>
+                                            // Check if the lesson_id, student_id, and course_id exist in the Marks_as_done table
+                                            $stmt = $db->prepare("SELECT COUNT(*) as count FROM marks_as_done WHERE lesson_id = :lesson_id AND student_id = :student_id AND course_id = :course_id");
+                                            $stmt->bindParam(':lesson_id', $lesson['lesson_id'], PDO::PARAM_INT);
+                                            $stmt->bindParam(':student_id', $user_id, PDO::PARAM_INT); // เปลี่ยน $student_id เป็น $user_id
+                                            $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
+                                            $stmt->execute();
+                                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                            
+                                            // Determine button color and text
+                                            $buttonColor = ($row['count'] > 0) ? 'green' : 'red';
+                                            $buttonText = ($row['count'] > 0) ? 'Done' : 'Mark as done';
+                                            ?>
+                                            
+                                            <button id="markAsDoneButton<?= $lesson['lesson_id']; ?>" onclick="markAsDone(<?= $lesson['lesson_id']; ?>, <?= $course_id; ?>)" style="float: inline-end; background-color: <?= $buttonColor ?>; color: white;" class="btn btn-outline">
+                                                <?= $buttonText ?>
+                                            </button>
                                         </div>
+
                                         </div>
                                         <!-- เริ่มต้นการวนลูปการแสดงผลข้อมูลหัวข้อ -->
                                         <?php include('../student/display_topics.php'); ?>
@@ -182,7 +182,7 @@ function editQuiz(quizId) {
         });
     </script>
  <script>
-     function markAsDone(lessonId, courseId) {
+    function markAsDone(lessonId, courseId) {
     var button = document.getElementById('markAsDoneButton' + lessonId);
     var buttonText = button.innerText.trim();
     if (buttonText === 'Done') {
@@ -195,6 +195,8 @@ function editQuiz(quizId) {
                     button.innerHTML = 'Mark as done';
                  
                     alert('การทำเครื่องหมายว่าเสร็จสิ้นถูกยกเลิกแล้ว');
+                    // รีเฟรชหน้าเว็บ
+                    window.location.reload();
                 } else {
                     alert('เกิดข้อผิดพลาดในการทำคำขอ: ' + xhr.statusText);
                 }
@@ -211,6 +213,8 @@ function editQuiz(quizId) {
                     button.innerHTML = 'Done';
                     
                     alert('บทเรียนถูกทำเครื่องหมายว่าเสร็จสิ้นแล้ว');
+                    // รีเฟรชหน้าเว็บ
+                    window.location.reload();
                 } else {
                     alert('เกิดข้อผิดพลาดในการทำคำขอ: ' + xhr.statusText);
                 }
