@@ -37,7 +37,7 @@ if (isset($_POST['save_excel_data'])) {
                 $current_month = date('n');
                 $old_year = $year;
 
-                if ($current_month >= 6) {
+                if ($current_month >= 3) {
                     $academic_year = $current_year + 543; // Convert to Buddhist calendar
                 } else {
                     $academic_year = $current_year + 542; // Convert to Buddhist calendar
@@ -66,12 +66,7 @@ if (isset($_POST['save_excel_data'])) {
                     ':classroom' => $classroom,
                     ':year' => $year
                 ]);       
-            // Update other data in the database if needed
-            $sql_update = "UPDATE students SET classes = :new_level 
-                WHERE year = :old_year";
-            $stmt_update = $db->prepare($sql_update);
-            $stmt_update->execute([':new_level' => $level, ':old_year' => $old_year]);
-
+           
             } else {
                 $count++;
             }

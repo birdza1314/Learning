@@ -20,12 +20,12 @@
         </a>
         <ul id="new-tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="uploads/manualfile/คู่มือการใช้งานสำหรับครู.pdf" download>
+            <a href="../uploads/manualfile/คู่มือครู.pdf" >
               <i class="bi bi-circle"></i><span>คู่มือการใช้งาน สำหรับครู</span>
             </a>
           </li>
           <li>
-            <a href="uploads/manualfile/คู่มือการใช้งานสำหรับนักเรียน.pdf" download>
+            <a href="../uploads/manualfile/คู่มือนักเรียน.pdf" >
               <i class="bi bi-circle"></i><span>คู่มือการใช้งาน สำหรับนักเรียน</span>
             </a>
           </li>

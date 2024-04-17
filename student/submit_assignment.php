@@ -49,11 +49,26 @@ $endDateTime = strftime('%A, %e %B %Y %I:%M %p', strtotime($assignment['close_ti
             <div class="container">
                 <h2 class="py-2"> <i class="bi bi-journal-arrow-up text-danger"></i> <?php echo $assignment['title']; ?></h2>
                 <div class="row">
-                    <div class="card">
-                        <!-- แสดงวันที่และเวลาเริ่มต้นและสิ้นสุด -->
-                        เปิด: <?php echo $startDateTime; ?><br>
-                        สิ้นสุด: <?php echo $endDateTime; ?>
+                   
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">เปิดงาน</h5>
+                                    <p class="card-text"><?php echo $startDateTime; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">สิ้นสุดงาน</h5>
+                                    <p class="card-text"><?php echo $endDateTime; ?></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+             
                     <div class="mt-3 card">
                         <h5>รายละเอียด</h5>
                         <p><?php echo $assignment['description']; ?></p><br><br>

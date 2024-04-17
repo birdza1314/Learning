@@ -76,7 +76,7 @@ try {
             <div class="card-body">
                 <div class="card-header">
                     <h1>รายละเอียดการเข้าเรียน</h1>
-                    <h3>ชื่อคอร์ส: <?= $course['course_name']; ?></h3>
+                    <h3>ชื่อวิชา: <?= $course['course_name']; ?></h3>
                 </div>
 
                 <table class="table table-borderless datatable table-format ">

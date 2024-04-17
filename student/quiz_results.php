@@ -54,52 +54,52 @@ try {
     <?php include('sidebar.php'); ?>
     
     <main id="main" class="main">
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <h1>ผลการสอบ</h1>
-            </div>
-            <?php if(!empty($results)): ?>
-                <div class="card">
-                    <div class="card-body">
-                        <?php $counter = 1; ?>
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h1 class="display-6 ">ผลการสอบ</h1>
+                    </div>
+                    <?php if(!empty($results)): ?>
+                      
                         <?php foreach ($results as $result): ?>
-                            <div class="quiz-result">
-                                <p>สอบครั้งที่: <?php echo $counter++; ?></p>
-                                <h3>หัวข้อ: <?php echo $result['quiz_title']; ?></h3>
-                                <p>คะแนนที่ได้: <span class="<?php echo ($result['score'] < $result['question_limit'] / 2) ? 'text-danger' : 'text-success'; ?>"><?php echo $result['score']; ?></span></p>
-                                <p>คะแนนเต็ม: <?php echo $result['question_limit']; ?></p>
-                                <p>ส่งเมื่อ: <?php echo $result['timestamp']; ?></p>            
+                            <div class="card mb-3">
+                                <div class="card-body">
+                     
+                                    <h3 class="card-title mb-2 ">หัวข้อ: <?php echo $result['quiz_title']; ?></h3>
+                                    <p class="card-text">คะแนนที่ได้: <span class="fw-bold <?php echo ($result['score'] < $result['question_limit'] / 2) ? 'text-danger' : 'text-success'; ?>"><?php echo $result['score']; ?></span></p>
+                                    <p class="card-text">คะแนนเต็ม: <?php echo $result['question_limit']; ?></p>
+                                    <p class="card-text">ส่งเมื่อ: <?php echo $result['timestamp']; ?></p>
+                                </div>
                             </div>
                         <?php endforeach; ?>
-                    </div>
+                        <?php if (!empty($student_answers)): ?>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title">คำถามที่ตอบผิด</h2>
+                                    <?php foreach ($student_answers as $answer): ?>
+                                        <?php if ($answer['chosen_answer'] !== $answer['correct_answer']): ?>
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <h3 class="card-title text-danger">คำแนะนำ: <?php echo $answer['description']; ?></h3>
+                                                    <h4 class="card-subtitle mb-2 text-muted">คำถาม: <?php echo $answer['question_text']; ?></h4>
+                                                    <p class="card-text">คำตอบของนักเรียน: <?php echo $answer['chosen_answer']; ?></p>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <p class="text-muted">นักเรียนยังไม่ได้ทำแบบทดสอบนี้</p>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <p class="text-muted">ไม่พบผลการสอบ</p>
+                    <?php endif; ?>
                 </div>
-                <?php if (!empty($student_answers)): ?>
-                    <div class="card">
-                        <div class="card-body py-2">
-                            <h2>คำถามที่ตอบผิด</h2>
-                            <?php foreach ($student_answers as $answer): ?>
-                                <?php if ($answer['chosen_answer'] !== $answer['correct_answer']): ?>
-                                    <div class="wrong-answer">
-                                        <h4>คำถาม: <?php echo $answer['question_text']; ?></h4>
-                                        <p>คำตอบของนักเรียน: <?php echo $answer['chosen_answer']; ?></p>
-                                        <p>คำแนะนำ: <?php echo $answer['description']; ?></p>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <p>นักเรียนยังไม่ได้ทำแบบทดสอบนี้</p>
-                <?php endif; ?>
-            <?php else: ?>
-                <p>ไม่พบผลการสอบ</p>
-            <?php endif; ?>
+            </div>
         </div>
-    </div>
-</main>
-
-
+    </main>
 
     <?php include('footer.php');?>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>

@@ -130,10 +130,9 @@ $members = $stmt->fetchAll();
                         </div>
                         <small id="noDataMessage" class="form-text text-danger d-none">ไม่มีข้อมูลนักเรียน</small>
                     </div>
-                    <div class="form-group">
-                        <label for="s_id">Key</label>
-                        <input type="text" class="form-control" id="s_id" name="s_id" required readonly>
-                    </div>
+                    
+                        <input type="hidden" class="form-control" id="s_id" name="s_id">
+                  
                     <div class="form-group">
                         <label for="first_name">ชื่อ</label>
                         <input type="text" class="form-control" id="first_name" name="first_name" required readonly>
@@ -208,24 +207,25 @@ $(document).ready(function() {
     console.log('classroom:', classroom);
     console.log('course_id:', course_id);
 
-  $.ajax({
+    $.ajax({
     url: 'save_std_regist_course.php',
     type: 'POST',
     data: {
-      student_id: student_id,
-      classes: classes,
-      classroom: classroom,
-      course_id: course_id
+        student_id: student_id,
+        classes: classes,
+        classroom: classroom,
+        course_id: course_id
     },
     success: function(response) {
-      if (response == 'success') {
-        $('#addstudentModal').modal('hide');
-        alert('บันทึกข้อมูลนักเรียนสำเร็จ');
-      } else {
-        alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลนักเรียน');
-      }
+        if (response == 'success') {
+            $('#addstudentModal').modal('hide');
+            alert('บันทึกข้อมูลนักเรียนสำเร็จ');
+            location.reload(); // รีเฟรชหน้าเว็บ
+        } else {
+            alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลนักเรียน');
+        }
     }
-  });
+});
 });
 });
 

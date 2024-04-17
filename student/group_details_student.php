@@ -25,26 +25,35 @@ try {
 }
 // ตรวจสอบว่ามีค่า $_GET['group_id'] ที่ถูกส่งมาหรือไม่
 if (isset($_GET['group_id'])) {
-    // รับค่า group_id จาก URL
     $group_id = $_GET['group_id'];
 
-    // คำสั่ง SQL เพื่อดึงข้อมูลของกลุ่มสาระนั้น ๆ
-    $sql = "SELECT * FROM courses WHERE group_id = :group_id";
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':group_id', $group_id);
-    $stmt->execute();
-    $group_courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $sql_group = "SELECT * FROM learning_subject_group WHERE group_id = :group_id";
+    $stmt_group = $db->prepare($sql_group);
+    $stmt_group->bindParam(':group_id', $group_id);
+    $stmt_group->execute();
+    $group_data = $stmt_group->fetch(PDO::FETCH_ASSOC);
 
-    // คำสั่ง SQL เพื่อดึงชื่อของกลุ่มสาระ
-    $sql_group_name = "SELECT group_name FROM learning_subject_group WHERE group_id = :group_id";
-    $stmt_group_name = $db->prepare($sql_group_name);
-    $stmt_group_name->bindParam(':group_id', $group_id);
-    $stmt_group_name->execute();
-    $group_name = $stmt_group_name->fetchColumn(); // ใช้ fetchColumn() เพื่อดึงค่าเดียวจากคอลัมน์แรก
+    if ($group_data) {
+        $group_name = $group_data['group_name'];
+
+        // เพิ่มแบบฟอร์มเลือกระดับชั้น
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $class_id = $_POST['class_id'];
+
+            $sql_courses = "SELECT * FROM courses WHERE group_id = :group_id AND class_id = :class_id";
+            $stmt_courses = $db->prepare($sql_courses);
+            $stmt_courses->bindParam(':group_id', $group_id);
+            $stmt_courses->bindParam(':class_id', $class_id);
+            $stmt_courses->execute();
+            $group_courses = $stmt_courses->fetchAll(PDO::FETCH_ASSOC);
+        }
+    } else {
+        echo "ไม่พบข้อมูลกลุ่มสาระ";
+        exit;
+    }
 } else {
-    // ถ้าไม่มีค่า $_GET['group_id'] ที่ถูกส่งมาใน URL
-    // คุณสามารถทำการจัดการข้อผิดพลาดได้ตามต้องการ
-    echo "ไม่พบรหัสกลุ่มสาระ";
+    echo "ไม่มีค่ารหัสกลุ่มสาระ";
+    exit;
 }
 ?>
 
@@ -61,44 +70,60 @@ if (isset($_GET['group_id'])) {
   <main id="main" class="main">
 
     <div class="container  mt-5">
-    <div class="card " >  
-      <div class="card-title">
-    <h3 class="text-center mt-2">รายละเอียด</h3>
-    <h4 class="text-center"><?php echo $group_name; ?></h4>
-    <hr color="blue" size="3" width="100%">
-    </div>  
-    <div class="row mt-5 me-5 mx-5">
-            <?php foreach ($group_courses as $course): ?>
-                <?php if ($course['is_open'] == 1): ?>
-              <div class="col-md-4 mb-4">
-                  <div class="card border-primary border-3 shadow" style="width: 18rem;">
-                  <?php if (!empty($course['c_img'])): ?>
-                <div class="text-center">
-                    <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="height: 150px; object-fit: cover;">
-                </div>
-            <?php else: ?>
-                <div class="text-center">
-                    <img src="../admin/teacher_process/img/course.jpg" class="card-img-top" alt="รูปภาพ" style="height: 150px; object-fit: cover;">
-                </div>
+    <div class="card">
+        <h1 class="text-center">รายละเอียดกลุ่มสาระ</h1>
+        <h2 class="text-center"><?php echo $group_name; ?></h2>
+        <div class="row mt-5 me-5 mx-5">
+        <div class="col-md-6 offset-md-3">
+            <form action="" method="POST" class="d-flex justify-content-center align-items-center">
+                <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
+                <select name="class_id" id="class_id" class="form-select me-3" required>
+                    <option selected>เลือกระดับชั้น</option>
+                    <option value="1">ระดับชั้น ม.1</option>
+                    <option value="2">ระดับชั้น ม.2</option>
+                    <option value="3">ระดับชั้น ม.3</option>
+                    <option value="4">ระดับชั้น ม.4</option>
+                    <option value="5">ระดับชั้น ม.5</option>
+                    <option value="6">ระดับชั้น ม.6</option>
+                    <!-- เพิ่มตัวเลือกของระดับชั้นอื่น ๆ ตามต้องการ -->
+                </select>
+                <button class="btn btn-outline-primary" type="submit">ตกลง</button>
+            </form>
+        </div>
+    </div>
+        <div class="row mt-5 me-5 mx-5">
+            <?php if (isset($group_courses)): ?>
+                <?php foreach ($group_courses as $course): ?>
+                    <?php if ($course['is_open'] == 1): ?>
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-primary border-3 shadow" style="width: 18rem;">
+                                <?php if (!empty($course['c_img'])): ?>
+                                    <div class="text-center">
+                                        <img src="<?php echo $course['c_img']; ?>" class="card-img-top" alt="รูปภาพ" style="height: 150px; object-fit: cover;">
+                                    </div>
+                                <?php else: ?>
+                                    <div class="text-center">
+                                        <img src="../admin/teacher_process/img/course.jpg" class="card-img-top" alt="รูปภาพ" style="height: 150px; object-fit: cover;">
+                                    </div>
+                                <?php endif; ?>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
+                                    <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
+                                    <?php
+                                    $teacher_id = $course['teacher_id'];
+                                    $teacher_stmt = $db->prepare("SELECT * FROM teachers WHERE t_id = :teacher_id");
+                                    $teacher_stmt->bindParam(':teacher_id', $teacher_id);
+                                    $teacher_stmt->execute();
+                                    $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
+                                    <a href="course_details.php?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             <?php endif; ?>
-                      <div class="card-body">
-                          <h5 class="card-title"><?php echo $course['course_name']; ?></h5>
-                          <p class="card-text">รหัสวิชา: <?php echo $course['course_code']; ?></p>
-                          <?php
-                          // เรียกข้อมูลผู้สอนจากตาราง teachers โดยใช้ teacher_id จากตาราง courses เป็นเงื่อนไข
-                          $teacher_id = $course['teacher_id'];
-                          $teacher_stmt = $db->prepare("SELECT * FROM teachers WHERE t_id = :teacher_id");
-                          $teacher_stmt->bindParam(':teacher_id', $teacher_id);
-                          $teacher_stmt->execute();
-                          $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
-                          ?>
-                          <p class="card-text">ครูผู้สอน: <?php echo $teacher['first_name']; ?> <?php echo $teacher['last_name']; ?></p>
-                          <a href="course_details?course_id=<?php echo $course['c_id']; ?>" class="btn btn-outline-primary" style="float: right;">รายละเอียด</a>
-                      </div>
-                  </div>
-              </div>
-          <?php endif; ?>
-            <?php endforeach; ?>
         </div>
     </div>
     </div>

@@ -57,30 +57,31 @@ try {
     <?php include('sidebar.php'); ?>
     
     <main id="main" class="main">
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title"> <h1 ><?php echo $quiz['quiz_title']; ?></h1> </div>
-            <div class="row">
-                <div class="col-sm-6">     
-                    <h5>รายละเอียด: <?php echo $quiz['quiz_description']; ?></h5>
-                    <h5>เวลาทำแบบทดสอบ: <?php echo $quiz['time_limit']; ?> น.</h5>
-                    <h5>จำนวนข้อสอบ : <?php echo $quiz['question_limit']; ?> ข้อ</h5>
-                </div> 
-                <div class="col-sm-6 py-5">
-                <!-- เพิ่มลิงก์ที่นำไปยังหน้าทำแบบทดสอบ หรือ หน้าผลการสอบ ตามเงื่อนไข -->
-                <?php if ($quizTaken): ?>
-                    <!-- ถ้าผู้ใช้ทำแบบทดสอบแล้ว -->
-                    <a class="btn btn-outline-primary" style="float: center;" href="quiz_results.php?quiz_id=<?php echo $quiz_id; ?>">ผลการสอบ</a>
-                    <a class="btn btn-outline-primary" style="float: center;" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบใหม่</a>
-                <?php else: ?>
-                    <!-- ถ้าผู้ใช้ยังไม่ได้ทำแบบทดสอบ -->
-                    <a class="btn btn-outline-primary" style="float: center;" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบ</a>
-                <?php endif; ?>
-            </div>           
-             </div>  
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"><?php echo $quiz['quiz_title']; ?></h1>
+                    <div class="row">
+                        <div class="col-sm-6">     
+                            <h5>รายละเอียด: <?php echo $quiz['quiz_description']; ?></h5>
+                            <h5>เวลาทำแบบทดสอบ: <?php echo $quiz['time_limit']; ?> นาที</h5>
+                            <h5>จำนวนข้อสอบ: <?php echo $quiz['question_limit']; ?> ข้อ</h5>
+                        </div> 
+                        <div class="col-sm-6 py-5">
+                            <!-- เพิ่มลิงก์ที่นำไปยังหน้าทำแบบทดสอบ หรือ หน้าผลการสอบ ตามเงื่อนไข -->
+                            <?php if ($quizTaken): ?>
+                                <!-- ถ้าผู้ใช้ทำแบบทดสอบแล้ว -->
+                                <a class="btn btn-outline-primary" href="quiz_results.php?quiz_id=<?php echo $quiz_id; ?>">ผลการสอบ</a>
+                            <?php else: ?>
+                                <!-- ถ้าผู้ใช้ยังไม่ได้ทำแบบทดสอบ -->
+                                <a class="btn btn-outline-primary" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบ</a>
+                            <?php endif; ?>
+                        </div>           
+                    </div>  
+                </div>
+            </div>
         </div>
-    </div>
-  </main>
+    </main>
 <!-- ======= Footer ======= -->
 <?php include('footer.php');?>
 <!-- ======= scripts ======= -->

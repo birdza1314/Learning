@@ -41,7 +41,7 @@ try {
     <form id="registrationForm">
         <!-- Dropdown ปีการศึกษา -->
         <div class="form-group">
-            <label for="classesSelect">ปีการศึกษา<span style="color: red;">*</span></label>
+            <label for="classesSelect">ระดับชั้นมัธยมศึกษาปีที่ <span style="color: red;">*</span></label>
             <select class="form-control" id="classesSelect" required>
                 <!-- Options will be populated dynamically using JavaScript -->
             </select>
@@ -77,7 +77,7 @@ $(document).ready(function() {
         type: "GET",
         dataType: "json",
         success: function(data) {
-            var options = '<option value="">เลือกปีการศึกษา</option>';
+            var options = '<option value="">เลือกระดับชั้น</option>';
             data.forEach(function(classes) {
                 options += '<option value="' + classes + '">' + classes + '</option>';
             });

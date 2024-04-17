@@ -57,7 +57,7 @@
   }
   body {
   font-family: "Open Sans", sans-serif;
-  background-color: #c5d1e8;
+  background-color: #dce7fa;
  }
 
 </style>
