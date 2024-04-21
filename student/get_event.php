@@ -24,7 +24,6 @@ try {
     // แสดงข้อผิดพลาด
     echo "เกิดข้อผิดพลาด: " . $e->getMessage();
 }
-
 // Function สำหรับดึงข้อมูลกิจกรรมจากฐานข้อมูล
 function getAssignments() {
     include('../connections/connection.php');
@@ -48,10 +47,27 @@ function getAssignments() {
                               FROM assignments a 
                               INNER JOIN courses c ON a.course_id = c.c_id
                               WHERE c.c_id IN (".implode(',', $registered_courses).") AND c.is_open = 1");
+
         $stmt->execute();
-        
         $assignments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $assignments;
+
+        // Filter out assignments submitted by the student
+        $filtered_assignments = [];
+        foreach ($assignments as $assignment) {
+            $assignment_id = $assignment['assignment_id'];
+            $check_stmt = $db->prepare("SELECT * FROM submitted_assignments WHERE student_id = :student_id AND assignment_id = :assignment_id");
+            $check_stmt->bindParam(':student_id', $student_id);
+            $check_stmt->bindParam(':assignment_id', $assignment_id);
+            $check_stmt->execute();
+            $submitted_assignment = $check_stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$submitted_assignment) {
+                // If the assignment is not submitted by the student, include it
+                $filtered_assignments[] = $assignment;
+            }
+        }
+
+        return $filtered_assignments;
+
     } catch (PDOException $e) {
         echo "เกิดข้อผิดพลาด: " . $e->getMessage();
     }

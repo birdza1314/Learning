@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2024 at 04:26 PM
+-- Generation Time: Apr 21, 2024 at 06:35 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,22 +47,14 @@ INSERT INTO `add_topic` (`topic_id`, `topic_type`, `lesson_id`, `video_embed_id`
 (1, 'แบบทดสอบ', 1, NULL, NULL, NULL, 1, NULL, NULL),
 (2, 'แบบฝึกหัด', 1, NULL, NULL, NULL, NULL, 1, NULL),
 (3, 'วิดีโอ', 1, 1, NULL, NULL, NULL, NULL, NULL),
-(8, 'แบบทดสอบ', 3, NULL, NULL, NULL, 4, NULL, NULL),
 (9, 'ไฟล์', 5, NULL, 2, NULL, NULL, NULL, NULL),
-(10, 'วิดีโอ', 3, 2, NULL, NULL, NULL, NULL, NULL),
-(13, 'ไฟล์', 3, NULL, 4, NULL, NULL, NULL, NULL),
-(14, 'ไฟล์', 6, NULL, 5, NULL, NULL, NULL, NULL),
-(15, 'วิดีโอ', 6, 3, NULL, NULL, NULL, NULL, NULL),
-(16, 'วิดีโอ', 6, NULL, NULL, NULL, NULL, NULL, 1),
-(17, 'แบบฝึกหัด', 6, NULL, NULL, NULL, NULL, 4, NULL),
-(18, 'แบบทดสอบ', 6, NULL, NULL, NULL, 5, NULL, NULL),
-(19, 'ไฟล์', 7, NULL, 6, NULL, NULL, NULL, NULL),
-(20, 'แบบฝึกหัด', 7, NULL, NULL, NULL, NULL, 5, NULL),
-(21, 'แบบทดสอบ', 7, NULL, NULL, NULL, 6, NULL, NULL),
-(22, 'วิดีโอ', 3, 4, NULL, NULL, NULL, NULL, NULL),
-(23, 'วิดีโอ', 4, 5, NULL, NULL, NULL, NULL, NULL),
-(24, 'ไฟล์', 4, NULL, 7, NULL, NULL, NULL, NULL),
-(25, 'วิดีโอ', 4, 6, NULL, NULL, NULL, NULL, NULL);
+(32, 'วิดีโอ', 12, 8, NULL, NULL, NULL, NULL, NULL),
+(33, 'วิดีโอ', 12, NULL, NULL, NULL, NULL, NULL, 2),
+(34, 'ไฟล์', 12, NULL, 10, NULL, NULL, NULL, NULL),
+(35, 'แบบฝึกหัด', 12, NULL, NULL, NULL, NULL, 7, NULL),
+(36, 'แบบทดสอบ', 12, NULL, NULL, NULL, 8, NULL, NULL),
+(37, 'วิดีโอ', 13, 9, NULL, NULL, NULL, NULL, NULL),
+(38, 'วิดีโอ', 13, NULL, NULL, NULL, NULL, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -109,8 +101,7 @@ CREATE TABLE `assignments` (
 
 INSERT INTO `assignments` (`assignment_id`, `lesson_id`, `title`, `description`, `deadline`, `file_path`, `open_time`, `close_time`, `status`, `file_name`, `course_id`) VALUES
 (1, 1, 'Lab1', 'ส่งรูป', '2024-04-03 10:30:00', 'uploads/ass/Lab13_002_Prewitt.docx', '2024-04-02 10:30:00', '2024-04-03 10:30:00', 'open', 'Lab13_002_Prewitt.docx', 1),
-(4, 6, 'จงเขียนเซตต่อไปนี้แบบแจกแจงสมาชิก', '1.1  เซตของจำนวนเต็มบวกที่หารด้วย  5  ลงตัว\r\n1.2  เซตของจังหวัดในประเทศไทยที่ขึ้นต้นด้วยพยัญชนะ  “ม”\r\n1.3  เซตของจำนวนคู่บวกที่น้อยกว่า  20\r\n1.4  เซตของจำนวนเต็มที่มากกว่า  2  แต่น้อยกว่า  10\r\n1.5  เซตของอักษรในคำว่า  MATHEMATICS\r\n', '2024-04-15 06:44:00', 'uploads/ass/จงเขียนเซตต่อไปนี้แบบแจกแจงสมาชิก.docx', '2024-04-08 06:44:00', '2024-04-15 06:44:00', 'open', 'จงเขียนเซตต่อไปนี้แบบแจกแจงสมาชิก.docx', 13),
-(5, 7, 'จงเขียนเซตต่อไปนี้แบบแจกแจงสมาชิก', '1.1  เซตของจำนวนเต็มบวกที่หารด้วย  5  ลงตัว\r\n1.2  เซตของจังหวัดในประเทศไทยที่ขึ้นต้นด้วยพยัญชนะ  “ม”\r\n1.3  เซตของจำนวนคู่บวกที่น้อยกว่า  20\r\n1.4  เซตของจำนวนเต็มที่มากกว่า  2  แต่น้อยกว่า  10\r\n1.5  เซตของอักษรในคำว่า  MATHEMATICS\r\n', '2024-04-09 10:07:00', 'uploads/ass/จงเขียนเซตต่อไปนี้แบบแจกแจงสมาชิก.docx', '2024-04-08 10:07:00', '2024-04-09 10:07:00', 'open', 'จงเขียนเซตต่อไปนี้แบบแจกแจงสมาชิก.docx', 15);
+(7, 12, 'แบบฝึกหัดที่ 1', 'บวกลบคูณหาร', '2024-04-28 20:54:00', 'uploads/ass/ข้อมูลที่ 1.docx', '2024-04-21 00:00:00', '2024-04-28 20:54:00', 'open', 'ข้อมูลที่ 1.docx', 24);
 
 -- --------------------------------------------------------
 
@@ -163,9 +154,8 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`c_id`, `course_name`, `description`, `teacher_id`, `created_at`, `updated_at`, `c_img`, `course_code`, `group_id`, `is_open`, `access_code`, `class_id`) VALUES
 (1, 'คณิตศาสตร์เพิ่มเติม', 'คณิตศาสตร์เพิ่มเติม', 1, '2024-04-02 10:26:03', '2024-04-08 15:15:43', '../admin/teacher_process/img/OIP - Copy.jpg', 'ค 31202', 2, 1, '1234', 6),
 (2, 'วิทยาศาสตร์', 'วิทยาศาสตร์', 1, '2024-04-02 10:26:43', '2024-04-08 15:15:50', '../admin/teacher_process/img/R.jpg', 'ค 31202', 3, 1, '', 6),
-(5, 'ภาษาไทย ม.6', 'คณิตศาสตร์เพิ่มเติม ม.6', 3, '2024-04-02 15:53:21', '2024-04-13 14:54:01', '../admin/teacher_process/img/OIP - Copy.jpg', 'ค 31202', 1, 1, '1234', 6),
-(13, 'รายวิชาคณิตศาสตร์เพิ่มเติม ม.6', 'เซต  เป็นคำที่ใช้บ่งบอกถึงกลุ่มของสิ่งต่างๆ เรียกสิ่งที่อยู่ในเซตว่า  สมาชิกของเซตการเขียนเซต  มี  2  แบบ  คือ  เขียนแบบแจกแจงสมาชิก  และแบบบอกเงื่อนไขของสมาชิก\r\n\r\n', 3, '2024-04-08 06:35:43', '2024-04-13 14:54:40', '../admin/teacher_process/img/รูปปกวิชา.jpg', 'ค ๓๑๒๐๑   ', 2, 1, '1234', 6),
-(15, 'รายวิชาคณิตศาสตร์เพิ่มเติม ม.1', 'เซต  เป็นคำที่ใช้บ่งบอกถึงกลุ่มของสิ่งต่างๆ เรียกสิ่งที่อยู่ในเซตว่า  สมาชิกของเซตการเขียนเซต  มี  2  แบบ  คือ  เขียนแบบแจกแจงสมาชิก  และแบบบอกเงื่อนไขของสมาชิก\r\n\r\n', 3, '2024-04-08 10:00:17', '2024-04-08 11:23:19', '../admin/teacher_process/img/รูปปกวิชา.jpg', 'ค 31202', 2, 1, '', 6);
+(24, 'คณิตศาสตร์เพิ่มเติม ม.2', 'คณิตศาสตร์เพิ่มเติม ม.1', 3, '2024-04-21 20:47:12', '2024-04-21 21:56:35', '../admin/teacher_process/img/OIP - Copy.jpg', 'ค 31202', 2, 1, '1234', 2),
+(25, 'คณิตศาสตร์เพิ่มเติม ม.3', 'คณิตศาสตร์เพิ่มเติม ม.2', 3, '2024-04-21 21:36:03', '2024-04-21 21:56:44', '../admin/teacher_process/img/รูปปกวิชา.jpg', 'ค 32203', 2, 0, '1234', 3);
 
 -- --------------------------------------------------------
 
@@ -189,10 +179,7 @@ CREATE TABLE `files` (
 
 INSERT INTO `files` (`file_id`, `lesson_id`, `file_name`, `file_path`, `file_type`, `description`, `created_at`) VALUES
 (2, 5, 'Lab13_002_Prewitt (1).docx', 'uploads/files/Lab13_002_Prewitt (1).docx', NULL, '', '2024-04-02 19:07:38'),
-(4, 3, 'students.xlsx', 'uploads/files/students.xlsx', NULL, 'ฟหกฟ', '2024-04-07 08:25:39'),
-(5, 6, 'ชั่วโมงที่ ๑.docx', 'uploads/files/ชั่วโมงที่ ๑.docx', NULL, 'เอกสารหนวยการเรียนรู้ที่ 1', '2024-04-07 23:39:24'),
-(6, 7, 'ชั่วโมงที่ ๑.docx', 'uploads/files/ชั่วโมงที่ ๑.docx', NULL, 'เอกสารหนวยการเรียนรู้ที่ 1', '2024-04-08 03:05:32'),
-(7, 4, 'ข้อมูลที่ 1.docx', 'uploads/files/ข้อมูลที่ 1.docx', NULL, 'หฟกหฟ', '2024-04-13 04:25:40');
+(10, 12, 'ชั่วโมงที่ ๑.docx', 'uploads/files/ชั่วโมงที่ ๑.docx', NULL, '', '2024-04-21 13:52:13');
 
 -- --------------------------------------------------------
 
@@ -253,12 +240,9 @@ CREATE TABLE `lessons` (
 
 INSERT INTO `lessons` (`lesson_id`, `course_id`, `lesson_name`, `status`) VALUES
 (1, 1, 'บทที่ 1', 'รอการเรียนรู้'),
-(3, 5, 'บทที่ 1', 'รอการเรียนรู้'),
-(4, 5, 'บmที่ 2', 'รอการเรียนรู้'),
 (5, 1, 'บทที่ 2', 'รอการเรียนรู้'),
-(6, 13, 'หน่วยการเรียนรู้ที่ ๑ ', 'รอการเรียนรู้'),
-(7, 15, 'หน่วยการเรียนรู้ที่ ๑ ', 'รอการเรียนรู้'),
-(10, 5, 'วิดีโอ', 'รอการเรียนรู้');
+(12, 24, 'บทที่ 1', 'รอการเรียนรู้'),
+(13, 25, 'บทที่ 1', 'รอการเรียนรู้');
 
 -- --------------------------------------------------------
 
@@ -300,14 +284,8 @@ CREATE TABLE `questions` (
 INSERT INTO `questions` (`question_id`, `quiz_id`, `question_text`, `description`, `choice_ch1`, `choice_ch2`, `choice_ch3`, `choice_ch4`, `correct_answer`, `created_at`) VALUES
 (1, 1, '5+5', 'ให้ไปศึกษาบทที่ 1', '5', '15', '10', '30', '10', '2024-04-02 03:29:18'),
 (2, 1, '5+10', 'ให้ไปศึกษาบทที่ 1', '5', '15', '10', '30', '15', '2024-04-02 03:29:32'),
-(6, 4, '5+5', 'ให้ไปศึกษาบทที่ 1', '10', '15', '20', '25', '10', '2024-04-02 18:06:31'),
-(8, 4, '5+5', 'ฟหก', '10', '20', '35', '30', '10', '2024-04-07 08:05:03'),
-(10, 4, '5+5', 'หฟดก', '65', '55', '60', '50', '60', '2024-04-07 08:13:38'),
-(11, 5, 'A  =  {1, 2, 3, 4},  B  =  {2, 4, 5}', 'ให้นักเรียนไปศึกษาเรื่อ เซต หนวยการเรียนรู้ที่ 1', 'เซตว่าง', 'เซตจำกัด', 'เซตอนันต์ ', 'เซตที่เท่ากัน', 'เซตจำกัด', '2024-04-07 23:53:44'),
-(12, 5, 'A  =  {2, 4, 6, 8, 10},  \r\nB  =  {x |  x  เป็นจำนวนนับที่น้อยกว่า  5}', 'ให้นักเรียนไปศึกษาเรื่อ เซต หนวยการเรียนรู้ที่ 1', 'เซตว่าง  ', 'เซตจำกัด', 'เซตอนันต์', 'เซตที่เท่ากัน', 'เซตว่าง  ', '2024-04-07 23:54:41'),
-(13, 5, 'A  =  {2, 4, 6, 4, 2} ,  B  =  {4, 2, 2, 6, 6}', 'ให้นักเรียนไปศึกษาเรื่อ เซต หนวยการเรียนรู้ที่ 1', 'เซตว่าง', 'เซตจำกัด', 'เซตอนันต์', ' เซตที่เท่ากัน', 'เซตจำกัด', '2024-04-07 23:55:35'),
-(14, 6, 'ให้นักเรียนพิจารณาเซตในแต่ละข้อต่อไปนี้ข้อใดเป็นเซตว่าง  เซตจำกัด  เซตอนันต์และเซตที่เท่ากันA  =  {1, 2, 3, 4},  B  =  {2, 4, 5}', 'ให้ไปศึกษาเรื่องเซต', 'เซตว่าง ', 'เซตจำกัด', 'เซตอนันต์ ', 'เซตที่เท่ากัน', 'เซตว่าง ', '2024-04-08 03:27:52'),
-(15, 6, 'ให้นักเรียนพิจารณาเซตในแต่ละข้อต่อไปนี้ข้อใดเป็นเซตว่าง  เซตจำกัด  เซตอนันต์\r\n			และเซตที่เท่ากัน\r\n\r\nA  =  {2, 4, 6, 8, 10},  \r\nB  =  {x |  x  เป็นจำนวนนับที่น้อยกว่า  5}\r\n', 'ให้ไปศึกษาบทที่ 1', 'เซตว่าง ', ' เซตจำกัด', ' เซตอนันต์', 'เซตที่เท่ากัน', ' เซตจำกัด', '2024-04-08 03:28:55');
+(16, 8, '5+5', 'ให้ไปศึกษาเรื่อย บวก', '10', '15', '20', '25', '10', '2024-04-21 13:56:41'),
+(17, 8, '10-5', 'ให้ไปศึกษาเรื่อง ลบ', '10', '7', '5', '6', '5', '2024-04-21 13:57:36');
 
 -- --------------------------------------------------------
 
@@ -333,9 +311,7 @@ CREATE TABLE `quizzes` (
 
 INSERT INTO `quizzes` (`quiz_id`, `lesson_id`, `quiz_description`, `quiz_title`, `time_limit`, `question_limit`, `created`, `c_id`, `status`) VALUES
 (1, 1, 'สอบครั้งที่ 1สอบครั้งที่ 1', 'สอบครั้งที่ 1', '10', 2, '2024-04-02 03:29:41', 1, 'เปิดใช้งาน'),
-(4, 3, '', 'สอบครั้งที่ 2', '2', 3, '2024-04-07 07:36:53', 5, 'เปิดใช้งาน'),
-(5, 6, 'ให้นักเรียนพิจารณาเซตในแต่ละข้อต่อไปนี้ข้อใดเป็นเซตว่าง  เซตจำกัด  เซตอนันต์ และเซตที่เท่ากัน', 'แบบทดสอบที่ 1', '3', 3, '2024-04-07 23:55:42', 13, 'เปิดใช้งาน'),
-(6, 7, 'สอบครั้งที่ 1', 'สอบครั้งที่ 1', '5', 2, '2024-04-08 03:30:04', 15, 'เปิดใช้งาน');
+(8, 12, 'บวก ลบ คูณ หาร', 'สอบครั้งที่ 1', '5', 2, '2024-04-21 14:04:06', 24, 'เปิดใช้งาน');
 
 -- --------------------------------------------------------
 
@@ -370,36 +346,6 @@ CREATE TABLE `students` (
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `students`
---
-
-INSERT INTO `students` (`s_id`, `username`, `password`, `first_name`, `last_name`, `classes`, `classroom`, `year`, `image`) VALUES
-(1110, '06412', '$2y$10$EqqQ.IrTJ1/hFG9YRqnosO3NNLbAJ19JgjeK8kFjP.Woa0Xr/D6Q6', 'นิอัฟฮาม', 'เจ๊ะอาแซ', '6', '1', '2561', NULL),
-(1111, '06412', '$2y$10$oWhOHn/ISuHW2fgOKL5DvukGBSTGxsXKwOcXqL7HQVUncVrAqmAeu', 'นิอัฟฮาม', 'เจ๊ะอาแซ', '6', '1', '2561', NULL),
-(1112, '06413', '$2y$10$n61Jz91WseHgg7hYesU3SOpBJnmxz5Q7o40CH7umLmL0RsSJI2M7.', 'นูรุดดีน', 'สิริเปาะจิ', '6', '1', '2561', NULL),
-(1113, '06414', '$2y$10$Oy9bq6PlgCKfmPPQZGAxvek5A4rjp.9g2U52aF6lKeKF6Ai.jycM2', 'มุสลิม', 'สาแม', '6', '1', '2561', NULL),
-(1114, '06415', '$2y$10$8tib4U78uKvmY0cD/XD6NupHuYfvjKZxM.BxcUvkZmb8RKpmSZrsu', 'มูฮัมหมัดอาซราฟีล', 'เจ๊ะดอเล๊าะ', '6', '2', '2561', NULL),
-(1115, '06416', '$2y$10$.gDt9FuYxbcunriX890rSOstReK3miFXMCUjDr37rzjEnvWYa9oeG', 'ดารวิส', 'หลง', '5', '2', '2562', NULL),
-(1116, '06417', '$2y$10$qmFF6YCLYsVhtfzHD/iw/uj3Nz6V2XFqwpyuQ6F1xa6u.GTDVyiuy', 'นิอัฟฮาม', 'เจ๊ะอาแซ', '5', '2', '2562', NULL),
-(1117, '06418', '$2y$10$foMjrqXSOtAQv9uwp4WKlumy8h624S/6Hugoy7zXwj..hVNB8Sq5.', 'นูรุดดีน', 'สิริเปาะจิ', '5', '2', '2562', NULL),
-(1118, '06419', '$2y$10$Z7lPBs5bZfKdSi5brYYzke7tNONq61722MxvaVsc7nNUeEqjiZkpe', 'มุสลิม', 'สาแม', '5', '2', '2562', NULL),
-(1119, '06420', '$2y$10$6n2hqgxXvB5ztYnLhjBk2OZncxsRNZz0hjLXgnK.G5mwK8Wwte6F.', 'มูฮัมหมัดอาซราฟีล', 'เจ๊ะดอเล๊าะ', '4', '1', '2563', NULL),
-(1120, '06421', '$2y$10$hHHo6AaEtkrD1mrE7VKxmOGvY79RUD2y.tObDpL9UCL1Mj/LApeT6', 'มูฮัมหมัดอาซราฟีล', 'เจ๊ะดอเล๊าะ', '4', '1', '2563', NULL),
-(1121, '06422', '$2y$10$ZlXKWm0uhQPfRHFYe6qbIuB9MzNCSBQm7VgygycK/SArM43ivOU0e', 'ดารวิส', 'หลง', '4', '1', '2563', NULL),
-(1122, '06423', '$2y$10$OOamA6I/d1mo6A3R5wqVVehZhk0DiFEVmcXrJzAQH7tOyfUa35.kO', 'นิอัฟฮาม', 'เจ๊ะอาแซ', '3', '1', '2564', NULL),
-(1123, '06424', '$2y$10$V2AwxKCoCdEDlYSEE2LyPeCizEoHOKz.Uxkomh03zw0DXf7jTZDMq', 'นูรุดดีน', 'สิริเปาะจิ', '3', '1', '2564', NULL),
-(1124, '06425', '$2y$10$bq3U/KTQf4GZwgaFQRSgyuH2a6axY1Gpkyak9O04r0jXaEbIo7Wz.', 'มุสลิม', 'สาแม', '3', '1', '2564', NULL),
-(1125, '06426', '$2y$10$I4QpfV9c2/MdHLVw3VZBduAXZkpkv6J.tC8fYidXFRQk/BJfqauJS', 'มูฮัมหมัดอาซราฟีล', 'เจ๊ะดอเล๊าะ', '3', '2', '2564', NULL),
-(1126, '06427', '$2y$10$2mjhF0qylTEttV2Uf8tlLeNnKyN8VQuhDj70KQZlkLV/3U5co5R9q', 'มูฮัมหมัดอาซราฟีล', 'เจ๊ะดอเล๊าะ', '2', '2', '2565', NULL),
-(1127, '06428', '$2y$10$bPIaOeiejwHMqAX8FGBdYe4T29NZ87Uj83.lmkNXeRh.qMBBn2m5O', 'ดารวิส', 'หลง', '2', '2', '2565', NULL),
-(1128, '06429', '$2y$10$qvrMy1DE1t1TnRtVHTIt8.WDHe6MKO5ojCECBhcTR27TNaj68I6t6', 'นิอัฟฮาม', 'เจ๊ะอาแซ', '2', '2', '2565', NULL),
-(1129, '06430', '$2y$10$dbPiCZ54aAWtO4WoPaPJ2.By9X1jIX6TRYsfyS3pVCo8x6pmynoeG', 'นูรุดดีน', 'สิริเปาะจิ', '2', '2', '2565', NULL),
-(1130, '06431', '$2y$10$/714kiyAAbnldcs2XLexP.PlT85J1LlD0IPTzqeeENJ9ElvdjioqC', 'นูรุดดีน', 'สิริเปาะจิ', '1', '2', '2566', NULL),
-(1131, '06432', '$2y$10$Y0nsNgB5SsPQweVzRMxt0u48uWmsKSyqA./tafH76nKFXpnrqLdIm', 'นูรุดดีน', 'สิริเปาะจิ', '1', '2', '2566', NULL),
-(1132, '06433', '$2y$10$KYAOFEZo6YG.U1bT5mdGLOthC8Zl5r8OVDAMHfd3Q4J5rEeNjb9uK', 'นูรุดดีน', 'สิริเปาะจิ', '1', '2', '2566', NULL),
-(1133, '06434', '$2y$10$bEHSy91RhHSPgLkB8ZEC/e7y5aeuW7.EyW0BonF1vSPzJCOrNHUHy', 'นูรุดดีน', 'สิริเปาะจิ', '1', '2', '2566', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -428,16 +374,6 @@ CREATE TABLE `student_course_registration` (
   `classroom` varchar(255) DEFAULT NULL,
   `classes` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `student_course_registration`
---
-
-INSERT INTO `student_course_registration` (`registration_id`, `student_id`, `course_id`, `registration_date`, `classroom`, `classes`) VALUES
-(110, 1119, 5, '2024-04-15 09:34:15', '1', '4'),
-(111, 1120, 5, '2024-04-15 09:34:15', '1', '4'),
-(112, 1121, 5, '2024-04-15 09:34:15', '1', '4'),
-(114, 1133, 5, '2024-04-15 12:11:22', '2', '1');
 
 -- --------------------------------------------------------
 
@@ -479,9 +415,8 @@ CREATE TABLE `teachers` (
 
 INSERT INTO `teachers` (`t_id`, `username`, `password`, `first_name`, `last_name`, `email`, `group_id`, `image`) VALUES
 (1, 'lan', '$2y$10$g/6QsVLGAlGWCGuT8Ckjh.8Am62gACGKAwE5AAIFK/I28d0tdDX4y', 'ลัน', 'มะทา', 'ruslan@gmail.com', 2, 'alba-photo-001.png'),
-(3, 'teacher', '$2y$10$X8Z96TLvhxRGVfUCclVwrumvJYkcSt2dCykPvX9sEmUwwsvKuRJCe', 'Ruslan', 'Matha', 'ruslan123371@gmail.com', NULL, 'ไทย.jpg'),
-(5, 'teacher1', '$2y$10$J0KyPOk7rDyIM7etWOe3jetpka1nfB8JCGmHPd6Z7KuX2DLePLv2K', 'teacher1', 'teacher1', '', NULL, NULL),
-(6, '406359002', '$2y$10$sq8WkMLpU20ML9wGmME2Qum1AN4CPtT3Nk9EISiqfUSyMDOTYQm3i', 'รุสลัน', 'มะทา', '', NULL, NULL);
+(3, 'teacher', '$2y$10$Z6Kj14X6QneAfejsDJ0z8OZBhTzHSXtuVcrCVPeiSRY1hhWpC7Hly', 'Ruslan', 'Matha', 'ruslan123371@gmail.com', 1, 'ไทย.jpg'),
+(6, '406359002', '$2y$10$CiwuAQsUnoJFYUoQFa06JeZb7aemwzNol7kZ7YyhYfN31BgQxAA6K', 'รุสลัน', 'มะทา', '', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -501,7 +436,8 @@ CREATE TABLE `urls` (
 --
 
 INSERT INTO `urls` (`url_id`, `lesson_id`, `url`, `description`) VALUES
-(1, 6, 'https://www.youtube.com/live/yamUTkGFN8c?si=QCVeR5D-3qxfLpqX', ' เซต ม.4 - ปูพื้นฐาน');
+(2, 12, 'https://youtu.be/dfhvsKMwrpA?si=0sWCqlmQrOOIUWrU', 'วิชาคณิตศาสตร์ ชั้น ม.1 เรื่อง การบวก ลบ คูณ หารจำนวนเต็ม'),
+(3, 13, 'https://youtu.be/DHR2qx-tW4k?si=35gtou8dtEjQxdLM', 'วิชาคณิตศาสตร์ ชั้น ม.2 เรื่อง รากที่สอง');
 
 -- --------------------------------------------------------
 
@@ -522,11 +458,8 @@ CREATE TABLE `videos_embed` (
 
 INSERT INTO `videos_embed` (`video_embed_id`, `lesson_id`, `embed_code`, `description`) VALUES
 (1, 1, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/R6XcRjL4FG0?si=ovAk4csEBSVbxXGb\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'วิชาคณิตศาสตร์ ชั้น ม.2 เรื่อง การบวกและการลบพหุนาม'),
-(2, 3, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/XPNTfnCg3aY?si=eq60FdgNZyoh1wP5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'การบวก ลบ คูณ หาร จำนวนเต็ม (คณิต ม.1) คณิตวันละนิด ม.ต้น EP.1 | คณิตศาสตร์ by พี่ปั้น'),
-(3, 6, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/yamUTkGFN8c?si=QCVeR5D-3qxfLpqX\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'เซต ม.4 - ปูพื้นฐาน'),
-(4, 3, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/elAxW_LAawU?si=dAbaygJQqXpPO0sj\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'ฟหดฟหก'),
-(5, 4, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/elAxW_LAawU?si=dAbaygJQqXpPO0sj\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'ฟหกดหกดห'),
-(6, 4, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/elAxW_LAawU?si=dAbaygJQqXpPO0sj\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'ฟหกดหกดห');
+(8, 12, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/dfhvsKMwrpA?si=nGTrfkmDRP0u9qrf\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'วิชาคณิตศาสตร์ ชั้น ม.1 เรื่อง การบวก ลบ คูณ หารจำนวนเต็ม'),
+(9, 13, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/DHR2qx-tW4k?si=jeaoVsw-H7UvPz60\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'วิชาคณิตศาสตร์ ชั้น ม.2 เรื่อง รากที่สอง');
 
 --
 -- Indexes for dumped tables
@@ -691,7 +624,7 @@ ALTER TABLE `videos_embed`
 -- AUTO_INCREMENT for table `add_topic`
 --
 ALTER TABLE `add_topic`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -703,7 +636,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `classes`
@@ -715,73 +648,73 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `marks_as_done`
 --
 ALTER TABLE `marks_as_done`
-  MODIFY `mark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `mark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `quizzes`
 --
 ALTER TABLE `quizzes`
-  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `quiz_results`
 --
 ALTER TABLE `quiz_results`
-  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1135;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3128;
 
 --
 -- AUTO_INCREMENT for table `student_answers`
 --
 ALTER TABLE `student_answers`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `student_course_registration`
 --
 ALTER TABLE `student_course_registration`
-  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT for table `submitted_assignments`
 --
 ALTER TABLE `submitted_assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -793,13 +726,13 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `urls`
 --
 ALTER TABLE `urls`
-  MODIFY `url_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `url_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `videos_embed`
 --
 ALTER TABLE `videos_embed`
-  MODIFY `video_embed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `video_embed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

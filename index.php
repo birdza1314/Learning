@@ -120,7 +120,7 @@
 </div><!--Card over -->
 
 <div class="search-bar">
-                            <form action="details_All_course" method="POST" class="p-3">
+                            <form action="student/details_All_course.php" method="POST" class="p-3">
                                 <div class="input-group">
                                     <input type="text" name="search" id="search" class="form-control form-control-lg  rounded-0" placeholder="ค้นหารายวิชา..." autocomplete="off" required>
                                         <input type="submit" name="submit" value="ค้นหา" class="btn btn-outline-secondary btn-sm">

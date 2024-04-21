@@ -27,6 +27,12 @@ include("header.php");
 <section class="content">
 
     <div class="card-header card-navy card-outline d-flex">
+    <div class="row py-3">
+    <a href="../uploads/manualfile/Template teacher.xlsx" class="btn btn-success btn-xs py-3">
+        <i class="fa fa-file-excel"></i> ดาวน์โหลด เทมเพลต Excel
+    </a>
+</div>
+
         <div class="ml-auto">
             <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i> เพิ่มข้อมูลบุคลากร </button>
             <button type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fa fa-user-plus"></i> เพิ่มข้อมูลบุคลากรจากไฟล์</button>

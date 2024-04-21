@@ -105,19 +105,24 @@ if(isset($_GET['assignment_id'])) {
                             ?>
                         </td>
                         <td>
-                            <?php
-                            // Check if the assignment is submitted before or after the deadline
-                            $submitted_datetime = strtotime($assignment['submitted_datetime']);
-                            $close_time = strtotime($assignment['close_time']);
-                            if ($submitted_datetime < $close_time) {
-                                // If submitted before the deadline, display in green color
-                                echo '<span style="color: green;">' . $assignment['submitted_datetime'] . ' - ส่งก่อนเวลา</span>';
-                            } else {
-                                // If submitted after the deadline, display in red color
-                                echo '<span style="color: red;">' . $assignment['submitted_datetime'] . ' - เลยกำหนด</span>';
-                            }
-                            ?>
-                        </td>
+    <?php
+    // Check if the assignment is submitted before or after the deadline
+    if (!empty($assignment['submitted_datetime']) && !empty($assignment['close_time'])) {
+        $submitted_datetime = strtotime($assignment['submitted_datetime']);
+        $close_time = strtotime($assignment['close_time']);
+        if ($submitted_datetime < $close_time) {
+            // If submitted before the deadline, display in green color
+            echo '<span style="color: green;">' . $assignment['submitted_datetime'] . ' - ส่งก่อนเวลา</span>';
+        } else {
+            // If submitted after the deadline, display in red color
+            echo '<span style="color: red;">' . $assignment['submitted_datetime'] . ' - เลยกำหนด</span>';
+        }
+    } else {
+        echo "ข้อมูลไม่สมบูรณ์";
+    }
+    ?>
+</td>
+
                         <td>
                             <?php
                             // Check if there is a comment in the database for this assignment

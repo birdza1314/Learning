@@ -72,6 +72,7 @@ try {
                             <?php if ($quizTaken): ?>
                                 <!-- ถ้าผู้ใช้ทำแบบทดสอบแล้ว -->
                                 <a class="btn btn-outline-primary" href="quiz_results.php?quiz_id=<?php echo $quiz_id; ?>">ผลการสอบ</a>
+                                <a class="btn btn-outline-primary" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบใหม่</a>
                             <?php else: ?>
                                 <!-- ถ้าผู้ใช้ยังไม่ได้ทำแบบทดสอบ -->
                                 <a class="btn btn-outline-primary" href="#" onclick="confirmStartQuiz()">ทำแบบทดสอบ</a>

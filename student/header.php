@@ -27,39 +27,40 @@ document.addEventListener('DOMContentLoaded', function() {
   var notificationCount = document.getElementById('notificationCount');
 
   // Function สำหรับดึงข้อมูลกิจกรรมและแสดงผลใน dropdown notification
-  function fetchAndDisplayNotifications() {
-    // ส่งคำร้องขอ GET ไปยังไฟล์ get_assignments.php เพื่อดึงข้อมูลกิจกรรม
-    fetch('get_event.php')
-      .then(response => response.json())
-      .then(data => {
-        // ตรวจสอบว่ามีข้อมูลหรือไม่
-        if (data.length > 0) {
-          // กำหนด HTML ใหม่สำหรับ dropdown notification
-          var html = '';
-          data.forEach(event => {
-            // เพิ่มลิงก์ไปยังหน้าวิชาที่เกี่ยวข้อง
-            html += `<li><a class="dropdown-item" href="course_details.php?course_id=${event.course_id}"><i class="bi bi-exclamation-diamond text-warning"></i> ${event.title} - สิ้นสุด ${event.close_time.split(' ')[0].split('-').reverse().join('-')} ${event.close_time.split(' ')[1]}</a></li>`;
+// Function สำหรับดึงข้อมูลกิจกรรมและแสดงผลใน dropdown notification
+function fetchAndDisplayNotifications() {
+  // ส่งคำร้องขอ GET ไปยังไฟล์ get_assignments.php เพื่อดึงข้อมูลกิจกรรม
+  fetch('get_event.php')
+    .then(response => response.json())
+    .then(data => {
+      // ตรวจสอบว่ามีข้อมูลหรือไม่
+      if (data.length > 0) {
+        // กำหนด HTML ใหม่สำหรับ dropdown notification
+        var html = '';
+        data.forEach(event => {
+          // เพิ่มลิงก์ไปยังหน้าวิชาที่เกี่ยวข้อง
+          html += `<li><a class="dropdown-item" href="course_details.php?course_id=${event.course_id}"><i class="bi bi-exclamation-diamond text-warning"></i> ${event.title} - สิ้นสุด ${event.close_time.split(' ')[0].split('-').reverse().join('-')} ${event.close_time.split(' ')[1]}</a></li>`;
 
-            // เพิ่มเส้นขีดในระหว่างรายการข้อมูล
-            html += `<li><hr class="dropdown-divider"></li>`;
-          });
-          // นำ HTML ใหม่มาแทนที่ใน dropdown notification
-          notificationList.innerHTML = html;
-          // กำหนดจำนวนของแจ้งเตือนใหม่
-          notificationCount.innerText = data.length;
-          // ปรับแสดงการแสดงผลของ notificationCount
-          notificationCount.style.display = 'inline';
-        } else {
-          // ถ้าไม่มีข้อมูล ให้แสดงข้อความ "ไม่มีกิจกรรม"
-          notificationList.innerHTML = '<li><span class="dropdown-item">ไม่มีกิจกรรม</span></li>';
-          // ปรับแสดงการแสดงผลของ notificationCount
-          notificationCount.style.display = 'none';
-        }
-      });
-  }
+          // เพิ่มเส้นขีดในระหว่างรายการข้อมูล
+          html += `<li><hr class="dropdown-divider"></li>`;
+        });
+        // นำ HTML ใหม่มาแทนที่ใน dropdown notification
+        notificationList.innerHTML = html;
+        // กำหนดจำนวนของแจ้งเตือนใหม่
+        notificationCount.innerText = data.length;
+        // ปรับแสดงการแสดงผลของ notificationCount
+        notificationCount.style.display = 'inline';
+      } else {
+        // ถ้าไม่มีข้อมูล ให้แสดงข้อความ "ไม่มีกิจกรรม"
+        notificationList.innerHTML = '<li><span class="dropdown-item">ไม่มีกิจกรรม</span></li>';
+        // ปรับแสดงการแสดงผลของ notificationCount
+        notificationCount.style.display = 'none';
+      }
+    });
+}
 
-  // เรียกใช้งานฟังก์ชัน fetchAndDisplayNotifications เมื่อเปิดหน้าเว็บ
-  fetchAndDisplayNotifications();
+// เรียกใช้งานฟังก์ชัน fetchAndDisplayNotifications เมื่อเปิดหน้าเว็บ
+fetchAndDisplayNotifications();
 });
 
 </script>

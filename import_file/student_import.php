@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use function PHPSTORM_META\sql_injection_subst;
 
+// โค้ดจากการอัปโหลดไฟล์ Excel และเพิ่มข้อมูลนักเรียน
 if (isset($_POST['save_excel_data'])) {
     $fileName = $_FILES['import_file']['name'];
     $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -32,27 +33,6 @@ if (isset($_POST['save_excel_data'])) {
                 $classroom = $row[5];
                 $year = $row[6];
 
-                // Check if it's a new academic year
-                $current_year = date('Y');
-                $current_month = date('n');
-                $old_year = $year;
-
-                if ($current_month >= 3) {
-                    $academic_year = $current_year + 543; // Convert to Buddhist calendar
-                } else {
-                    $academic_year = $current_year + 542; // Convert to Buddhist calendar
-                }
-
-                $diff = $academic_year - $year;
-
-                // Calculate the student's level using the difference between academic year and the student's year
-                $level = $classes + $diff;
-
-                // If the level is greater than 6, set it to "Graduated"
-                if ($level > 6) {
-                    $level = "Graduated";
-                }
-
                 // Insert the new student data into the database
                 $sql_insert = "INSERT INTO students (username, password, first_name, last_name, classes, classroom, year) 
                         VALUES (:username, :password, :first_name, :last_name, :classes, :classroom, :year)";
@@ -62,11 +42,39 @@ if (isset($_POST['save_excel_data'])) {
                     ':password' => $password,
                     ':first_name' => $first_name,
                     ':last_name' => $last_name,
-                    ':classes' => $level,
+                    ':classes' => $classes,
                     ':classroom' => $classroom,
                     ':year' => $year
                 ]);       
-           
+
+                // Update classes only if it's not equal to 4
+                if ($classes != 4) {
+                    // Get the maximum year from the students table
+                    $sql = "SELECT MAX(year) AS max_year FROM students";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute();
+                    $max_year_row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $max_year = $max_year_row["max_year"];
+
+                    // Loop through the years
+                    for($i = $max_year; $i >= $max_year - 100; $i--){
+                        // Update the class level for students based on the year
+                        if($i > $max_year - 6 && $i <= $max_year && $max_year != 4 ){
+                            // Update the class level for students within the last 6 years
+                            $update_sql = "UPDATE students SET classes = :class_level WHERE year = :year";
+                            $update_stmt = $db->prepare($update_sql);
+                            $update_stmt->bindValue(':class_level', $max_year - $i + 1); // Calculate the class level based on the difference from the maximum year
+                            $update_stmt->bindValue(':year', $i);
+                            $update_stmt->execute();
+                        } else {
+                            // Set the class level to 'จบการศึกษา' for years beyond 6 years ago
+                            $update_sql = "UPDATE students SET classes = 'จบการศึกษา' WHERE year = :year";
+                            $update_stmt = $db->prepare($update_sql);
+                            $update_stmt->bindValue(':year', $i);
+                            $update_stmt->execute();
+                        }
+                    }
+                }
             } else {
                 $count++;
             }
@@ -76,7 +84,7 @@ if (isset($_POST['save_excel_data'])) {
 
         // Redirect to the student_data page after adding the data and showing the alert
         echo '<script type="text/javascript">';
-        echo 'alert("เพิ่มข้อมูลสำเร็จ");';
+        echo 'alert("เพิ่มข้อมูและอัปเดตระดับชั้นเรียบร้อยแล้ว");';
         echo 'window.location.href = "../admin/student_data";';  
         echo '</script>';
 

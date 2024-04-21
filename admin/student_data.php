@@ -30,12 +30,10 @@ include("header.php");
   
    <div class="card-header card-navy card-outline d-flex">
    <div class="row py-3">
-        <form method="post" action="../import_file/update_levels.php"> <!-- ระบุชื่อไฟล์ PHP ที่มีโค้ดอัปเดตระดับชั้น -->
-        <button type="submit" name="update_levels" class="btn btn-success btn-xs py-3">
-       </i> อัปเดตระดับชั้น
-      </button>
-      </form>
-      </div>
+    <a href="../uploads/manualfile/Template students.xlsx" class="btn btn-success btn-xs py-3">
+        <i class="fa fa-file-excel"></i> ดาวน์โหลด เทมเพลต Excel
+    </a>
+</div>
     <div class="ml-auto mt-2">
  
         <button type="button" class="btn btn-success btn-xs py-3 " data-toggle="modal" data-target="#exampleModal">
